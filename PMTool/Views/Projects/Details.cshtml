@@ -1,0 +1,60 @@
+﻿@model PMTool.Models.Project
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Project</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectOpen)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProjectOpen)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProjectName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProjectDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Client)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Client.BusinessDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.EmployeeId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ProjectId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

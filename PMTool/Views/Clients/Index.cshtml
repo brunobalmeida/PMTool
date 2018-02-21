@@ -1,0 +1,251 @@
+﻿@model IEnumerable<PMTool.Models.Client>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BusinessDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WebAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DomainLoginUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DomainUsername)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DomainPassword)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HostingLoginUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HostingUserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HostingPassword)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WpLoginUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WpUserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WpPassword)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GoogleAnalyticsUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GoogleAnalyticsUsername)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GoogleAnalyticsPassword)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GoogleSearchConsoleUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GoogleSearchConsoleUsername)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GoogleSearchConsolePassword)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BingWemasterToolsUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BingWemasterToolsUsername)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BingWemasterToolsPassword)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GoogleMyBusinessUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GoogleMyBusinessUsername)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GoogleMyBusinessPassword)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.KeyWords)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TargetKeyPhases)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TargetAreas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompetitorsUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SocialMedia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SocialMedia2)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SocialMedia3)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SocialMedia4)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OtherMarketingTypes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonthlyBudget)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonthlyClientTarget)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExpandPlaning)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MarketingGoals)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Person)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BusinessDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WebAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DomainLoginUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DomainUsername)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DomainPassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HostingLoginUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HostingUserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HostingPassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WpLoginUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WpUserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WpPassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoogleAnalyticsUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoogleAnalyticsUsername)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoogleAnalyticsPassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoogleSearchConsoleUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoogleSearchConsoleUsername)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoogleSearchConsolePassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BingWemasterToolsUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BingWemasterToolsUsername)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BingWemasterToolsPassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoogleMyBusinessUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoogleMyBusinessUsername)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoogleMyBusinessPassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KeyWords)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TargetKeyPhases)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TargetAreas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompetitorsUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SocialMedia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SocialMedia2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SocialMedia3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SocialMedia4)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OtherMarketingTypes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonthlyBudget)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonthlyClientTarget)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpandPlaning)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MarketingGoals)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Person.Email)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ClientId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ClientId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ClientId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
