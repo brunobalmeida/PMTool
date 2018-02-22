@@ -72,7 +72,10 @@ namespace PMTool.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ExpandPlaning).HasColumnName("expandPlaning");
+                entity.Property(e => e.ExpandPlaning)
+                .HasColumnName("expandPlaning")
+                    .HasMaxLength(255)
+                    .IsUnicode(false); 
 
                 entity.Property(e => e.GoogleAnalyticsPassword)
                     .HasColumnName("googleAnalyticsPassword")

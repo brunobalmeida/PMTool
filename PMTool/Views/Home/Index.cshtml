@@ -2,15 +2,25 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container-fluid" style="background: url('../images/smashing.jpg') no-repeat fixed center;">
+<div class="container-fluid">
 
-    <br />    <br />    <br />    <br />    <br />
-    <br />    <br />    <br />    <br />    <br />
-    <br />    <br />    <br />    <br />    <br />
-    <br />    <br />    <br />    <br />    <br />
-    <br />    <br />    <br />    <br />    <br />
-    <br />    <br />    <br />    <br />    <br />
-    <br />    <br />    <br />    <br />    <br />
+    <br /><br /><br />
+
+
+    <a class="btn btn-default" asp-controller="OwnersLicense" asp-action="Create">Add License</a><br /><br />
+    <a class="btn btn-default" asp-controller="Person" asp-action="Create">Add Person</a><br /><br />
+    <a class="btn btn-default" asp-controller="Projects" asp-action="Create">Add Project</a><br /><br />
+    <a class="btn btn-default" asp-controller="Clients" asp-action="Create">Add Clients</a><br /><br />
     
 
+
 </div>
+
+
+
+
+
+
+
+
+@*style="background: url('../images/smashing.jpg') no-repeat fixed center;"*@

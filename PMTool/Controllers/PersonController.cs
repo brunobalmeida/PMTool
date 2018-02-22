@@ -58,12 +58,7 @@ namespace PMTool.Controllers
             {
                 ownersLicenseId = int.Parse(HttpContext.Session.GetString("ownersLicenseId"));
             }
-            // AQUI TEM QUE COLOCAR O LOGOFF OU ALGO ASSIM, CASO O PROGRAMA NÃO CONSIGA "ACHAR" O OWNERS LICENSE ID 
-            //else
-            //{
-            //    TempData["Message"] = "You cannot add a person without a company";
-            //    return RedirectToAction("Index", "ownerslicense");
-            //}
+            
 
 
             ViewData["OwnersLicenseId"] = new SelectList(_context.OwnersLicense, "OwnersLicenseId", "Active");

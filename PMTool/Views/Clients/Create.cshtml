@@ -1,12 +1,11 @@
 ﻿@model PMTool.Models.Client
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add new client";
 }
 
-<h2>Create</h2>
+<h2>@ViewData["Title"]</h2>
 
-<h4>Client</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -187,8 +186,11 @@
                 <span asp-validation-for="MonthlyClientTarget" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ExpandPlaning" class="control-label"></label>
-                <input asp-for="ExpandPlaning" class="form-control" />
+                <label asp-for="ExpandPlaning" class="control-label"></label><br />
+                <select asp-for="ExpandPlaning">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
                 <span asp-validation-for="ExpandPlaning" class="text-danger"></span>
             </div>
             <div class="form-group">

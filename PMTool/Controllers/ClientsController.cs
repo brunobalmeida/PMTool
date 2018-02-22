@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -26,8 +27,13 @@ namespace PMTool.Controllers
         }
 
         // GET: Clients/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string firstName)
         {
+            if (firstName != null)
+            {
+                ViewBag.firstName = firstName;
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -47,7 +53,8 @@ namespace PMTool.Controllers
         // GET: Clients/Create
         public IActionResult Create()
         {
-            ViewData["PersonId"] = new SelectList(_context.Person, "PersonId", "Email");
+           
+            ViewData["PersonId"] = new SelectList(_context.Person, "PersonId", "FirstName");
             return View();
         }
 
@@ -69,8 +76,14 @@ namespace PMTool.Controllers
         }
 
         // GET: Clients/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, string firstName)
         {
+            if (firstName != null)
+            {
+                ViewBag.firstName = firstName;
+            }
+
+           
             if (id == null)
             {
                 return NotFound();
@@ -81,7 +94,7 @@ namespace PMTool.Controllers
             {
                 return NotFound();
             }
-            ViewData["PersonId"] = new SelectList(_context.Person, "PersonId", "Email", client.PersonId);
+            ViewData["PersonId"] = new SelectList(_context.Person, "PersonId", "FirstName", client.PersonId);
             return View(client);
         }
 
@@ -122,8 +135,13 @@ namespace PMTool.Controllers
         }
 
         // GET: Clients/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, string firstName)
         {
+            if (firstName != null)
+            {
+                ViewBag.firstName = firstName;
+            }
+
             if (id == null)
             {
                 return NotFound();
