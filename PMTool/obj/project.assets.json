@@ -13132,8 +13132,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dbrun\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
+    "C:\\Users\\Rodrigo\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -13142,20 +13141,18 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\dbrun\\Dropbox\\Capstone\\PMTool\\PMTool\\PMTool.csproj",
+      "projectUniqueName": "D:\\Capstone\\PMTool\\PMTool\\PMTool.csproj",
       "projectName": "PMTool",
-      "projectPath": "C:\\Users\\dbrun\\Dropbox\\Capstone\\PMTool\\PMTool\\PMTool.csproj",
-      "packagesPath": "C:\\Users\\dbrun\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dbrun\\Dropbox\\Capstone\\PMTool\\PMTool\\obj\\",
+      "projectPath": "D:\\Capstone\\PMTool\\PMTool\\PMTool.csproj",
+      "packagesPath": "C:\\Users\\Rodrigo\\.nuget\\packages\\",
+      "outputPath": "D:\\Capstone\\PMTool\\PMTool\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\dbrun\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+        "C:\\Users\\Rodrigo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
@@ -13167,8 +13164,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\dbrun\\Dropbox\\Capstone\\PMTool\\PmToolClassLibrary\\PmToolClassLibrary.csproj": {
-              "projectPath": "C:\\Users\\dbrun\\Dropbox\\Capstone\\PMTool\\PmToolClassLibrary\\PmToolClassLibrary.csproj"
+            "D:\\Capstone\\PMTool\\PmToolClassLibrary\\PmToolClassLibrary.csproj": {
+              "projectPath": "D:\\Capstone\\PMTool\\PmToolClassLibrary\\PmToolClassLibrary.csproj"
             }
           }
         }
