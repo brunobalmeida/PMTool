@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PmToolClassLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,7 +13,34 @@ namespace PMTool.Models
     {
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            
+            FirstName = Validations.Capitalize(FirstName);
+            LastName = Validations.Capitalize(LastName);
+            MiddleName = Validations.Capitalize(MiddleName);
+
+            string tempPostalCode = PostalCode;
+            if (Validations.PostalCodeValidation(ref tempPostalCode))
+            {
+                PostalCode = tempPostalCode;
+            }
+            else
+            {
+                yield return new ValidationResult("Postal Code is not in a valid format",
+                       new[] { nameof(PostalCode) });
+            }
+
+            string tempPhoneNumber = PhoneNumber;
+            if (Validations.PhoneValidation(ref tempPhoneNumber))
+            {
+                PhoneNumber = tempPhoneNumber;
+            }
+            else
+            {
+                yield return new ValidationResult("Phone Number is not in a valid format",
+                       new[] { nameof(PhoneNumber) });
+            }
+
+
+            yield return ValidationResult.Success;
 
 
 

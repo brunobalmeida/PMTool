@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMTool", "PMTool\PMTool.csproj", "{C64625D1-869B-43A7-869C-BFA4A18376E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PmToolClassLibrary", "PmToolClassLibrary\PmToolClassLibrary.csproj", "{07960883-D927-482C-BA91-ABEB7504AC3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PmToolClassLibrary", "PmToolClassLibrary\PmToolClassLibrary.csproj", "{07960883-D927-482C-BA91-ABEB7504AC3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestPmTool", "XUnitTestPmTool\XUnitTestPmTool.csproj", "{4BBB4E92-3A72-40EA-9EF8-9B68DDF918C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{07960883-D927-482C-BA91-ABEB7504AC3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07960883-D927-482C-BA91-ABEB7504AC3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07960883-D927-482C-BA91-ABEB7504AC3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BBB4E92-3A72-40EA-9EF8-9B68DDF918C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BBB4E92-3A72-40EA-9EF8-9B68DDF918C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BBB4E92-3A72-40EA-9EF8-9B68DDF918C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BBB4E92-3A72-40EA-9EF8-9B68DDF918C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

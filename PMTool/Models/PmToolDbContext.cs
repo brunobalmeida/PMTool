@@ -433,7 +433,10 @@ namespace PMTool.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ProjectName).HasColumnName("projectName");
+                entity.Property(e => e.ProjectName)
+                .HasColumnName("projectName")
+                .HasMaxLength(255)
+                .IsUnicode(false);
 
                 entity.Property(e => e.ProjectOpen).HasColumnName("projectOpen");
 
