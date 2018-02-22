@@ -664,8 +664,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dbrun\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
+    "C:\\Users\\Rodrigo\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -674,20 +673,18 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\dbrun\\Dropbox\\Capstone\\PMTool\\PmToolClassLibrary\\PmToolClassLibrary.csproj",
+      "projectUniqueName": "D:\\Capstone\\PMTool\\PmToolClassLibrary\\PmToolClassLibrary.csproj",
       "projectName": "PmToolClassLibrary",
-      "projectPath": "C:\\Users\\dbrun\\Dropbox\\Capstone\\PMTool\\PmToolClassLibrary\\PmToolClassLibrary.csproj",
-      "packagesPath": "C:\\Users\\dbrun\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dbrun\\Dropbox\\Capstone\\PMTool\\PmToolClassLibrary\\obj\\",
+      "projectPath": "D:\\Capstone\\PMTool\\PmToolClassLibrary\\PmToolClassLibrary.csproj",
+      "packagesPath": "C:\\Users\\Rodrigo\\.nuget\\packages\\",
+      "outputPath": "D:\\Capstone\\PMTool\\PmToolClassLibrary\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\dbrun\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+        "C:\\Users\\Rodrigo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
