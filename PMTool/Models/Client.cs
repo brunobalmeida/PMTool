@@ -46,7 +46,7 @@ namespace PMTool.Models
         public string OtherMarketingTypes { get; set; }
         public int MonthlyBudget { get; set; }
         public int? MonthlyClientTarget { get; set; }
-        public string ExpandPlaning { get; set; }
+        public int ExpandPlaning { get; set; }
         public string MarketingGoals { get; set; }
 
         public Person Person { get; set; }

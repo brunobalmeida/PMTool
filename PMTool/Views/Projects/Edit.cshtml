@@ -1,11 +1,8 @@
 ﻿@model PMTool.Models.Project
-
 @{
     ViewData["Title"] = "Edit";
 }
-
 <h2>Edit</h2>
-
 <h4>Project</h4>
 <hr />
 <div class="row">
@@ -25,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ProjectOpen" class="control-label"></label>
-                <input asp-for="ProjectOpen" class="form-control" />
+                <input id="ProjectOpen" name="ProjectOpen" type="checkbox" value=@Model.ProjectOpen />
                 <span asp-validation-for="ProjectOpen" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -54,11 +51,9 @@
         </form>
     </div>
 </div>
-
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

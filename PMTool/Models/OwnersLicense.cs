@@ -15,6 +15,7 @@ namespace PMTool.Models
         public string CompanyName { get; set; }
         public DateTime ExpireDate { get; set; }
         public string Active { get; set; }
+        public string LicenseEmail { get; set; }
 
         public ICollection<Person> Person { get; set; }
     }

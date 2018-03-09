@@ -72,10 +72,7 @@ namespace PMTool.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ExpandPlaning)
-                .HasColumnName("expandPlaning")
-                    .HasMaxLength(255)
-                    .IsUnicode(false); 
+                entity.Property(e => e.ExpandPlaning).HasColumnName("expandPlaning"); 
 
                 entity.Property(e => e.GoogleAnalyticsPassword)
                     .HasColumnName("googleAnalyticsPassword")
@@ -329,6 +326,12 @@ namespace PMTool.Models
                     .HasMaxLength(3)
                     .IsUnicode(false);
 
+                entity.Property(e => e.LicenseEmail)
+                    .IsRequired()
+                    .HasColumnName("licenseEmail")
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.CompanyName)
                     .IsRequired()
                     .HasColumnName("companyName")
@@ -361,6 +364,16 @@ namespace PMTool.Models
                     .HasColumnName("email")
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+                entity.Property((System.Linq.Expressions.Expression<Func<Person, byte[]>>)(e => (byte[])e.PersonImage))
+                   .IsRequired()
+                   .HasColumnName("personImage")
+                   .HasColumnType("image");
+
+                entity.Property(e => e.ImageContentType)
+                   .HasColumnName("imageContentType")
+                   .HasMaxLength(50)
+                   .IsUnicode(false);
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()

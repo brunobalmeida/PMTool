@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PmToolClassLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,6 +23,20 @@ namespace PMTool.Models
                 Active = "No"; 
             }
 
+            if (String.IsNullOrEmpty(CompanyName))
+            {
+                yield return new ValidationResult("Company name cannot be null",
+                      new[] { nameof(CompanyName) });
+            }
+
+            if (String.IsNullOrEmpty(LicenseEmail))
+            {
+                yield return new ValidationResult("Email cannot be null",
+                      new[] { nameof(LicenseEmail) });
+            }
+
+
+            CompanyName = Validations.Capitalize(CompanyName);
 
             yield return ValidationResult.Success;
         }
@@ -39,6 +54,8 @@ namespace PMTool.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime ExpireDate { get; set; }
         public string Active { get; set; }
+        [EmailAddress]
+        public string LicenseEmail { get; set; }
 
         public ICollection<Person> Person { get; set; }
     }

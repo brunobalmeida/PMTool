@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "ad244008a4f0c8a8a59da7e350b9c1057d6d0565"
+    "signature": "1e591b375d3f3a85b709b98ce0e9a442c8467d4c"
   },
   "compilationOptions": {},
   "targets": {
@@ -10,7 +10,9 @@
         "dependencies": {
           "Microsoft.NET.Test.Sdk": "15.6.0",
           "PMTool": "1.0.0",
+          "PmToolClassLibrary": "1.0.0",
           "xunit": "2.3.1",
+          "xunit.runner.console": "2.3.1",
           "xunit.runner.visualstudio": "2.3.1"
         },
         "runtime": {
@@ -2285,6 +2287,15 @@
           }
         }
       },
+      "Sendgrid/9.9.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.0.0",
+          "Newtonsoft.Json": "10.0.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/SendGrid.dll": {}
+        }
+      },
       "SQLitePCLRaw.bundle_green/1.1.7": {
         "dependencies": {
           "SQLitePCLRaw.core": "1.1.7",
@@ -3580,6 +3591,7 @@
           "lib/netstandard1.1/xunit.execution.dotnet.dll": {}
         }
       },
+      "xunit.runner.console/2.3.1": {},
       "xunit.runner.visualstudio/2.3.1": {
         "dependencies": {
           "Microsoft.NET.Test.Sdk": "15.6.0"
@@ -3588,7 +3600,8 @@
       "PMTool/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.All": "2.0.0",
-          "PmToolClassLibrary": "1.0.0"
+          "PmToolClassLibrary": "1.0.0",
+          "Sendgrid": "9.9.0"
         },
         "runtime": {
           "PMTool.dll": {}
@@ -4930,6 +4943,13 @@
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
     },
+    "Sendgrid/9.9.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3v4aIYXqTvhnozBvpCyf+U9DMiZzN9s4m7tpl8RjVHRN0IUKSFwJ0eio7GVjT03vTTUOXhOY8M+15zLYzQGhYQ==",
+      "path": "sendgrid/9.9.0",
+      "hashPath": "sendgrid.9.9.0.nupkg.sha512"
+    },
     "SQLitePCLRaw.bundle_green/1.1.7": {
       "type": "package",
       "serviceable": true,
@@ -5720,6 +5740,13 @@
       "sha512": "sha512-i8xrHfKC5dyBWQ7I15FePzm0m8KNToBsTleCCQbOQuXRPZIvupd4nnfaCPeJuKHHe7yJ8JGtWxjIgw0ow/cMhg==",
       "path": "xunit.extensibility.execution/2.3.1",
       "hashPath": "xunit.extensibility.execution.2.3.1.nupkg.sha512"
+    },
+    "xunit.runner.console/2.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bvkd5z72ioJUsLzXuajcXlKtAp/2d7BqdfnluNZEMQbqTEu2xvxKRCNj+OrUKjsrDREwjsYqz6c8pd+/xhPWFg==",
+      "path": "xunit.runner.console/2.3.1",
+      "hashPath": "xunit.runner.console.2.3.1.nupkg.sha512"
     },
     "xunit.runner.visualstudio/2.3.1": {
       "type": "package",

@@ -23,9 +23,42 @@ namespace PMTool.Models
                 yield return new ValidationResult("End date can not be earlier than start date", new string[] { "EndDate" });
             }
 
-            //Capitalize Project Name
+
+            //Check if ProjectName string is null or empty
+            if (String.IsNullOrEmpty(ProjectName))
+            {
+                yield return new ValidationResult("You should insert the project name", new string[] { "ProjectName" });
+
+            }
+            else
+            {
+                yield return ValidationResult.Success;
+            }
+
+            //Capitalise Project Name
             string aux = ProjectName;
             ProjectName = Validations.Capitalize(aux);
+
+            //validate if the description is null or empty
+            if (String.IsNullOrEmpty(ProjectDescription))
+            {
+                yield return new ValidationResult("You should insert a project description", new string[] { "ProjecDescription" });
+            }
+            else
+            {
+                yield return ValidationResult.Success;
+            }
+
+            //validation Project Open
+            if (ProjectOpen == 1 || ProjectOpen == 0)
+            {
+                yield return ValidationResult.Success;
+            }
+            else
+            {
+                yield return new ValidationResult("Project status can not be different than 1 or 0", new string[] { "ProjectOpen" });
+            }
+
 
         }
     }

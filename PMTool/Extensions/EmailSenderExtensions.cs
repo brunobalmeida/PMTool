@@ -14,5 +14,13 @@ namespace PMTool.Services
             return emailSender.SendEmailAsync(email, "Confirm your email",
                 $"Please confirm your account by clicking this link: <a href='{HtmlEncoder.Default.Encode(link)}'>link</a>");
         }
+
+        public static Task SendEmailRegistrationAsync(this IEmailSender emailSender, string email, string link)
+        {
+            return emailSender.SendEmailAsync(email, "Congratulations, you have bought a copy of our software.",
+             $"Please click on the link to Register into our system: \n\n\n" +
+             $" <a type='button' href='{HtmlEncoder.Default.Encode(link)}'>Click to Register</a>");
+        }
+
     }
 }

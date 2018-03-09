@@ -23,7 +23,7 @@ namespace PMTool.Models
         public string PostalCode { get; set; }
         public string PhoneNumber { get; set; }
         public byte[] PersonImage { get; set; }
-
+        public string ImageContentType { get; set; }
         public OwnersLicense OwnersLicense { get; set; }
         public Province Province { get; set; }
         public ICollection<Client> Client { get; set; }

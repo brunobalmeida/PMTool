@@ -47,19 +47,13 @@ namespace PMTool.Controllers
         }
 
         // GET: Person/Create
-        public IActionResult Create(Int32? ownersLicenseId, string companyName)
+        public IActionResult Create()
         {
-            if (ownersLicenseId != null)
-            {
-                HttpContext.Session.SetString(nameof(ownersLicenseId), ownersLicenseId.ToString());
-                HttpContext.Session.SetString(nameof(companyName), companyName);
-            }
-            else if (HttpContext.Session.GetString("ownersLicenseId") != null)
-            {
-                ownersLicenseId = int.Parse(HttpContext.Session.GetString("ownersLicenseId"));
-            }
             
-
+            int licenseId = int.Parse(Request.Query["licenseId"]);
+            HttpContext.Session.SetString(nameof(licenseId), licenseId.ToString());
+            string licenseEmail = Request.Query["licenseEmail"];
+            HttpContext.Session.SetString(nameof(licenseEmail), licenseEmail);
 
             ViewData["OwnersLicenseId"] = new SelectList(_context.OwnersLicense, "OwnersLicenseId", "Active");
             ViewData["ProvinceId"] = new SelectList(_context.Province, "ProvinceId", "ProvinceCode");
@@ -73,14 +67,20 @@ namespace PMTool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PersonId,FirstName,LastName,MiddleName,Address,Email,OwnersLicenseId,Address2,ProvinceId,PostalCode,PhoneNumber,PersonImage")] Person person)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(person);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(person);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            ViewData["OwnersLicenseId"] = new SelectList(_context.OwnersLicense, "OwnersLicenseId", "Active", person.OwnersLicenseId);
-            ViewData["ProvinceId"] = new SelectList(_context.Province, "ProvinceId", "ProvinceCode", person.ProvinceId);
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", $"Create error:{e.GetBaseException().Message}");
+            }
+            Create();
             return View(person);
         }
 
@@ -97,7 +97,7 @@ namespace PMTool.Controllers
             {
                 return NotFound();
             }
-            ViewData["OwnersLicenseId"] = new SelectList(_context.OwnersLicense, "OwnersLicenseId", "Active", person.OwnersLicenseId);
+            ViewData["OwnersLicenseId"] = new SelectList(_context.OwnersLicense, "OwnersLicenseId", "OwnersLicenseId", person.OwnersLicenseId);
             ViewData["ProvinceId"] = new SelectList(_context.Province, "ProvinceId", "ProvinceCode", person.ProvinceId);
             return View(person);
         }

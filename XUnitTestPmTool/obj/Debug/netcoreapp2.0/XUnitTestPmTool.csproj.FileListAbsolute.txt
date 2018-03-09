@@ -13,3 +13,6 @@ C:\Users\dbrun\Dropbox\Capstone\PMTool\XUnitTestPmTool\obj\Debug\netcoreapp2.0\X
 C:\Users\dbrun\Dropbox\Capstone\PMTool\XUnitTestPmTool\obj\Debug\netcoreapp2.0\XUnitTestPmTool.csproj.CoreCompileInputs.cache
 C:\Users\dbrun\Dropbox\Capstone\PMTool\XUnitTestPmTool\obj\Debug\netcoreapp2.0\XUnitTestPmTool.AssemblyInfoInputs.cache
 C:\Users\dbrun\Dropbox\Capstone\PMTool\XUnitTestPmTool\obj\Debug\netcoreapp2.0\XUnitTestPmTool.AssemblyInfo.cs
+C:\Users\dbrun\Dropbox\Capstone\PMTool\XUnitTestPmTool\bin\Debug\netcoreapp2.0\XUnitTestPmTool.pdb
+C:\Users\dbrun\Dropbox\Capstone\PMTool\XUnitTestPmTool\obj\Debug\netcoreapp2.0\XUnitTestPmTool.dll
+C:\Users\dbrun\Dropbox\Capstone\PMTool\XUnitTestPmTool\obj\Debug\netcoreapp2.0\XUnitTestPmTool.pdb

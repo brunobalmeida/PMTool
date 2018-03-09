@@ -25,5 +25,15 @@ namespace Microsoft.AspNetCore.Mvc
                 values: new { userId, code },
                 protocol: scheme);
         }
+
+        public static string EmailRegistrationLink(this IUrlHelper urlHelper, int licenseId, string licenseEmail, string scheme)
+        {
+            return urlHelper.Action(
+                action: nameof(PersonController.Create),
+                controller: "Person",
+                values: new { licenseId, licenseEmail },
+                protocol: scheme 
+                );
+        }
     }
 }

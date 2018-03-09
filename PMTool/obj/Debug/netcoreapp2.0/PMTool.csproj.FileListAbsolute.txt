@@ -5,7 +5,6 @@ C:\Users\dbrun\Dropbox\Capstone\PMTool\PMTool\bin\Debug\netcoreapp2.0\PMTool.dll
 C:\Users\dbrun\Dropbox\Capstone\PMTool\PMTool\bin\Debug\netcoreapp2.0\PMTool.pdb
 C:\Users\dbrun\Dropbox\Capstone\PMTool\PMTool\obj\Debug\netcoreapp2.0\PMTool.csprojResolveAssemblyReference.cache
 C:\Users\dbrun\Dropbox\Capstone\PMTool\PMTool\obj\Debug\netcoreapp2.0\PMTool.csproj.CoreCompileInputs.cache
-C:\Users\dbrun\Dropbox\Capstone\PMTool\PMTool\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
 C:\Users\dbrun\Dropbox\Capstone\PMTool\PMTool\obj\Debug\netcoreapp2.0\PMTool.AssemblyInfoInputs.cache
 C:\Users\dbrun\Dropbox\Capstone\PMTool\PMTool\obj\Debug\netcoreapp2.0\PMTool.AssemblyInfo.cs
 C:\Users\dbrun\Dropbox\Capstone\PMTool\PMTool\obj\Debug\netcoreapp2.0\PMTool.dll
@@ -40,3 +39,4 @@ C:\Users\dbrun\Dropbox\Capstone\PMTool - Backup\PMTool\obj\Debug\netcoreapp2.0\P
 C:\Users\dbrun\Dropbox\Capstone\PMTool - Backup\PMTool\obj\Debug\netcoreapp2.0\PMTool.pdb
 C:\Users\dbrun\Dropbox\Capstone\PMTool\PMTool\bin\Debug\netcoreapp2.0\PmToolClassLibrary.dll
 C:\Users\dbrun\Dropbox\Capstone\PMTool\PMTool\bin\Debug\netcoreapp2.0\PmToolClassLibrary.pdb
+C:\Users\dbrun\Dropbox\Capstone\PMTool\PMTool\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs

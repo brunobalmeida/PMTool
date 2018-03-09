@@ -39,9 +39,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.PersonImage)
                 </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.OwnersLicense)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Province)
             </th>
@@ -78,9 +78,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PersonImage)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OwnersLicense.Active)
-            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.OwnersLicense.OwnersLicenseId)
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Province.ProvinceCode)
             </td>

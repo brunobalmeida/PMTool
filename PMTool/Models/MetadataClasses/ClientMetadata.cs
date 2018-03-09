@@ -12,6 +12,79 @@ namespace PMTool.Models
     {
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
+
+            if (String.IsNullOrEmpty(BusinessDescription))
+            {
+                yield return new ValidationResult("Business Description is Required",
+                      new[] { nameof(BusinessDescription) });
+            }
+            if (String.IsNullOrEmpty(WebAddress))
+            {
+                yield return new ValidationResult("WebAddress is Required",
+                      new[] { nameof(WebAddress) });
+            }
+            if (String.IsNullOrEmpty(DomainLoginUrl))
+            {
+                yield return new ValidationResult("Domain Login Url is Required",
+                      new[] { nameof(DomainLoginUrl) });
+            }
+            if (String.IsNullOrEmpty(DomainUsername))
+            {
+                yield return new ValidationResult("Domain Username is Required",
+                      new[] { nameof(DomainUsername) });
+            }
+            if (String.IsNullOrEmpty(DomainPassword))
+            {
+                yield return new ValidationResult("Domain Password is Required",
+                      new[] { nameof(DomainPassword) });
+            }
+            if (String.IsNullOrEmpty(HostingLoginUrl))
+            {
+                yield return new ValidationResult("Hosting Url is Required",
+                      new[] { nameof(HostingLoginUrl) });
+            }
+
+            if (String.IsNullOrEmpty(HostingUserName))
+            {
+                yield return new ValidationResult("Hosting Username is Required",
+                      new[] { nameof(HostingUserName) });
+            }
+            if (String.IsNullOrEmpty(HostingPassword))
+            {
+                yield return new ValidationResult("Hosting Password is Required",
+                      new[] { nameof(HostingPassword) });
+            }
+
+            if (String.IsNullOrEmpty(TargetKeyPhases))
+            {
+                yield return new ValidationResult("Target Key Phrases are Required",
+                      new[] { nameof(TargetKeyPhases) });
+            }
+
+            if (String.IsNullOrEmpty(TargetAreas))
+            {
+                yield return new ValidationResult("Target Areas are Required",
+                      new[] { nameof(TargetAreas) });
+            }
+
+            if (String.IsNullOrEmpty(CompetitorsUrl))
+            {
+                yield return new ValidationResult("Competitor URLs Are Required",
+                      new[] { nameof(CompetitorsUrl) });
+            }
+
+            if (String.IsNullOrEmpty(MonthlyBudget.ToString()))
+            {
+                yield return new ValidationResult("Monthly Budget Number is Required",
+                      new[] { nameof(MonthlyBudget) });
+            }
+
+            if (String.IsNullOrEmpty(MonthlyClientTarget.ToString()))
+            {
+                yield return new ValidationResult("Monthly Clients Number is Required",
+                      new[] { nameof(MonthlyClientTarget) });
+            }
+
             //WordPress Block Validation
             if (String.IsNullOrEmpty(WpLoginUrl))
             {
@@ -88,9 +161,46 @@ namespace PMTool.Models
                 SocialMedia = "NA";
             }
 
+            BusinessDescription = BusinessDescription.Trim();
+            WebAddress = WebAddress.Trim();
+            DomainLoginUrl = DomainLoginUrl.Trim();
+            DomainUsername = DomainUsername.Trim();
+            DomainPassword = DomainPassword.Trim();
+            HostingLoginUrl = HostingLoginUrl.Trim();
+            HostingUserName = HostingUserName.Trim();
+            HostingPassword = HostingPassword.Trim();
+            WpLoginUrl = WpLoginUrl.Trim();
+            WpUserName = WpUserName.Trim();
+            WpPassword = WpPassword.Trim();
+            GoogleAnalyticsUrl = GoogleAnalyticsUrl.Trim();
+            GoogleAnalyticsUsername = GoogleAnalyticsUsername.Trim();
+            GoogleAnalyticsPassword = GoogleAnalyticsPassword.Trim();
+            GoogleSearchConsoleUrl = GoogleSearchConsoleUrl.Trim();
+            GoogleSearchConsoleUsername = GoogleSearchConsoleUsername.Trim();
+            GoogleSearchConsolePassword = GoogleSearchConsolePassword.Trim();
+            BingWemasterToolsUrl = BingWemasterToolsUrl.Trim();
+            BingWemasterToolsUsername = BingWemasterToolsUsername.Trim();
+            BingWemasterToolsPassword = BingWemasterToolsPassword.Trim();
+            GoogleMyBusinessUrl = GoogleMyBusinessUrl.Trim();
+            GoogleMyBusinessUsername = GoogleMyBusinessUsername.Trim();
+            GoogleMyBusinessPassword = GoogleMyBusinessPassword.Trim();
+            KeyWords = KeyWords.Trim();
+            TargetKeyPhases = TargetKeyPhases.Trim();
+            TargetAreas = TargetAreas.Trim();
+            CompetitorsUrl = CompetitorsUrl.Trim();
+            SocialMedia = SocialMedia.Trim();
+            SocialMedia2 = SocialMedia2.Trim();
+            SocialMedia3 = SocialMedia3.Trim();
+            SocialMedia4 = SocialMedia4.Trim();
+            OtherMarketingTypes = OtherMarketingTypes.Trim();
+            //ExpandPlaning = ExpandPlaning.Trim();
+            MarketingGoals = MarketingGoals.Trim();
+
+
             yield return ValidationResult.Success;
         }
 
+       
 
     }
 
@@ -102,27 +212,27 @@ namespace PMTool.Models
         [Required(ErrorMessage = "Client Name is Required")]
         [Display(Name = "Client Name")]
         public int PersonId { get; set; }
-        [Required(ErrorMessage = "Business Description is Required")]
+        
         [Display(Name = "Business Description")]
         public string BusinessDescription { get; set; }
-        [Required(ErrorMessage = "WebAddress is Required")]
+       
         public string WebAddress { get; set; }
-        [Required(ErrorMessage = "Domain Login Url is Required")]
+       
         [Display(Name = "Domain Login Url")]
         public string DomainLoginUrl { get; set; }
-        [Required(ErrorMessage = "Domain Username is Required")]
+       
         [Display(Name = "Domain Username")]
         public string DomainUsername { get; set; }
-        [Required(ErrorMessage = "Domain Password is Required")]
+        
         [Display(Name = "Domain Password")]
         public string DomainPassword { get; set; }
-        [Required(ErrorMessage = "Hosting Url is Required")]
+        
         [Display(Name = "Hosting Url")]
         public string HostingLoginUrl { get; set; }
-        [Required(ErrorMessage = "Hosting Username is Required")]
+        
         [Display(Name = "Hosting Username")]
         public string HostingUserName { get; set; }
-        [Required(ErrorMessage = "Hosting Password is Required")]
+        
         [Display(Name = "Hosting Password")]
         public string HostingPassword { get; set; }
         [Display(Name = "WordPress Login Url")]
@@ -157,13 +267,13 @@ namespace PMTool.Models
         public string GoogleMyBusinessPassword { get; set; }
         [Display(Name = "What would you type into a Google search to find your company?")]
         public string KeyWords { get; set; }
-        [Required(ErrorMessage = "Target Key Phrases are Required")]
+        
         [Display(Name = "Target Key Phrases (Separate with commas)")]
         public string TargetKeyPhases { get; set; }
-        [Required(ErrorMessage = "Target Areas are Required")]
+        
         [Display(Name = "Target Areas - Country/State/City (enter multiple locations if necessary)")]
         public string TargetAreas { get; set; }
-        [Required(ErrorMessage = "Competitor URLs Are Required")]
+        
         [Display(Name = "Competitor URLs (separate with commas)")]
         public string CompetitorsUrl { get; set; }
         [Display(Name = "Social Media URL 1 (ex: Facebook)")]
@@ -176,15 +286,15 @@ namespace PMTool.Models
         public string SocialMedia4 { get; set; }
         [Display(Name = "What Other Types of Marketing Are You Doing?")]
         public string OtherMarketingTypes { get; set; }
-        [Required(ErrorMessage = "Monthly Budget is Required")]
+        
         [Display(Name = "Total Monthly Marketing Budget Web & Print?")]
         public int MonthlyBudget { get; set; }
-        [Required(ErrorMessage = "Monthly Clients Number is Required")]
+        
         [Display(Name = "How Many Clients are you looking for a Month? ")]
         public int? MonthlyClientTarget { get; set; }
-        [Required(ErrorMessage = "Expand Planning field is Required")]
+        
         [Display(Name = "Do you plan to expand in the next 12 months?")]
-        public string ExpandPlaning { get; set; }
+        public int ExpandPlaning { get; set; }
         
         [Display(Name = "Tell Us More about your Marketing Goals and your business:")]
         public string MarketingGoals { get; set; }

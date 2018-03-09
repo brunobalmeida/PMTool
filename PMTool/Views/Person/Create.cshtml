@@ -32,12 +32,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <input type="text" name="Email" value="@Context.Session.GetString("licenseEmail")" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="OwnersLicenseId" class="control-label"></label>
-                <input type="text" name="OwnersLicenseId" value="@Context.Session.GetString("ownersLicenseId")" />
+                <input type="text" name="OwnersLicenseId" value="@Context.Session.GetString("licenseId")" />
             </div>
             <div class="form-group">
                 <label asp-for="Address2" class="control-label"></label>

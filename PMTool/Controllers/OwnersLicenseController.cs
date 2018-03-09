@@ -7,15 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PMTool.Models;
+using PMTool.Services;
 
 namespace PMTool.Controllers
 {
     public class OwnersLicenseController : Controller
     {
         private readonly PmToolDbContext _context;
+        private readonly IEmailSender _emailSender;
 
-        public OwnersLicenseController(PmToolDbContext context)
+        public OwnersLicenseController(PmToolDbContext context , IEmailSender emailSender)
         {
+            _emailSender = emailSender;
             _context = context;
         }
 
@@ -39,7 +42,7 @@ namespace PMTool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OwnersLicenseId,CompanyName,ExpireDate,Active")] OwnersLicense ownersLicense)
+        public async Task<IActionResult> Create([Bind("OwnersLicenseId,CompanyName,ExpireDate,Active,LicenseEmail")] OwnersLicense ownersLicense)
         {
 
             try
@@ -48,9 +51,20 @@ namespace PMTool.Controllers
                 {
                     _context.Add(ownersLicense);
                     await _context.SaveChangesAsync();
-                    TempData["message"] = "The License has been successfully added";
-                    HttpContext.Session.SetString("ownersLicenseId", ownersLicense.OwnersLicenseId.ToString());
-                    return RedirectToAction("create", "person");
+                    //TempData["message"] = "The License has been successfully added";
+                    //HttpContext.Session.SetString("ownersLicenseId", ownersLicense.OwnersLicenseId.ToString());
+
+
+                    var licenseEmail = ownersLicense.LicenseEmail;
+                    int licenseId = ownersLicense.OwnersLicenseId;
+
+                    var callbackUrl = Url.EmailRegistrationLink(licenseId, licenseEmail, Request.Scheme);
+
+                    await _emailSender.SendEmailRegistrationAsync(licenseEmail, callbackUrl);
+
+                    TempData["message"] = "The License has been successfully added and the verification email sent.";
+                    return RedirectToAction(nameof(Index));
+                    
                 }
             }
             catch (Exception e)
@@ -161,5 +175,28 @@ namespace PMTool.Controllers
         {
             return _context.OwnersLicense.Any(e => e.OwnersLicenseId == id);
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendRegistrationEmail(OwnersLicense model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var licenseEmail = model.LicenseEmail;
+            int licenseId = model.OwnersLicenseId;
+                       
+            var callbackUrl = Url.EmailRegistrationLink(licenseId, licenseEmail , Request.Scheme);
+            
+            await _emailSender.SendEmailRegistrationAsync(licenseEmail, callbackUrl);
+
+            TempData["message"] = "Verification email sent. Please check your email.";
+            return RedirectToAction(nameof(Index));
+        }
+
+
     }
 }

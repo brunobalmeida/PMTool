@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PMTool.Services;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
-
 
 namespace PMTool.Models
 {
@@ -44,8 +43,6 @@ namespace PMTool.Models
             }
             return _context;
         }
-
-
 
     }
 }
