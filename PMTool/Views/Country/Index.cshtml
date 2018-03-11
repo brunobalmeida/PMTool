@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PMTool.Models.Country>
+
+@{
+    ViewData["Title"] = "Country Index";
+}
+
+<style>
+    td, th, p{
+        font-size:125%;
+    }
+</style>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h2 class="text-center">@ViewData["Title"]</h2>
+            <p class="text-center">Select a country to edit, or insert a new country to the database.</p><br />
+            <p >
+                <a asp-action="Create" class="btn btn-default center-block">Create New</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CountryName)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CountryName)
+                    </td>
+                    <td class="text-right">
+                        <a asp-action="Edit" asp-route-id="@item.CountryId" class="btn btn-success">Edit</a> 
+                        <a asp-action="Delete" asp-route-id="@item.CountryId" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
