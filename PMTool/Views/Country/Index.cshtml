@@ -31,17 +31,19 @@
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CountryName)
-                    </td>
-                    <td class="text-right">
-                        <a asp-action="Edit" asp-route-id="@item.CountryId" class="btn btn-success">Edit</a> 
-                        <a asp-action="Delete" asp-route-id="@item.CountryId" class="btn btn-danger">Delete</a>
-                    </td>
-                </tr>
-    }
+                   {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CountryName)
+                        </td>
+                        <td class="text-right">
+                            <a asp-action="Edit" asp-route-id="@item.CountryId" class="btn btn-success">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.CountryId" class="btn btn-danger">Delete</a> |
+                            <a asp-controller="Province" asp-route-countryId="@item.CountryId"
+                                asp-route-countryName="@item.CountryName" class="btn btn-default">Add Province</a>
+                        </td>
+                    </tr>
+                   }
                 </tbody>
             </table>
         </div>

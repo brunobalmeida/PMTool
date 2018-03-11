@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,31 +20,30 @@ namespace PMTool.Controllers
         }
 
         // GET: Province
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(Int32? countryId, string countryName)
         {
-            var pmToolDbContext = _context.Province.Include(p => p.Country);
+            if (countryId!=null)
+            {
+                HttpContext.Session.SetString(nameof(countryId), countryId.ToString());
+                HttpContext.Session.SetString(nameof(countryName), countryName);
+            }
+            else if (HttpContext.Session.GetString("countryId")!=null )
+            {
+                countryId = int.Parse(HttpContext.Session.GetString("countryId"));
+            }
+            else
+            {
+                TempData["message"] = "Please select a country to insert the province/state.";
+                return RedirectToAction("index", "country");
+            }
+            
+            var pmToolDbContext = _context.Province
+                .Include(p => p.Country)
+                .Where(a=>a.CountryId == countryId)
+                .OrderBy(a=>a.ProvinceName);
             return View(await pmToolDbContext.ToListAsync());
         }
-
-        // GET: Province/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var province = await _context.Province
-                .Include(p => p.Country)
-                .SingleOrDefaultAsync(m => m.ProvinceId == id);
-            if (province == null)
-            {
-                return NotFound();
-            }
-
-            return View(province);
-        }
-
+                
         // GET: Province/Create
         public IActionResult Create()
         {
@@ -58,13 +58,21 @@ namespace PMTool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProvinceId,ProvinceName,ProvinceCode,CountryId")] Province province)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(province);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(province);
+                    await _context.SaveChangesAsync();
+                    TempData["message"] = "The Province has been successfully added to the Database.";
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            ViewData["CountryId"] = new SelectList(_context.Country, "CountryId", "CountryName", province.CountryId);
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", $"Create error:{e.GetBaseException().Message}");
+            }
+            Create();
             return View(province);
         }
 
@@ -94,7 +102,7 @@ namespace PMTool.Controllers
         {
             if (id != province.ProvinceId)
             {
-                return NotFound();
+                ModelState.AddModelError("", "Invalid ID, please try again.");
             }
 
             if (ModelState.IsValid)
@@ -115,9 +123,13 @@ namespace PMTool.Controllers
                         throw;
                     }
                 }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", $"Error on Edit: {e.GetBaseException().Message}");
+                }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryId"] = new SelectList(_context.Country, "CountryId", "CountryName", province.CountryId);
+            Create();
             return View(province);
         }
 
@@ -145,10 +157,18 @@ namespace PMTool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var province = await _context.Province.SingleOrDefaultAsync(m => m.ProvinceId == id);
-            _context.Province.Remove(province);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var province = await _context.Province.SingleOrDefaultAsync(m => m.ProvinceId == id);
+                _context.Province.Remove(province);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                TempData["message"] = $"Delete error: {e.GetBaseException().Message}";
+            }
+            return Redirect($"/province/delete/{id}");
         }
 
         private bool ProvinceExists(int id)
