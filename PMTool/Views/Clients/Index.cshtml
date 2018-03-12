@@ -2,43 +2,60 @@
 @{
     ViewData["Title"] = "Client list";
 }
+<style>
 
-<h2>@ViewData["Title"]</h2>
+    td, th, p {
+        font-size: 125%;
+    }
+</style>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Person)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WebAddress)
-            </th>
-            
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h2 class="text-center">@ViewData["Title"]</h2>
+            <p>
+                <a asp-action="Create" class="btn btn-default center-block">Create New</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Client
+                        </th>
+                        <th>
+                            Web Address
+                        </th>
 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Person.FirstName)  @Html.DisplayFor(modelItem => item.Person.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WebAddress)
-            </td>
-            
-            
-            <td>
-                <a asp-action="Edit" asp-route-firstName="@item.Person.FirstName" asp-route-id="@item.ClientId">Edit</a> |
-                <a asp-action="Details" asp-route-firstName="@item.Person.FirstName"  asp-route-id="@item.ClientId">Details</a> |
-                <a asp-action="Delete" asp-route-firstName="@item.Person.FirstName"  asp-route-id="@item.ClientId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                        <th class="text-center">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Person.FirstName)  @Html.DisplayFor(modelItem => item.Person.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.WebAddress)
+                            </td>
+
+
+                            <td class="text-right">
+                                @*<a asp-action="Edit" asp-route-firstName="@item.Person.FirstName" asp-route-id="@item.ClientId" class="btn btn-success">Edit</a>*@ 
+                                <a asp-action="Details" asp-route-lastName="@item.Person.LastName" asp-route-firstName="@item.Person.FirstName" asp-route-id="@item.ClientId" class="btn btn-default">Company Details</a>
+                                <a asp-action="Details" asp-controller="Person" asp-route-firstName="@item.Person.FirstName"
+                                   asp-route-id="@item.PersonId" class="btn btn-primary">Client Details</a>
+                                @*<a asp-action="Delete" asp-route-firstName="@item.Person.FirstName" asp-route-id="@item.ClientId" class="btn btn-danger">Delete</a>*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>

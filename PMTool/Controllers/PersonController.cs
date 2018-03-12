@@ -51,11 +51,22 @@ namespace PMTool.Controllers
         // GET: Person/Create
         public IActionResult Create()
         {
+
+
+            try
+            {
+                int licenseId = int.Parse(Request.Query["licenseId"]);
+                HttpContext.Session.SetString(nameof(licenseId), licenseId.ToString());
+                string licenseEmail = Request.Query["licenseEmail"];
+                HttpContext.Session.SetString(nameof(licenseEmail), licenseEmail);
+            }
+            catch (Exception e)
+            {
+                ViewData["OwnersLicenseId"] = new SelectList(_context.OwnersLicense, "OwnersLicenseId", "Active");
+                ViewData["ProvinceId"] = new SelectList(_context.Province, "ProvinceId", "ProvinceCode");
+                return View();
+            }
             
-            int licenseId = int.Parse(Request.Query["licenseId"]);
-            HttpContext.Session.SetString(nameof(licenseId), licenseId.ToString());
-            string licenseEmail = Request.Query["licenseEmail"];
-            HttpContext.Session.SetString(nameof(licenseEmail), licenseEmail);
 
             ViewData["OwnersLicenseId"] = new SelectList(_context.OwnersLicense, "OwnersLicenseId", "Active");
             ViewData["ProvinceId"] = new SelectList(_context.Province, "ProvinceId", "ProvinceCode");

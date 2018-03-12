@@ -27,11 +27,16 @@ namespace PMTool.Controllers
         }
 
         // GET: Clients/Details/5
-        public async Task<IActionResult> Details(int? id, string firstName)
+        public async Task<IActionResult> Details(int? id, string firstName, string lastName)
         {
             if (firstName != null)
             {
                 ViewBag.firstName = firstName;
+            }
+
+            if (lastName != null)
+            {
+                ViewBag.lastName = lastName;
             }
 
             if (id == null)
