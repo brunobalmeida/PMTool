@@ -155,6 +155,8 @@ namespace PMTool.Models
 
                 entity.Property(e => e.PersonId).HasColumnName("personId");
 
+                entity.Property(e => e.ClientActiveFlag).HasColumnName("activeClientFlag");
+
                 entity.Property(e => e.SocialMedia)
                     .HasColumnName("socialMedia")
                     .HasMaxLength(255)
@@ -237,6 +239,8 @@ namespace PMTool.Models
                 entity.Property(e => e.EmployeeNumber).HasColumnName("employeeNumber");
 
                 entity.Property(e => e.PersonId).HasColumnName("personId");
+
+                entity.Property(e => e.EmployeeActiveFlag).HasColumnName("employeeActiveFlag");
 
                 entity.HasOne(d => d.Person)
                     .WithMany(p => p.Employee)

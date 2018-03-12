@@ -14,6 +14,7 @@ namespace PMTool.Models
         public int EmployeeId { get; set; }
         public int PersonId { get; set; }
         public int? EmployeeNumber { get; set; }
+        public int EmployeeActiveFlag { get; set; }
 
         public Person Person { get; set; }
         public ICollection<Project> Project { get; set; }

@@ -299,6 +299,8 @@ namespace PMTool.Models
         [Display(Name = "Tell Us More about your Marketing Goals and your business:")]
         public string MarketingGoals { get; set; }
 
+        public int ClientActiveFlag { get; set; }
+
         public Person Person { get; set; }
         public ICollection<Project> Project { get; set; }
     }

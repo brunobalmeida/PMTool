@@ -13710,7 +13710,8 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\MainPC\\.nuget\\packages\\": {},
+    "C:\\Users\\dbrun\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -13719,18 +13720,20 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\PMTool\\Iteration 2\\PMTool\\XUnitTestPmTool\\XUnitTestPmTool.csproj",
+      "projectUniqueName": "C:\\Users\\dbrun\\Dropbox\\Capstone\\PMTool\\XUnitTestPmTool\\XUnitTestPmTool.csproj",
       "projectName": "XUnitTestPmTool",
-      "projectPath": "D:\\PMTool\\Iteration 2\\PMTool\\XUnitTestPmTool\\XUnitTestPmTool.csproj",
-      "packagesPath": "C:\\Users\\MainPC\\.nuget\\packages\\",
-      "outputPath": "D:\\PMTool\\Iteration 2\\PMTool\\XUnitTestPmTool\\obj\\",
+      "projectPath": "C:\\Users\\dbrun\\Dropbox\\Capstone\\PMTool\\XUnitTestPmTool\\XUnitTestPmTool.csproj",
+      "packagesPath": "C:\\Users\\dbrun\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dbrun\\Dropbox\\Capstone\\PMTool\\XUnitTestPmTool\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\MainPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\dbrun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
@@ -13742,11 +13745,11 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "D:\\PMTool\\Iteration 2\\PMTool\\PMTool\\PMTool.csproj": {
-              "projectPath": "D:\\PMTool\\Iteration 2\\PMTool\\PMTool\\PMTool.csproj"
+            "C:\\Users\\dbrun\\Dropbox\\Capstone\\PMTool\\PmToolClassLibrary\\PmToolClassLibrary.csproj": {
+              "projectPath": "C:\\Users\\dbrun\\Dropbox\\Capstone\\PMTool\\PmToolClassLibrary\\PmToolClassLibrary.csproj"
             },
-            "D:\\PMTool\\Iteration 2\\PMTool\\PmToolClassLibrary\\PmToolClassLibrary.csproj": {
-              "projectPath": "D:\\PMTool\\Iteration 2\\PMTool\\PmToolClassLibrary\\PmToolClassLibrary.csproj"
+            "C:\\Users\\dbrun\\Dropbox\\Capstone\\PMTool\\PMTool\\PMTool.csproj": {
+              "projectPath": "C:\\Users\\dbrun\\Dropbox\\Capstone\\PMTool\\PMTool\\PMTool.csproj"
             }
           }
         }
@@ -13760,26 +13763,26 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
-          "xunit.runner.visualstudio": {
+          "Microsoft.NET.Test.Sdk": {
             "target": "Package",
-            "version": "2.3.1"
+            "version": "[15.6.0, )"
           },
           "Microsoft.NETCore.App": {
             "target": "Package",
-            "version": "2.0.0",
+            "version": "[2.0.0, )",
             "autoReferenced": true
           },
           "xunit": {
             "target": "Package",
-            "version": "2.3.1"
-          },
-          "Microsoft.NET.Test.Sdk": {
-            "target": "Package",
-            "version": "15.6.0"
+            "version": "[2.3.1, )"
           },
           "xunit.runner.console": {
             "target": "Package",
-            "version": "2.3.1"
+            "version": "[2.3.1, )"
+          },
+          "xunit.runner.visualstudio": {
+            "target": "Package",
+            "version": "[2.3.1, )"
           }
         },
         "imports": [

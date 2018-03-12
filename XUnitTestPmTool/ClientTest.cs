@@ -59,7 +59,7 @@ namespace XUnitTestPmTool
                 MonthlyClientTarget = 12,
                 ExpandPlaning = 1,
                 MarketingGoals = "TestString",
-
+                ClientActiveFlag = 1,
             };
         }
 

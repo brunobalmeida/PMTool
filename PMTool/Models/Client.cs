@@ -48,6 +48,7 @@ namespace PMTool.Models
         public int? MonthlyClientTarget { get; set; }
         public int ExpandPlaning { get; set; }
         public string MarketingGoals { get; set; }
+        public int ClientActiveFlag { get; set; }
 
         public Person Person { get; set; }
         public ICollection<Project> Project { get; set; }
