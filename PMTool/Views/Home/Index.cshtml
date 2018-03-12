@@ -3,17 +3,34 @@
 }
 
 <div class="container-fluid">
-
     <br /><br /><br />
+    <br /><br /><br />
+    <div class="row">
+
+        <div class="col-md-4">
+            
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-default" asp-controller="Clients" asp-action="Index">View Clients</a><br /><br />
+            <a class="btn btn-default" asp-controller="Employee" asp-action="Index">View Employees</a><br /><br />
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-default" asp-controller="OwnersLicense" asp-action="Create">Add License</a><br /><br />
+            <a class="btn btn-default" asp-controller="Person" asp-action="Create">Add Person</a><br /><br />
+            <a class="btn btn-default" asp-controller="Projects" asp-action="Create">Add Project</a><br /><br />
+            <a class="btn btn-default" asp-controller="Clients" asp-action="Create">Add Clients</a><br /><br />
+        </div>
 
 
-    <a class="btn btn-default" asp-controller="OwnersLicense" asp-action="Create">Add License</a><br /><br />
-    <a class="btn btn-default" asp-controller="Person" asp-action="Create">Add Person</a><br /><br />
-    <a class="btn btn-default" asp-controller="Projects" asp-action="Create">Add Project</a><br /><br />
-    <a class="btn btn-default" asp-controller="Clients" asp-action="Create">Add Clients</a><br /><br />
-    
 
 
+
+
+
+
+
+
+    </div>
 </div>
 
 
@@ -23,4 +40,3 @@
 
 
 
-@*style="background: url('../images/smashing.jpg') no-repeat fixed center;"*@

@@ -20,9 +20,11 @@ namespace PMTool.Controllers
         }
 
         // GET: Person
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string flag)
         {
-            var pmToolDbContext = _context.Person.Include(p => p.OwnersLicense).Include(p => p.Province);
+                                   
+            var pmToolDbContext = _context.Person.Include(p => p.OwnersLicense)
+                .Include(p => p.Province);
             return View(await pmToolDbContext.ToListAsync());
         }
 
@@ -73,6 +75,7 @@ namespace PMTool.Controllers
                 {
                     _context.Add(person);
                     await _context.SaveChangesAsync();
+                    TempData["message"] = "Record Successfully added.";
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -111,7 +114,7 @@ namespace PMTool.Controllers
         {
             if (id != person.PersonId)
             {
-                return NotFound();
+                ModelState.AddModelError("", "Invalid ID, please try again.");
             }
 
             if (ModelState.IsValid)
@@ -120,22 +123,26 @@ namespace PMTool.Controllers
                 {
                     _context.Update(person);
                     await _context.SaveChangesAsync();
+                    TempData["message"] = "The record has been successfully updated";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!PersonExists(person.PersonId))
                     {
-                        return NotFound();
+                        ModelState.AddModelError("", "The record does not exist, try again");
                     }
                     else
                     {
-                        throw;
+                        ModelState.AddModelError("", "This record has already been updated");
                     }
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", $"Error on Edit: {e.GetBaseException().Message}");
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OwnersLicenseId"] = new SelectList(_context.OwnersLicense, "OwnersLicenseId", "Active", person.OwnersLicenseId);
-            ViewData["ProvinceId"] = new SelectList(_context.Province, "ProvinceId", "ProvinceCode", person.ProvinceId);
+            Create();
             return View(person);
         }
 
@@ -164,10 +171,20 @@ namespace PMTool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var person = await _context.Person.SingleOrDefaultAsync(m => m.PersonId == id);
-            _context.Person.Remove(person);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var person = await _context.Person.SingleOrDefaultAsync(m => m.PersonId == id);
+                _context.Person.Remove(person);
+                await _context.SaveChangesAsync();
+                TempData["message"] = "The record has been successfully Deleted";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                TempData["message"] = $"Delete error: {e.GetBaseException().Message}";
+            }
+
+            return Redirect($"/person/delete/{id}");
         }
 
         private bool PersonExists(int id)

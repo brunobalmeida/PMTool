@@ -51,20 +51,13 @@ namespace PMTool.Controllers
                 {
                     _context.Add(ownersLicense);
                     await _context.SaveChangesAsync();
-                    //TempData["message"] = "The License has been successfully added";
-                    //HttpContext.Session.SetString("ownersLicenseId", ownersLicense.OwnersLicenseId.ToString());
-
-
+                   
                     var licenseEmail = ownersLicense.LicenseEmail;
                     int licenseId = ownersLicense.OwnersLicenseId;
-
                     var callbackUrl = Url.EmailRegistrationLink(licenseId, licenseEmail, Request.Scheme);
-
                     await _emailSender.SendEmailRegistrationAsync(licenseEmail, callbackUrl);
-
                     TempData["message"] = "The License has been successfully added and the verification email sent.";
                     return RedirectToAction(nameof(Index));
-                    
                 }
             }
             catch (Exception e)
