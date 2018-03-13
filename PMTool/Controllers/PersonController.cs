@@ -29,12 +29,23 @@ namespace PMTool.Controllers
         }
 
         // GET: Person/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string firstName, string lastName)
         {
             if (id == null)
             {
                 return NotFound();
             }
+
+            if (firstName != null )
+            {
+                ViewBag.firstName = firstName;
+            }
+
+            if (firstName != null)
+            {
+                ViewBag.lastName = lastName;
+            }
+
 
             var person = await _context.Person
                 .Include(p => p.OwnersLicense)
@@ -60,7 +71,7 @@ namespace PMTool.Controllers
                 string licenseEmail = Request.Query["licenseEmail"];
                 HttpContext.Session.SetString(nameof(licenseEmail), licenseEmail);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ViewData["OwnersLicenseId"] = new SelectList(_context.OwnersLicense, "OwnersLicenseId", "Active");
                 ViewData["ProvinceId"] = new SelectList(_context.Province, "ProvinceId", "ProvinceCode");

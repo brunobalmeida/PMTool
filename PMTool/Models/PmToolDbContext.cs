@@ -155,7 +155,7 @@ namespace PMTool.Models
 
                 entity.Property(e => e.PersonId).HasColumnName("personId");
 
-                entity.Property(e => e.ClientActiveFlag).HasColumnName("activeClientFlag");
+                entity.Property(e => e.ClientActiveFlag).HasColumnName("clientActiveFlag");
 
                 entity.Property(e => e.SocialMedia)
                     .HasColumnName("socialMedia")

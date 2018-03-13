@@ -111,16 +111,17 @@ namespace PMTool.Controllers
                 {
                     _context.Update(province);
                     await _context.SaveChangesAsync();
+                    TempData["message"] = "The record has been successfully updated";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!ProvinceExists(province.ProvinceId))
                     {
-                        return NotFound();
+                        ModelState.AddModelError("", "The record does not exist, try again");
                     }
                     else
                     {
-                        throw;
+                        ModelState.AddModelError("", "This record has already been updated");
                     }
                 }
                 catch (Exception e)

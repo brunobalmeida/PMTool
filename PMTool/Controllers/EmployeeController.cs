@@ -102,7 +102,7 @@ namespace PMTool.Controllers
         {
             if (id != employee.EmployeeId)
             {
-                return NotFound();
+                ModelState.AddModelError("", "Invalid ID, please try again.");
             }
 
             if (ModelState.IsValid)
@@ -111,21 +111,22 @@ namespace PMTool.Controllers
                 {
                     _context.Update(employee);
                     await _context.SaveChangesAsync();
+                    TempData["message"] = "The record has been successfully updated";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!EmployeeExists(employee.EmployeeId))
                     {
-                        return NotFound();
+                        ModelState.AddModelError("", "The record does not exist, try again");
                     }
                     else
                     {
-                        throw;
+                        ModelState.AddModelError("", "This record has already been updated");
                     }
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PersonId"] = new SelectList(_context.Person, "PersonId", "Email", employee.PersonId);
+            Create();
             return View(employee);
         }
 

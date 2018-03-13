@@ -60,14 +60,21 @@ namespace PMTool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProjectId,ClientId,EmployeeId,ProjectOpen,ProjectName,StartDate,EndDate,ProjectDescription")] Project project)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(project);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(project);
+                    await _context.SaveChangesAsync();
+                    TempData["message"] = "The Project has been successfully created.";
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "BusinessDescription", project.ClientId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", project.EmployeeId);
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", $"Create error:{e.GetBaseException().Message}");
+            }
+            Create();
             return View(project);
         }
 
@@ -84,8 +91,7 @@ namespace PMTool.Controllers
             {
                 return NotFound();
             }
-            ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "BusinessDescription", project.ClientId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", project.EmployeeId);
+            Create();
             return View(project);
         }
 
@@ -98,7 +104,7 @@ namespace PMTool.Controllers
         {
             if (id != project.ProjectId)
             {
-                return NotFound();
+                ModelState.AddModelError("", "Invalid ID, please try again.");
             }
 
             if (ModelState.IsValid)
@@ -107,22 +113,22 @@ namespace PMTool.Controllers
                 {
                     _context.Update(project);
                     await _context.SaveChangesAsync();
+                    TempData["message"] = "The record has been successfully updated";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!ProjectExists(project.ProjectId))
                     {
-                        return NotFound();
+                        ModelState.AddModelError("", "The record does not exist, try again");
                     }
                     else
                     {
-                        throw;
+                        ModelState.AddModelError("", "This record has already been updated");
                     }
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "BusinessDescription", project.ClientId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", project.EmployeeId);
+            Create();
             return View(project);
         }
 
@@ -151,10 +157,18 @@ namespace PMTool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var project = await _context.Project.SingleOrDefaultAsync(m => m.ProjectId == id);
-            _context.Project.Remove(project);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var project = await _context.Project.SingleOrDefaultAsync(m => m.ProjectId == id);
+                _context.Project.Remove(project);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                TempData["message"] = $"Delete error: {e.GetBaseException().Message}";
+            }
+            return Redirect($"/projects/delete/{id}");
         }
 
         private bool ProjectExists(int id)

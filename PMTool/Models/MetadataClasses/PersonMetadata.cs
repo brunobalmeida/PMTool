@@ -75,23 +75,33 @@ namespace PMTool.Models
         [Required]
         public int PersonId { get; set; }
         [Required]
+        [Display(Name ="First Name")]
         public string FirstName { get; set; }
         [Required]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        [Display(Name = "Middle Name")]
         public string MiddleName { get; set; }
         [Required]
+        [Display(Name = "Address")]
         public string Address { get; set; }
         [Required]
+        [Display(Name = "Email")]
         public string Email { get; set; }
         [Required]
         public int OwnersLicenseId { get; set; }
+        [Display(Name = "Address Line 2")]
         public string Address2 { get; set; }
         [Required]
+        [Display(Name = "Province")]
         public int ProvinceId { get; set; }
         [Required]
+        [Display(Name = "Postal Code")]
         public string PostalCode { get; set; }
         [Required]
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
+        [Display(Name = "Profile Picture")]
         public byte[] PersonImage { get; set; }
         public string ImageContentType { get; set; }
         public OwnersLicense OwnersLicense { get; set; }

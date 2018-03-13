@@ -5,7 +5,7 @@
 <style>
 
     td, th, p {
-        font-size: 125%;
+        font-size: 115%;
     }
 </style>
 
@@ -47,7 +47,7 @@
                             <td class="text-right">
                                 @*<a asp-action="Edit" asp-route-firstName="@item.Person.FirstName" asp-route-id="@item.ClientId" class="btn btn-success">Edit</a>*@ 
                                 <a asp-action="Details" asp-route-lastName="@item.Person.LastName" asp-route-firstName="@item.Person.FirstName" asp-route-id="@item.ClientId" class="btn btn-default">Company Details</a>
-                                <a asp-action="Details" asp-controller="Person" asp-route-firstName="@item.Person.FirstName"
+                                <a asp-action="Details" asp-controller="Person" asp-route-firstName="@item.Person.FirstName" asp-route-lastName="@item.Person.LastName"
                                    asp-route-id="@item.PersonId" class="btn btn-primary">Client Details</a>
                                 @*<a asp-action="Delete" asp-route-firstName="@item.Person.FirstName" asp-route-id="@item.ClientId" class="btn btn-danger">Delete</a>*@
                             </td>

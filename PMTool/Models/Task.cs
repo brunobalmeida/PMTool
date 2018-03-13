@@ -17,7 +17,7 @@ namespace PMTool.Models
         public int TaskWeight { get; set; }
         public string TaskDescription { get; set; }
         public DateTime ExpectedDate { get; set; }
-        public TimeSpan? TaskDuration { get; set; }
+        public int TaskDuration { get; set; }
 
         public Employee Employee { get; set; }
         public TaskList TaskList { get; set; }

@@ -22,7 +22,9 @@ namespace PMTool.Controllers
         // GET: Clients
         public async Task<IActionResult> Index()
         {
-            var pmToolDbContext = _context.Client.Include(c => c.Person);
+            var pmToolDbContext = _context.Client.Include(c => c.Person)
+                .Where(a=>a.ClientActiveFlag == 1)
+                .OrderBy(a=> a.Person.FirstName);
             return View(await pmToolDbContext.ToListAsync());
         }
 
@@ -70,13 +72,21 @@ namespace PMTool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ClientId,PersonId,BusinessDescription,WebAddress,DomainLoginUrl,DomainUsername,DomainPassword,HostingLoginUrl,HostingUserName,HostingPassword,WpLoginUrl,WpUserName,WpPassword,GoogleAnalyticsUrl,GoogleAnalyticsUsername,GoogleAnalyticsPassword,GoogleSearchConsoleUrl,GoogleSearchConsoleUsername,GoogleSearchConsolePassword,BingWemasterToolsUrl,BingWemasterToolsUsername,BingWemasterToolsPassword,GoogleMyBusinessUrl,GoogleMyBusinessUsername,GoogleMyBusinessPassword,KeyWords,TargetKeyPhases,TargetAreas,CompetitorsUrl,SocialMedia,SocialMedia2,SocialMedia3,SocialMedia4,OtherMarketingTypes,MonthlyBudget,MonthlyClientTarget,ExpandPlaning,MarketingGoals")] Client client)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(client);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(client);
+                    await _context.SaveChangesAsync();
+                    TempData["message"] = "The Client's data has been successfully added to the database.";
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            ViewData["PersonId"] = new SelectList(_context.Person, "PersonId", "Email", client.PersonId);
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", $"Create error:{e.GetBaseException().Message}");
+            }
+            Create();
             return View(client);
         }
 
@@ -112,7 +122,7 @@ namespace PMTool.Controllers
         {
             if (id != client.ClientId)
             {
-                return NotFound();
+                ModelState.AddModelError("", "Invalid ID, please try again.");
             }
 
             if (ModelState.IsValid)
@@ -121,16 +131,17 @@ namespace PMTool.Controllers
                 {
                     _context.Update(client);
                     await _context.SaveChangesAsync();
+                    TempData["message"] = "The record has been successfully updated";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!ClientExists(client.ClientId))
                     {
-                        return NotFound();
+                        ModelState.AddModelError("", "The record does not exist, try again");
                     }
                     else
                     {
-                        throw;
+                        ModelState.AddModelError("", "This record has already been updated");
                     }
                 }
                 return RedirectToAction(nameof(Index));
@@ -168,15 +179,45 @@ namespace PMTool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var client = await _context.Client.SingleOrDefaultAsync(m => m.ClientId == id);
-            _context.Client.Remove(client);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var client = await _context.Client.SingleOrDefaultAsync(m => m.ClientId == id);
+                _context.Client.Remove(client);
+                await _context.SaveChangesAsync();
+                TempData["message"] = "The record has been successfully Deleted";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                TempData["message"] = $"Delete error: {e.GetBaseException().Message}";
+            }
+            return Redirect($"/clients/delete/{id}");
         }
 
         private bool ClientExists(int id)
         {
             return _context.Client.Any(e => e.ClientId == id);
         }
+
+
+        //Method to change the client flag status 
+        public async Task<IActionResult> DeleteClient(int id)
+        {
+            try
+            {
+                var client = _context.Client.SingleOrDefault(a => a.PersonId == id);
+                client.ClientActiveFlag = 0;
+                await _context.SaveChangesAsync();
+                TempData["message"] = "The client has been removed.";
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", $"Delete error:{e.GetBaseException().Message}");
+            }
+
+            return RedirectToAction("index", "clients");
+        }
+
+
     }
 }
