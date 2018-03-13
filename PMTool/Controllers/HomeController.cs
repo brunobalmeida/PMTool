@@ -5,14 +5,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PMTool.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace PMTool.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly PmToolDbContext _context;
+
+        public HomeController(PmToolDbContext context)
         {
-            return View();
+            _context = context;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var pmToolDbContext = _context.Project.Include(p => p.Client).Include(p => p.Employee);
+            return View(await pmToolDbContext.ToListAsync());
         }
 
         public IActionResult About()

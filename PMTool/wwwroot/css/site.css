@@ -34,3 +34,15 @@
     }
 }
 
+ol {
+    list-style-type: none;
+}
+
+.rectangle {
+    width: 300px;
+    background-color: darkslategrey;
+    color: black;
+    padding: 25px;
+    margin: 25px;
+    float: left;
+}
