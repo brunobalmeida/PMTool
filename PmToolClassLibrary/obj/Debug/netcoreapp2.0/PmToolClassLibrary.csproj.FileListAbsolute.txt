@@ -25,3 +25,12 @@ C:\Users\dbrun\Dropbox\Capstone\PMTool\PmToolClassLibrary\obj\Debug\netcoreapp2.
 C:\Users\dbrun\Dropbox\Capstone\PMTool\PmToolClassLibrary\obj\Debug\netcoreapp2.0\PmToolClassLibrary.dll
 C:\Users\dbrun\Dropbox\Capstone\PMTool\PmToolClassLibrary\obj\Debug\netcoreapp2.0\PmToolClassLibrary.pdb
 C:\Users\dbrun\Dropbox\Capstone\PMTool\PmToolClassLibrary\obj\Debug\netcoreapp2.0\PmToolClassLibrary.csprojResolveAssemblyReference.cache
+C:\Users\pc\Desktop\Capstone\PMTool\PmToolClassLibrary\bin\Debug\netcoreapp2.0\PmToolClassLibrary.deps.json
+C:\Users\pc\Desktop\Capstone\PMTool\PmToolClassLibrary\bin\Debug\netcoreapp2.0\PmToolClassLibrary.dll
+C:\Users\pc\Desktop\Capstone\PMTool\PmToolClassLibrary\bin\Debug\netcoreapp2.0\PmToolClassLibrary.pdb
+C:\Users\pc\Desktop\Capstone\PMTool\PmToolClassLibrary\obj\Debug\netcoreapp2.0\PmToolClassLibrary.csprojResolveAssemblyReference.cache
+C:\Users\pc\Desktop\Capstone\PMTool\PmToolClassLibrary\obj\Debug\netcoreapp2.0\PmToolClassLibrary.csproj.CoreCompileInputs.cache
+C:\Users\pc\Desktop\Capstone\PMTool\PmToolClassLibrary\obj\Debug\netcoreapp2.0\PmToolClassLibrary.AssemblyInfoInputs.cache
+C:\Users\pc\Desktop\Capstone\PMTool\PmToolClassLibrary\obj\Debug\netcoreapp2.0\PmToolClassLibrary.AssemblyInfo.cs
+C:\Users\pc\Desktop\Capstone\PMTool\PmToolClassLibrary\obj\Debug\netcoreapp2.0\PmToolClassLibrary.dll
+C:\Users\pc\Desktop\Capstone\PMTool\PmToolClassLibrary\obj\Debug\netcoreapp2.0\PmToolClassLibrary.pdb
