@@ -22,5 +22,7 @@ namespace PMTool.Models
         public Employee Employee { get; set; }
         public TaskList TaskList { get; set; }
         public ICollection<TaskInfo> TaskInfo { get; set; }
+
+        public int TaskActiveFlag { get; set; }
     }
 }

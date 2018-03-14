@@ -541,6 +541,8 @@ namespace PMTool.Models
                     .HasForeignKey(d => d.TaskListId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FKtask191516");
+
+                entity.Property(e => e.TaskActiveFlag).HasColumnName("taskActiveFlag");
             });
 
             modelBuilder.Entity<TaskInfo>(entity =>
