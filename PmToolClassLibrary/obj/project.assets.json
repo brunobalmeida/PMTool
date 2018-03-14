@@ -664,7 +664,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pc\\.nuget\\packages\\": {},
+    "C:\\Users\\MainPC\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -673,17 +673,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\pc\\Desktop\\Capstone\\PMTool\\PmToolClassLibrary\\PmToolClassLibrary.csproj",
+      "projectUniqueName": "D:\\PMTool\\Iteration 2\\PMTool\\PmToolClassLibrary\\PmToolClassLibrary.csproj",
       "projectName": "PmToolClassLibrary",
-      "projectPath": "C:\\Users\\pc\\Desktop\\Capstone\\PMTool\\PmToolClassLibrary\\PmToolClassLibrary.csproj",
-      "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pc\\Desktop\\Capstone\\PMTool\\PmToolClassLibrary\\obj\\",
+      "projectPath": "D:\\PMTool\\Iteration 2\\PMTool\\PmToolClassLibrary\\PmToolClassLibrary.csproj",
+      "packagesPath": "C:\\Users\\MainPC\\.nuget\\packages\\",
+      "outputPath": "D:\\PMTool\\Iteration 2\\PMTool\\PmToolClassLibrary\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\MainPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

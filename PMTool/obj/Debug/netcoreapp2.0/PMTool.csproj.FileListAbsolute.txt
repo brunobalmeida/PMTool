@@ -54,3 +54,17 @@ C:\Users\pc\Desktop\Capstone\PMTool\PMTool\obj\Debug\netcoreapp2.0\PMTool.Assemb
 C:\Users\pc\Desktop\Capstone\PMTool\PMTool\obj\Debug\netcoreapp2.0\PMTool.AssemblyInfo.cs
 C:\Users\pc\Desktop\Capstone\PMTool\PMTool\obj\Debug\netcoreapp2.0\PMTool.dll
 C:\Users\pc\Desktop\Capstone\PMTool\PMTool\obj\Debug\netcoreapp2.0\PMTool.pdb
+D:\PMTool\Iteration 2\PMTool\PMTool\bin\Debug\netcoreapp2.0\PMTool.deps.json
+D:\PMTool\Iteration 2\PMTool\PMTool\bin\Debug\netcoreapp2.0\PMTool.runtimeconfig.json
+D:\PMTool\Iteration 2\PMTool\PMTool\bin\Debug\netcoreapp2.0\PMTool.runtimeconfig.dev.json
+D:\PMTool\Iteration 2\PMTool\PMTool\bin\Debug\netcoreapp2.0\PMTool.dll
+D:\PMTool\Iteration 2\PMTool\PMTool\bin\Debug\netcoreapp2.0\PMTool.pdb
+D:\PMTool\Iteration 2\PMTool\PMTool\bin\Debug\netcoreapp2.0\PmToolClassLibrary.dll
+D:\PMTool\Iteration 2\PMTool\PMTool\bin\Debug\netcoreapp2.0\PmToolClassLibrary.pdb
+D:\PMTool\Iteration 2\PMTool\PMTool\obj\Debug\netcoreapp2.0\PMTool.csprojResolveAssemblyReference.cache
+D:\PMTool\Iteration 2\PMTool\PMTool\obj\Debug\netcoreapp2.0\PMTool.csproj.CoreCompileInputs.cache
+D:\PMTool\Iteration 2\PMTool\PMTool\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+D:\PMTool\Iteration 2\PMTool\PMTool\obj\Debug\netcoreapp2.0\PMTool.AssemblyInfoInputs.cache
+D:\PMTool\Iteration 2\PMTool\PMTool\obj\Debug\netcoreapp2.0\PMTool.AssemblyInfo.cs
+D:\PMTool\Iteration 2\PMTool\PMTool\obj\Debug\netcoreapp2.0\PMTool.dll
+D:\PMTool\Iteration 2\PMTool\PMTool\obj\Debug\netcoreapp2.0\PMTool.pdb

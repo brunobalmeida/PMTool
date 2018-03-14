@@ -322,3 +322,6 @@ ASALocalRun/
 
 # NVidia Nsight GPU debugger configuration file
 *.nvuser
+.vs/config/applicationhost.config
+.vs/config/applicationhost.config
+.vs/PMTool/v15/.suo
