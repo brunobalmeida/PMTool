@@ -89,7 +89,7 @@ namespace PMTool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OwnersLicenseId,CompanyName,ExpireDate,Active")] OwnersLicense ownersLicense)
+        public async Task<IActionResult> Edit(int id, [Bind("OwnersLicenseId,CompanyName,ExpireDate,Active,LicenseEmail")] OwnersLicense ownersLicense)
         {
             if (id != ownersLicense.OwnersLicenseId)
             {
