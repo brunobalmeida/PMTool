@@ -2,22 +2,24 @@
 @{
     ViewData["Title"] = "Projects";
 }
+
 <h2>Index</h2>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
 
-<div class="container">
+<div class="container" style="background-color:white">
     <ol>
         @foreach (var item in Model)
         {
-            <li class="rectangle">
+            <li>
                 <a asp-controller="projects" asp-action="Details" asp-route-id="@item.ProjectId">
-                    <span class="projectRectangle">
-                        <div class="col-md-4"></div>
+                    <span class="rectangle">
+
+                        @*<div class="col-md-4"></div>
                         <div class="col-md-4">@Html.DisplayFor(modelItem => item.ProjectName)<br /></div>
                         <div class="col-md-4"></div>
-                        <div>@Html.DisplayFor(modelItem => item.StartDate) - @Html.DisplayFor(modelItem => item.EndDate)</div>
+                        <div>@Html.DisplayFor(modelItem => item.StartDate) - @Html.DisplayFor(modelItem => item.EndDate)</div>*@
                     </span>
                 </a>
             </li>

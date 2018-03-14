@@ -59,8 +59,9 @@ ol {
 
 .rectangle {
     width: 300px;
-    background-color: darkslategrey;
+    background-color: pink;
     color: black;
+    border: 1px solid black;
     padding: 25px;
     margin: 25px;
     float: left;
