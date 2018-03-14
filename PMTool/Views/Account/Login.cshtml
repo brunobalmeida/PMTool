@@ -9,9 +9,22 @@
     ViewData["Title"] = "Welcome Back to PmTool";
 }
 
+<style>
+
+    .homeIndex {
+        background-color: navy;
+        color: white;
+        font-weight:bold;
+    }
+
+    .homeIndex h2 {
+        font-weight: bold;
+    }
+
+</style>
 
 <div class="row">
-    <div class="row">
+    <div class="row homeIndex">
 
         <div class="col-md-4"></div>
         <div class="col-md-4">
@@ -44,6 +57,7 @@
                         <button type="submit" class="btn btn-default">Log in</button>
                     </div>
                     <div class="form-group">
+<<<<<<< HEAD
                         <p>
                             <a asp-action="ForgotPassword">Forgot your password?</a>
                         </p>
@@ -54,6 +68,19 @@
                 </form>
             </section>
         </div>
+=======
+                        <p>
+                            <a asp-action="ForgotPassword">Forgot your password?</a>
+                        </p>
+                        <p>
+                            <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+                        </p>
+                    </div>
+                </form>        <br /><br /><br /><br />
+            </section>
+        </div>
+
+>>>>>>> master
     </div>
 
     <div class="row">

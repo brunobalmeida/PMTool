@@ -52,6 +52,7 @@ namespace PMTool.Models
         [Required]
         [Display(Name = "Expire Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd MMM yyyy}")]
+        [DataType(DataType.Date)]
         public DateTime ExpireDate { get; set; }
         public string Active { get; set; }
         [EmailAddress]

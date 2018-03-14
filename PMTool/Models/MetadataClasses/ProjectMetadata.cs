@@ -76,8 +76,10 @@ namespace PMTool.Models
         public string ProjectName { get; set; }
         [Display(Name = "Start Date")]
         [DateNotInFuture]
+        [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
         [Display(Name = "End Date")]
+        [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
         [Display(Name = "Project Description")]
         public string ProjectDescription { get; set; }
