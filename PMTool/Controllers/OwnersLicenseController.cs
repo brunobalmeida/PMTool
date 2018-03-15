@@ -49,12 +49,14 @@ namespace PMTool.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    string flagEmpOrClient = "Employee";
+
                     _context.Add(ownersLicense);
                     await _context.SaveChangesAsync();
                    
                     var licenseEmail = ownersLicense.LicenseEmail;
                     int licenseId = ownersLicense.OwnersLicenseId;
-                    var callbackUrl = Url.EmailRegistrationLink(licenseId, licenseEmail, Request.Scheme);
+                    var callbackUrl = Url.EmailRegistrationLink(licenseId, licenseEmail, Request.Scheme, flagEmpOrClient);
                     await _emailSender.SendEmailRegistrationAsync(licenseEmail, callbackUrl);
                     TempData["message"] = "The License has been successfully added and the verification email sent.";
                     return RedirectToAction(nameof(Index));
@@ -170,25 +172,25 @@ namespace PMTool.Controllers
         }
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SendRegistrationEmail(OwnersLicense model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> SendRegistrationEmail(OwnersLicense model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
 
-            var licenseEmail = model.LicenseEmail;
-            int licenseId = model.OwnersLicenseId;
+        //    var licenseEmail = model.LicenseEmail;
+        //    int licenseId = model.OwnersLicenseId;
                        
-            var callbackUrl = Url.EmailRegistrationLink(licenseId, licenseEmail , Request.Scheme);
+        //    var callbackUrl = Url.EmailRegistrationLink(licenseId, licenseEmail , Request.Scheme);
             
-            await _emailSender.SendEmailRegistrationAsync(licenseEmail, callbackUrl);
+        //    await _emailSender.SendEmailRegistrationAsync(licenseEmail, callbackUrl);
 
-            TempData["message"] = "Verification email sent. Please check your email.";
-            return RedirectToAction(nameof(Index));
-        }
+        //    TempData["message"] = "Verification email sent. Please check your email.";
+        //    return RedirectToAction(nameof(Index));
+        //}
 
 
     }

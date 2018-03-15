@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,17 +25,23 @@ namespace PMTool.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly Person _person;
+        private readonly PmToolDbContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            Person person,
+            PmToolDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _person = person;
+            _context = context;
         }
 
         [TempData]
@@ -209,13 +216,31 @@ namespace PMTool.Controllers
         public IActionResult Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+            try
+            {
+                int licenseId = int.Parse(Request.Query["licenseId"]);
+                HttpContext.Session.SetString(nameof(licenseId), licenseId.ToString());
+                string licenseEmail = Request.Query["licenseEmail"];
+                HttpContext.Session.SetString(nameof(licenseEmail), licenseEmail);
+                string flagEmpOrClient = Request.Query["flagEmpOrClient"];
+                HttpContext.Session.SetString(nameof(flagEmpOrClient), flagEmpOrClient);
+
+                ViewData["OwnersLicenseId"] = new SelectList(_context.OwnersLicense, "OwnersLicenseId", "Active");
+                ViewData["ProvinceId"] = new SelectList(_context.Province, "ProvinceId", "ProvinceCode");
+
+            }
+            catch (Exception)
+            {
+                TempData["message"] = "Something went wrong with your data, try again later.";
+                return View();
+            }
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model, Person person, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -224,6 +249,11 @@ namespace PMTool.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
+                    _context.Add(person);
+                    await _context.SaveChangesAsync();
+                    TempData["message"] = "Record Successfully added.";
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
