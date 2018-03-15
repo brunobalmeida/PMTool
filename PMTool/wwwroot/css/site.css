@@ -40,7 +40,7 @@ td, th, p {
 }
 
 #box {
-    background-color: honeydew;
+    background-color: #E8F7F7;
     margin-bottom: 20px;
     margin-top: 20px;
     padding: 10px;
@@ -59,10 +59,12 @@ ol {
 
 .rectangle {
     width: 300px;
-    background-color: pink;
-    color: black;
-    border: 1px solid black;
-    padding: 25px;
+    font-size: small;
+    background-color: white;
+    color: #333333;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    padding: 10px;
     margin: 25px;
     float: left;
 }

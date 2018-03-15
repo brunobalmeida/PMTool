@@ -3,19 +3,26 @@
     ViewData["Title"] = "Projects";
 }
 
-<h2>Index</h2>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-<div class="container" style="background-color:white">
+<h2 class="text-center">@ViewData["Title"]</h2>
+<div class="container" style="background-color:#E8F7F7">
     <ol>
         @foreach (var item in Model)
         {
             <li>
                 <a asp-controller="projects" asp-action="Details" asp-route-id="@item.ProjectId">
                     <span class="rectangle">
-
+                        <p><b><u>Project @Html.DisplayFor(modelItem => item.ProjectName)</u></b></p>
+                        <p>Client website: @Html.DisplayFor(modelItem => item.Client.WebAddress)</p>
+                        <p>Project status:</p>
+                            @if (item.ProjectOpen == 1)
+                            {
+                                <p><b>OPEN</b></p>
+                        }
+                            else
+                            {
+                                <p><b>ARQUIVED</b></p>
+                                    }
+<p>End date: @Html.DisplayFor(modelItem => item.EndDate)</p>
                         @*<div class="col-md-4"></div>
                         <div class="col-md-4">@Html.DisplayFor(modelItem => item.ProjectName)<br /></div>
                         <div class="col-md-4"></div>
@@ -26,4 +33,9 @@
 
         }
     </ol>
+
 </div>
+<br />
+<p class="text-center">
+    <a asp-action="Create" class="btn btn-primary">Add project</a>
+</p>
