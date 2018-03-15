@@ -12,7 +12,7 @@ namespace PMTool.Controllers
     {
         public IActionResult Index()
         {
-            return RedirectToAction("login", "account");
+            return RedirectToAction("index", "projects");
         }
 
         public IActionResult About()
