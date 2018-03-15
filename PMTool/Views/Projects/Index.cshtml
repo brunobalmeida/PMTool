@@ -9,7 +9,7 @@
         @foreach (var item in Model)
         {
             <li>
-                <a asp-controller="projects" asp-action="Details" asp-route-id="@item.ProjectId">
+                <a asp-controller="tasklist" asp-route-id="@item.ProjectId">
                     <span class="rectangle">
                         <p><b><u>Project @Html.DisplayFor(modelItem => item.ProjectName)</u></b></p>
                         <p>Client website: @Html.DisplayFor(modelItem => item.Client.WebAddress)</p>

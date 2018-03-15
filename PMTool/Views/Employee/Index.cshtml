@@ -21,6 +21,9 @@
                         <th>
                             Email
                         </th>
+                        <th>
+                            Address
+                        </th>
                         <th></th>
                     </tr>
                 </thead>
@@ -33,6 +36,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Person.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Person.Address)
                             </td>
                             <td>
                                 @*<a asp-action="Edit" asp-route-id="@item.EmployeeId">Edit</a>*@         
