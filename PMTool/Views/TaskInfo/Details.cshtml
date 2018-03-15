@@ -1,0 +1,30 @@
+﻿@model PMTool.Models.TaskInfo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TaskInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskNote)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TaskNote)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Task)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Task.TaskDescription)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.TaskInfoId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

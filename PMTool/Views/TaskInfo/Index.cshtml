@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PMTool.Models.TaskInfo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaskNote)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Task)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskNote)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Task.TaskDescription)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TaskInfoId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TaskInfoId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TaskInfoId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
