@@ -240,7 +240,7 @@ namespace PMTool.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, Person person, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model, Employee employee,Person person, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -251,8 +251,15 @@ namespace PMTool.Controllers
                 {
 
                     _context.Add(person);
-                    await _context.SaveChangesAsync();
+
+                    //var personId = await _context.SaveChangesAsync();
+                    var personId = person.PersonId;
                     TempData["message"] = "Record Successfully added.";
+
+                    employee.PersonId = personId;
+                    employee.EmployeeActiveFlag = 1;
+                    _context.Add(employee);
+                    await _context.SaveChangesAsync();
 
                     _logger.LogInformation("User created a new account with password.");
 
@@ -267,6 +274,8 @@ namespace PMTool.Controllers
                 AddErrors(result);
             }
 
+            ViewData["OwnersLicenseId"] = new SelectList(_context.OwnersLicense, "OwnersLicenseId", "Active");
+            ViewData["ProvinceId"] = new SelectList(_context.Province, "ProvinceId", "ProvinceCode");
             // If we got this far, something failed, redisplay form
             return View(model);
         }

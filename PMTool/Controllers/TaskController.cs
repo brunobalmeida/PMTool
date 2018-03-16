@@ -48,7 +48,20 @@ namespace PMTool.Controllers
         // GET: Task/Create
         public IActionResult Create()
         {
-            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
+            var listPerson = _context.Employee.Include(a=>a.Person);
+            var items = new List<SelectListItem>();
+
+            foreach (var name in listPerson)
+            {
+                items.Add(new SelectListItem()
+                {
+                    Text = name.Person.FirstName,
+                    Value = name.EmployeeId.ToString(),
+                    
+                });
+            }
+            ViewData["ListPerson"] = new SelectList(items, "Value", "Text");
+            //ViewData["EmployeeId"] = new SelectList(_context.Employee.Include(a=>a.Person).Select(a=>a.Person.FirstName), "EmployeeId", "EmployeeId");
             ViewData["TaskListId"] = new SelectList(_context.TaskList, "TaskListId", "TaskListId");
             return View();
         }
