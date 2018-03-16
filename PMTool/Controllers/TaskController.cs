@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PMTool.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace PMTool.Controllers
 {
@@ -19,9 +20,17 @@ namespace PMTool.Controllers
         }
 
         // GET: Task
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id, String listName)
         {
-            var pmToolDbContext = _context.Task.Include(t => t.Employee).Include(t => t.TaskList);
+            if (id != null)
+            {
+                HttpContext.Session.SetString("listName", listName);
+            }else if(HttpContext.Session.GetString("listName") != null)
+            {
+                listName = (HttpContext.Session.GetString("listName"));
+            }
+         
+            var pmToolDbContext = _context.Task.Where(t=>t.TaskListId == id).Include(t => t.Employee).Include(t => t.TaskList);
             return View(await pmToolDbContext.ToListAsync());
         }
 

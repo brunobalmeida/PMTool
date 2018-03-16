@@ -68,3 +68,47 @@ ol {
     margin: 25px;
     float: left;
 }
+
+#insideRectangle {
+    width: 260px;
+    font-size: small;
+    background-color: #F3F3F3;
+    color: #333333;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    padding: 10px;
+    padding-bottom: 10px;
+    float: left;
+}
+
+#outsideRectangle {
+    background-color: #E8F7F7;
+}
+
+#largCard {
+    width: 1040px;
+    background-color: #F3F3F3;
+    margin: 10px 5px 10px 10px;
+}
+
+#largBox {
+    font-size: small;
+    background-color: white;
+    color: #333333;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    float: left;
+}
+#largGreyBox {
+    width: 1040px;
+    font-size: small;
+    background-color: #F3F3F3;
+    color: #333333;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    float: left;
+}
