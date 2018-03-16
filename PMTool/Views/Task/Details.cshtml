@@ -1,66 +1,45 @@
 ﻿@model PMTool.Models.Task
+@using Microsoft.AspNetCore.Http;
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Task Details";
 }
 
-<h2>Details</h2>
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<div class="container">
+    <div id="largGreyBox">
+        <p class="text-capitalize"><b>Task name: <u>@Html.DisplayFor(model => model.TaskName)</u></b></p>
+        <br />
+        <p>Duration: <b>@Html.DisplayFor(model => model.TaskDuration)</b></p>
+        <p>Due date: <b>@Html.DisplayFor(model => model.ExpectedDate)</b> </p>
+        <p>Weight: <b>@Html.DisplayFor(model => model.TaskWeight)</b></p> 
+        <p>Task list: <b>@Context.Session.GetString("listName")</b></p>
+        <p>Status: <b>@Html.DisplayFor(model => model.TaskActiveFlag)</b></p>
+        <p>Description: </p>
+        <p><i>@Html.DisplayNameFor(model => model.TaskDescription)</i></p>
+        <p class="text-right">
+            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.TaskId">Edit</a>
+        </p>
+    </div>
+</div>
+
+<div class="container">
+
+    @*<div class="container">
+    <ol>
+        @foreach (var item in Model.TaskInfo)
+        {
+            <li>
+                <div class="rectangle" id="largCard">
+                    <p>@Html.DisplayFor(modelItem => item.TaskNote)</p>
+                </div>
+            </li>
+        }
+    </ol>       
+    </div>*@
+</div>
 
 <div>
-    <h4>Task</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TaskName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TaskName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TaskWeight)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TaskWeight)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TaskDescription)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TaskDescription)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ExpectedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ExpectedDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TaskDuration)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TaskDuration)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TaskActiveFlag)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TaskActiveFlag)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Employee)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Employee.EmployeeId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TaskList)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TaskList.TaskListId)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.TaskId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

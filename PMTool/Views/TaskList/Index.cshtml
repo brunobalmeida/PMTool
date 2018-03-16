@@ -4,37 +4,60 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>@Html.DisplayNameFor(model => model.Project.ProjectName)</h2>
+<style>
+    #insideRectangle {
+        width: 260px;
+        font-size: small;
+        background-color: #F3F3F3;
+        color: #333333;
+        border: 1px solid #333333;
+        border-radius: 5px;
+        padding: 10px;
+        padding-bottom: 10px;
+        float: left;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<div class="container">
+    #outsideRectangle {
+        background-color: #E8F7F7;
+    }
+</style>
+<br />
+<h2 class="text-center">
+    Task lists</h2>
+<br />
+
+
+<div class="container" id="outsideRectangle">
     <ol>
         @foreach (var item in Model)
         {
             <li>
-                <a asp-controller="task" asp-route-id="@item.TaskListId">
-                    <span class="rectangle">
 
-                       <div class="col-md-4"></div>
-                        <div class="col-md-4">@Html.DisplayName(item.TaskListName)<br /></div>
-                        <div class="col-md-4"></div>
-                        <span class="rectangle">
-                            <div>
-                                @foreach (var taskItem in item.Task)
-                                {
-
-                                    @Html.DisplayName(taskItem.TaskName)
-                                }
-                                
+                <a asp-controller="task" asp-route-id="@item.TaskListId" asp-route-listName="@item.TaskListName">
+                    <div class="rectangle">
+                        <p class="text-center"><b><u>@Html.DisplayName(item.TaskListName)</u></b></p>
+                        @foreach (var taskItem in item.Task)
+                        {
+                            <div id="insideRectangle">
+                                <p><b>Task: </b>@Html.DisplayName(taskItem.TaskName)</p>
+                                <p><b>Due to: </b>@Html.DisplayFor(modelItem => taskItem.ExpectedDate)</p>
+                                <p>
+                                    <b>Status:</b>@if (taskItem.TaskActiveFlag == 1)
+                                    {<b>Open</b>}
+                                    else
+                                    { <b>Finished</b>}
+                                </p>
                             </div>
-                        </span>
-                    </span>
+                        }
+                    </div>
                 </a>
             </li>
 
         }
     </ol>
 </div>
+<br />
+<p class="text-center">
+    <a asp-action="Create" class="btn btn-primary">Add Task List</a>
+</p>
 
