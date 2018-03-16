@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PMTool.Data;
 using PMTool.Models;
 using PMTool.Services;
+using PMTool.Models.AccountViewModels;
 
 namespace PMTool
 {
@@ -46,6 +47,9 @@ namespace PMTool
             services.AddMvc();
 
             services.Configure<AuthMessageSenderOptions>(Configuration);
+
+            services.AddScoped<Person>();
+
 
         }
 

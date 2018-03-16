@@ -1,4 +1,6 @@
 ﻿@model RegisterViewModel
+@inject Person person
+@using Microsoft.AspNetCore.Http
 @{
     ViewData["Title"] = "Register";
 }
@@ -13,7 +15,7 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" value="@Context.Session.GetString("licenseEmail")" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -26,6 +28,65 @@
                 <input asp-for="ConfirmPassword" class="form-control" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
+
+
+            <div class="form-group">
+                <label asp-for="@person.FirstName" class="control-label"></label>
+                <input asp-for="@person.FirstName" class="form-control" />
+                <span asp-validation-for="@person.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@person.MiddleName" class="control-label"></label>
+                <input asp-for="@person.MiddleName" class="form-control" />
+                <span asp-validation-for="@person.MiddleName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@person.LastName" class="control-label"></label>
+                <input asp-for="@person.LastName" class="form-control" />
+                <span asp-validation-for="@person.LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@person.Address" class="control-label"></label>
+                <input asp-for="@person.Address" class="form-control" />
+                <span asp-validation-for="@person.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@person.Address2" class="control-label"></label>
+                <input asp-for="@person.Address2" class="form-control" />
+                <span asp-validation-for="@person.Address2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input  asp-for="@person.Email" value="@Context.Session.GetString("licenseEmail")" class="form-control" />
+                <span asp-validation-for="@person.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@person.OwnersLicenseId" class="control-label"></label>
+                <input asp-for="@person.OwnersLicenseId" value="@Context.Session.GetString("licenseId")" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@person.ProvinceId" class="control-label"></label>
+                <select asp-for="@person.ProvinceId" class="form-control" asp-items="ViewBag.ProvinceId"></select>
+                
+            </div>
+            <div class="form-group">
+                <label asp-for="@person.PostalCode" class="control-label"></label>
+                <input asp-for="@person.PostalCode" class="form-control" />
+                <span asp-validation-for="@person.PostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@person.PhoneNumber" class="control-label"></label>
+                <input asp-for="@person.PhoneNumber" class="form-control" />
+                <span asp-validation-for="@person.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@person.PersonImage" class="control-label"></label>
+                <input asp-for="@person.PersonImage" class="form-control" />
+                <span asp-validation-for="@person.PersonImage" class="text-danger"></span>
+            </div>
+
+
             <button type="submit" class="btn btn-default">Register</button>
         </form>
     </div>

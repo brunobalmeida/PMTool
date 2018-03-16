@@ -178,19 +178,16 @@ namespace PMTool.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.TargetAreas)
-                    .IsRequired()
                     .HasColumnName("targetAreas")
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
                 entity.Property(e => e.TargetKeyPhases)
-                    .IsRequired()
                     .HasColumnName("targetKeyPhases")
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
                 entity.Property(e => e.WebAddress)
-                    .IsRequired()
                     .HasColumnName("webAddress")
                     .HasMaxLength(255)
                     .IsUnicode(false);
