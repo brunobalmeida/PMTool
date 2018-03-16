@@ -47,7 +47,7 @@ namespace PMTool.Controllers
         // GET: TaskList/Create
         public IActionResult Create()
         {
-            ViewData["ProjectId"] = new SelectList(_context.Project, "ProjectId", "ProjectDescription");
+            ViewData["ProjectId"] = new SelectList(_context.Project, "ProjectId", "ProjectName");
             return View();
         }
 
