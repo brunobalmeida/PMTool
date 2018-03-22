@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PMTool.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace PMTool.Controllers
 {
@@ -21,6 +22,7 @@ namespace PMTool.Controllers
         // GET: TaskList
         public async Task<IActionResult> Index(int? id)
         {
+
             var pmToolDbContext = _context.TaskList.Include(t => t.Project).Include(t => t.Task).Where(x => x.ProjectId == id);
             return View(await pmToolDbContext.ToListAsync());
         }

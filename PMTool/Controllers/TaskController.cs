@@ -25,11 +25,14 @@ namespace PMTool.Controllers
             if (id != null)
             {
                 HttpContext.Session.SetString("listName", listName);
-            }else if(HttpContext.Session.GetString("listName") != null)
+                HttpContext.Session.SetInt32("listId", (Int32)id);
+            }
+            else if (HttpContext.Session.GetString("listId") != null)
             {
                 listName = (HttpContext.Session.GetString("listName"));
+                id = (int)HttpContext.Session.GetInt32("listId");
             }
-         
+
             var pmToolDbContext = _context.Task.Where(t=>t.TaskListId == id).Include(t => t.Employee).Include(t => t.TaskList);
             return View(await pmToolDbContext.ToListAsync());
         }
@@ -55,8 +58,9 @@ namespace PMTool.Controllers
         }
 
         // GET: Task/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
+<<<<<<< HEAD
 
             //ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
             //ViewData["TaskListId"] = new SelectList(_context.TaskList, "TaskListId", "TaskListName");   
@@ -77,6 +81,13 @@ namespace PMTool.Controllers
             //ViewData["EmployeeId"] = new SelectList(_context.Employee.Include(a=>a.Person).Select(a=>a.Person.FirstName), "EmployeeId", "EmployeeId");
             ViewData["TaskListId"] = new SelectList(_context.TaskList, "TaskListId", "TaskListId");
 
+=======
+            
+            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
+            //ViewData["TaskListId"] = new SelectList(_context.TaskList.Where(a=>a.TaskListId == id), "TaskListId", "TaskListId");
+     
+            
+>>>>>>> erica
             return View();
         }
 
