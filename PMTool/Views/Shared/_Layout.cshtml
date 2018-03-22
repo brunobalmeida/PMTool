@@ -18,29 +18,26 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
                 </button>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">PMTool</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav mr-auto">
                     @*<li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>*@
-                    <li><a asp-area="" asp-controller="Projects" asp-action="Index">My projects</a></li>
-                    <li><a asp-area="" asp-controller="" asp-action="Index">My tasks</a></li>
-                    <li><a asp-area="" asp-controller="Employee" asp-action="Index">Employees</a></li>
-                    <li><a asp-area="" asp-controller="Clients" asp-action="Index">Clients</a></li>
-                    <li><a asp-area="" asp-controller="OwnersLicense" asp-action="Index">License</a></li>
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
+                    <li class="nav-item active"><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>*@
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Projects" asp-action="Index">My projects</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="" asp-action="Index">My tasks</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Employee" asp-action="Index">Employees</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Clients" asp-action="Index">Clients</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="OwnersLicense" asp-action="Index">License</a></li>
+                </ul>             
             </div>
+            <div class="nav-item text-right">@await Html.PartialAsync("_LoginPartial")</div>
         </div>
     </nav>
     <div class="container-fluid body-content">
@@ -73,6 +70,6 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
-    @RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false)  
 </body>
 </html>

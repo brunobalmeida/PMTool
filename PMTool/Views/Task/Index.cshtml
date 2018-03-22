@@ -1,41 +1,53 @@
 ﻿@model IEnumerable<PMTool.Models.Task>
+@using Microsoft.AspNetCore.Http;
 
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = $"Tasks of {Context.Session.GetString("listName")}";
 }
 <br />
-<h2 class="text-center">Tasks</h2>
+<h2 class="display text-center">@ViewData["Title"]</h2>
 
 
 
-<div class="container" id="outsideRectangle">
-    <div id="largBox">
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-secondary ">
+                <a asp-action="Create" asp-route-id="TaskListId">Add task</a>
+            </button>
+        </div>
+    </div>
+    <br />
+    <div class="list-group">
         <ol>
             @foreach (var item in Model)
             {
                 <li>
-
-                    <a asp-controller="task" asp-action="Details" asp-route-id="@item.TaskId">
-                        <div class="rectangle" id="largCard">
-                            <p class="text-left"><b>Task: </b>@Html.DisplayName(item.TaskName)</p>
-                            <p class="text-left"><b>Due to: </b>@Html.DisplayFor(modelItem => item.ExpectedDate)</p>
-                            <p class="text-left">
+                    <a asp-controller="task" asp-action="Details" asp-route-id="@item.TaskId" 
+                       class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1"><b>Task: </b>@Html.DisplayName(item.TaskName)</h5>
+                        </div>
+                        <div class="d-flex w-100 justify-content-between">
+                            <p class="mb-1"><b>Due to: </b>@Html.DisplayFor(modelItem => item.ExpectedDate)</p>
+                            <p class="mb-1">
                                 <b>Status:</b>@if (item.TaskActiveFlag == 1)
                                 {<b>Open</b>}
                                 else
                                 { <b>Finished</b>}
-</div>
+                            </p>
+                        </div>
+                            
+                        
                     </a>
                 </li>
             }
         </ol>
     </div>
 </div>
-<br />
-<p class="text-center">
-    <a asp-action="Create" class="btn btn-primary">Add Task</a>
-</p>
+
                         @*<table class="table">
                                 <thead>
                                     <tr>

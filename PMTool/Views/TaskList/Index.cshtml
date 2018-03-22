@@ -3,61 +3,52 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<style>
-    #insideRectangle {
-        width: 260px;
-        font-size: small;
-        background-color: #F3F3F3;
-        color: #333333;
-        border: 1px solid #333333;
-        border-radius: 5px;
-        padding: 10px;
-        padding-bottom: 10px;
-        float: left;
-    }
-
-    #outsideRectangle {
-        background-color: #E8F7F7;
-    }
-</style>
 <br />
-<h2 class="text-center">
-    Task lists</h2>
-<br />
+<h2 class="display text-center">Task lists</h2>
 
-
-<div class="container" id="outsideRectangle">
-    <ol>
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-secondary ">
+                <a asp-action="Create">Add Task List</a>
+            </button>
+        </div>
+    </div> 
+    <br />
+    <ol class="row">
         @foreach (var item in Model)
         {
-            <li>
-
-                <a asp-controller="task" asp-route-id="@item.TaskListId" asp-route-listName="@item.TaskListName">
-                    <div class="rectangle">
-                        <p class="text-center"><b><u>@Html.DisplayName(item.TaskListName)</u></b></p>
+            
+            <li class="col-md-4">
+                <div class="card bg-secondary mb-3" style="color: darkslategray;">
+                        <div >
+                            <h5 class="card-header"><a asp-controller="task" asp-route-id="@item.TaskListId" asp-route-listName="@item.TaskListName">@Html.DisplayName(item.TaskListName)</a></h5>
+                            <br />
+                        </div>
                         @foreach (var taskItem in item.Task)
                         {
-                            <div id="insideRectangle">
-                                <p><b>Task: </b>@Html.DisplayName(taskItem.TaskName)</p>
-                                <p><b>Due to: </b>@Html.DisplayFor(modelItem => taskItem.ExpectedDate)</p>
-                                <p>
-                                    <b>Status:</b>@if (taskItem.TaskActiveFlag == 1)
-                                    {<b>Open</b>}
-                                    else
-                                    { <b>Finished</b>}
-                                </p>
-                            </div>
+                            <a asp-controller="task" asp-action="Details" asp-route-id="@taskItem.TaskId">
+                                <div class="card text-white bg-success mb-3" style="max-width:280px; margin:auto;">
+                                    <p class="card-header">Task:@Html.DisplayFor(modelItem => taskItem.TaskName)</p>
+                                    <div class="card-body">
+                                        <p class="card-text">Due to:@Html.DisplayFor(modelItem => taskItem.ExpectedDate)</p>
+                                        <p class="card-text">
+                                            Status:@if (taskItem.TaskActiveFlag == 1)
+                                            {<b>Open</b>}
+                                            else
+                                            { <b>Finished</b>}
+                                        </p>
+                                    </div>
+                                </div>    
+                            </a>
+                               
                         }
-                    </div>
-                </a>
+                </div>
             </li>
 
         }
     </ol>
 </div>
-<br />
-<p class="text-center">
-    <a asp-action="Create" class="btn btn-primary">Add Task List</a>
-</p>
+
 
