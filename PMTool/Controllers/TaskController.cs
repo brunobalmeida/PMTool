@@ -60,12 +60,11 @@ namespace PMTool.Controllers
         // GET: Task/Create
         public IActionResult Create(int? id)
         {
-<<<<<<< HEAD
 
             //ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
             //ViewData["TaskListId"] = new SelectList(_context.TaskList, "TaskListId", "TaskListName");   
 
-            var listPerson = _context.Employee.Include(a=>a.Person);
+            var listPerson = _context.Employee.Include(a => a.Person);
             var items = new List<SelectListItem>();
 
             foreach (var name in listPerson)
@@ -74,20 +73,17 @@ namespace PMTool.Controllers
                 {
                     Text = name.Person.FirstName,
                     Value = name.EmployeeId.ToString(),
-                    
+
                 });
             }
             ViewData["ListPerson"] = new SelectList(items, "Value", "Text");
+
             //ViewData["EmployeeId"] = new SelectList(_context.Employee.Include(a=>a.Person).Select(a=>a.Person.FirstName), "EmployeeId", "EmployeeId");
             ViewData["TaskListId"] = new SelectList(_context.TaskList, "TaskListId", "TaskListId");
-
-=======
-            
+  
             ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
             //ViewData["TaskListId"] = new SelectList(_context.TaskList.Where(a=>a.TaskListId == id), "TaskListId", "TaskListId");
-     
-            
->>>>>>> erica
+
             return View();
         }
 
