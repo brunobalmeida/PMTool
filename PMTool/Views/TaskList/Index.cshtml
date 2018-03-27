@@ -3,38 +3,52 @@
 @{
     ViewData["Title"] = "Index";
 }
+<br />
+<h2 class="display text-center">Task lists</h2>
 
-<h2>@Html.DisplayNameFor(model => model.Project.ProjectName)</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<div class="container">
-    <ol>
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-secondary ">
+                <a asp-action="Create">Add Task List</a>
+            </button>
+        </div>
+    </div> 
+    <br />
+    <ol class="row">
         @foreach (var item in Model)
         {
-            <li>
-                <a asp-controller="task" asp-route-id="@item.TaskListId">
-                    <span class="rectangle">
-
-                       <div class="col-md-4"></div>
-                        <div class="col-md-4">@Html.DisplayName(item.TaskListName)<br /></div>
-                        <div class="col-md-4"></div>
-                        <span class="rectangle">
-                            <div>
-                                @foreach (var taskItem in item.Task)
-                                {
-
-                                    @Html.DisplayName(taskItem.TaskName)
-                                }
-                                
-                            </div>
-                        </span>
-                    </span>
-                </a>
+            
+            <li class="col-md-4">
+                <div class="card bg-secondary mb-3" style="color: darkslategray;">
+                        <div >
+                            <h5 class="card-header"><a asp-controller="task" asp-route-id="@item.TaskListId" asp-route-listName="@item.TaskListName">@Html.DisplayName(item.TaskListName)</a></h5>
+                            <br />
+                        </div>
+                        @foreach (var taskItem in item.Task)
+                        {
+                            <a asp-controller="task" asp-action="Details" asp-route-id="@taskItem.TaskId">
+                                <div class="card text-white bg-success mb-3" style="max-width:280px; margin:auto;">
+                                    <p class="card-header">Task:@Html.DisplayFor(modelItem => taskItem.TaskName)</p>
+                                    <div class="card-body">
+                                        <p class="card-text">Due to:@Html.DisplayFor(modelItem => taskItem.ExpectedDate)</p>
+                                        <p class="card-text">
+                                            Status:@if (taskItem.TaskActiveFlag == 1)
+                                            {<b>Open</b>}
+                                            else
+                                            { <b>Finished</b>}
+                                        </p>
+                                    </div>
+                                </div>    
+                            </a>
+                               
+                        }
+                </div>
             </li>
 
         }
     </ol>
 </div>
+
 

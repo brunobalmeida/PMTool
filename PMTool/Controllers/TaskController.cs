@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PMTool.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace PMTool.Controllers
 {
@@ -19,9 +20,20 @@ namespace PMTool.Controllers
         }
 
         // GET: Task
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id, String listName)
         {
-            var pmToolDbContext = _context.Task.Include(t => t.Employee).Include(t => t.TaskList);
+            if (id != null)
+            {
+                HttpContext.Session.SetString("listName", listName);
+                HttpContext.Session.SetInt32("listId", (Int32)id);
+            }
+            else if (HttpContext.Session.GetString("listId") != null)
+            {
+                listName = (HttpContext.Session.GetString("listName"));
+                id = (int)HttpContext.Session.GetInt32("listId");
+            }
+
+            var pmToolDbContext = _context.Task.Where(t=>t.TaskListId == id).Include(t => t.Employee).Include(t => t.TaskList);
             return View(await pmToolDbContext.ToListAsync());
         }
 
@@ -46,9 +58,10 @@ namespace PMTool.Controllers
         }
 
         // GET: Task/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
-            var listPerson = _context.Employee.Include(a=>a.Person);
+            var listPerson = _context.Employee.Include(a => a.Person);
+
             var items = new List<SelectListItem>();
 
             foreach (var name in listPerson)
@@ -57,12 +70,13 @@ namespace PMTool.Controllers
                 {
                     Text = name.Person.FirstName,
                     Value = name.EmployeeId.ToString(),
-                    
+
                 });
             }
             ViewData["ListPerson"] = new SelectList(items, "Value", "Text");
-            //ViewData["EmployeeId"] = new SelectList(_context.Employee.Include(a=>a.Person).Select(a=>a.Person.FirstName), "EmployeeId", "EmployeeId");
-            ViewData["TaskListId"] = new SelectList(_context.TaskList, "TaskListId", "TaskListId");
+            //ViewData["TaskListId"] = new SelectList(_context.TaskList.Where(a=>a.TaskListId == id), "TaskListId", "TaskListId");
+
+
             return View();
         }
 

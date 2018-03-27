@@ -1,77 +1,116 @@
 ﻿@model IEnumerable<PMTool.Models.Task>
+@using Microsoft.AspNetCore.Http;
+
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = $"Tasks of {Context.Session.GetString("listName")}";
 }
+<br />
+<h2 class="display text-center">@ViewData["Title"]</h2>
 
-<h2>Index</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.TaskName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TaskWeight)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TaskDescription)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ExpectedDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TaskDuration)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TaskActiveFlag)
-                </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Employee)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TaskList)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaskName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaskWeight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaskDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExpectedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaskDuration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaskActiveFlag)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Employee.EmployeeId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaskList.TaskListId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TaskId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TaskId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TaskId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-secondary ">
+                <a asp-action="Create" asp-route-id="TaskListId">Add task</a>
+            </button>
+        </div>
+    </div>
+    <br />
+    <div class="list-group">
+        <ol>
+            @foreach (var item in Model)
+            {
+                <li>
+                    <a asp-controller="task" asp-action="Details" asp-route-id="@item.TaskId" 
+                       class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1"><b>Task: </b>@Html.DisplayName(item.TaskName)</h5>
+                        </div>
+                        <div class="d-flex w-100 justify-content-between">
+                            <p class="mb-1"><b>Due to: </b>@Html.DisplayFor(modelItem => item.ExpectedDate)</p>
+                            <p class="mb-1">
+                                <b>Status:</b>@if (item.TaskActiveFlag == 1)
+                                {<b>Open</b>}
+                                else
+                                { <b>Finished</b>}
+                            </p>
+                        </div>
+                            
+                        
+                    </a>
+                </li>
+            }
+        </ol>
+    </div>
+</div>
+
+                        @*<table class="table">
+                                <thead>
+                                    <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.TaskName)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.TaskWeight)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.TaskDescription)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.ExpectedDate)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.TaskDuration)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.TaskActiveFlag)
+                                            </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Employee)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.TaskList)
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                            @foreach (var item in Model) {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TaskName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TaskWeight)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TaskDescription)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ExpectedDate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TaskDuration)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TaskActiveFlag)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Employee.EmployeeId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TaskList.TaskListId)
+                                        </td>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.TaskId">Edit</a> |
+                                            <a asp-action="Details" asp-route-id="@item.TaskId">Details</a> |
+                                            <a asp-action="Delete" asp-route-id="@item.TaskId">Delete</a>
+                                        </td>
+                                    </tr>
+                            }
+                                </tbody>
+                            </table>*@
