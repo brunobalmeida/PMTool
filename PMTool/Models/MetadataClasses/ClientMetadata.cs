@@ -160,42 +160,46 @@ namespace PMTool.Models
             {
                 SocialMedia = "NA";
             }
+            if (BusinessDescription != null)
+            {
+                BusinessDescription = BusinessDescription.Trim();
+            }
+            
+            //WebAddress = WebAddress.Trim();
+            //DomainLoginUrl = DomainLoginUrl.Trim();
+            //DomainUsername = DomainUsername.Trim();
+            //DomainPassword = DomainPassword.Trim();
+            //HostingLoginUrl = HostingLoginUrl.Trim();
+            //HostingUserName = HostingUserName.Trim();
+            //HostingPassword = HostingPassword.Trim();
+            //WpLoginUrl = WpLoginUrl.Trim();
+            //WpUserName = WpUserName.Trim();
+            //WpPassword = WpPassword.Trim();
+            //GoogleAnalyticsUrl = GoogleAnalyticsUrl.Trim();
+            //GoogleAnalyticsUsername = GoogleAnalyticsUsername.Trim();
+            //GoogleAnalyticsPassword = GoogleAnalyticsPassword.Trim();
+            //GoogleSearchConsoleUrl = GoogleSearchConsoleUrl.Trim();
+            //GoogleSearchConsoleUsername = GoogleSearchConsoleUsername.Trim();
+            //GoogleSearchConsolePassword = GoogleSearchConsolePassword.Trim();
+            //BingWemasterToolsUrl = BingWemasterToolsUrl.Trim();
+            //BingWemasterToolsUsername = BingWemasterToolsUsername.Trim();
+            //BingWemasterToolsPassword = BingWemasterToolsPassword.Trim();
+            //GoogleMyBusinessUrl = GoogleMyBusinessUrl.Trim();
+            //GoogleMyBusinessUsername = GoogleMyBusinessUsername.Trim();
+            //GoogleMyBusinessPassword = GoogleMyBusinessPassword.Trim();
+            //KeyWords = KeyWords.Trim();
+            //TargetKeyPhases = TargetKeyPhases.Trim();
+            //TargetAreas = TargetAreas.Trim();
+            //CompetitorsUrl = CompetitorsUrl.Trim();
+            //SocialMedia = SocialMedia.Trim();
+            //SocialMedia2 = SocialMedia2.Trim();
+            //SocialMedia3 = SocialMedia3.Trim();
+            //SocialMedia4 = SocialMedia4.Trim();
+            //OtherMarketingTypes = OtherMarketingTypes.Trim();
+           
+            //MarketingGoals = MarketingGoals.Trim();
 
-            BusinessDescription = BusinessDescription.Trim();
-            WebAddress = WebAddress.Trim();
-            DomainLoginUrl = DomainLoginUrl.Trim();
-            DomainUsername = DomainUsername.Trim();
-            DomainPassword = DomainPassword.Trim();
-            HostingLoginUrl = HostingLoginUrl.Trim();
-            HostingUserName = HostingUserName.Trim();
-            HostingPassword = HostingPassword.Trim();
-            WpLoginUrl = WpLoginUrl.Trim();
-            WpUserName = WpUserName.Trim();
-            WpPassword = WpPassword.Trim();
-            GoogleAnalyticsUrl = GoogleAnalyticsUrl.Trim();
-            GoogleAnalyticsUsername = GoogleAnalyticsUsername.Trim();
-            GoogleAnalyticsPassword = GoogleAnalyticsPassword.Trim();
-            GoogleSearchConsoleUrl = GoogleSearchConsoleUrl.Trim();
-            GoogleSearchConsoleUsername = GoogleSearchConsoleUsername.Trim();
-            GoogleSearchConsolePassword = GoogleSearchConsolePassword.Trim();
-            BingWemasterToolsUrl = BingWemasterToolsUrl.Trim();
-            BingWemasterToolsUsername = BingWemasterToolsUsername.Trim();
-            BingWemasterToolsPassword = BingWemasterToolsPassword.Trim();
-            GoogleMyBusinessUrl = GoogleMyBusinessUrl.Trim();
-            GoogleMyBusinessUsername = GoogleMyBusinessUsername.Trim();
-            GoogleMyBusinessPassword = GoogleMyBusinessPassword.Trim();
-            KeyWords = KeyWords.Trim();
-            TargetKeyPhases = TargetKeyPhases.Trim();
-            TargetAreas = TargetAreas.Trim();
-            CompetitorsUrl = CompetitorsUrl.Trim();
-            SocialMedia = SocialMedia.Trim();
-            SocialMedia2 = SocialMedia2.Trim();
-            SocialMedia3 = SocialMedia3.Trim();
-            SocialMedia4 = SocialMedia4.Trim();
-            OtherMarketingTypes = OtherMarketingTypes.Trim();
             //ExpandPlaning = ExpandPlaning.Trim();
-            MarketingGoals = MarketingGoals.Trim();
-
 
             yield return ValidationResult.Success;
         }

@@ -22,5 +22,12 @@ namespace PMTool.Services
              $" <a type='button' href='{HtmlEncoder.Default.Encode(link)}'>Click to Register</a>");
         }
 
+        public static Task SendEmailRegistrationEmployeeAsync(this IEmailSender emailSender, string email, string link)
+        {
+            return emailSender.SendEmailAsync(email, "You have been registered for PMTool.",
+             $"Please click on the link to Register into our system: \n\n\n" +
+             $" <a type='button' href='{HtmlEncoder.Default.Encode(link)}'>Click to Register</a>");
+        }
+
     }
 }

@@ -7,16 +7,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PMTool.Models;
+using PmToolClassLibrary;
+using Microsoft.AspNetCore.Identity;
+using PMTool.Services;
 
 namespace PMTool.Controllers
 {
     public class ClientsController : Controller
     {
         private readonly PmToolDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IEmailSender _emailSender;
 
-        public ClientsController(PmToolDbContext context)
+        public ClientsController(PmToolDbContext context, UserManager<ApplicationUser> userManager, IEmailSender emailSender)
         {
             _context = context;
+            _userManager = userManager;
+            _emailSender = emailSender;
         }
 
         // GET: Clients
@@ -70,17 +77,35 @@ namespace PMTool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClientId,PersonId,BusinessDescription,WebAddress,DomainLoginUrl,DomainUsername,DomainPassword,HostingLoginUrl,HostingUserName,HostingPassword,WpLoginUrl,WpUserName,WpPassword,GoogleAnalyticsUrl,GoogleAnalyticsUsername,GoogleAnalyticsPassword,GoogleSearchConsoleUrl,GoogleSearchConsoleUsername,GoogleSearchConsolePassword,BingWemasterToolsUrl,BingWemasterToolsUsername,BingWemasterToolsPassword,GoogleMyBusinessUrl,GoogleMyBusinessUsername,GoogleMyBusinessPassword,KeyWords,TargetKeyPhases,TargetAreas,CompetitorsUrl,SocialMedia,SocialMedia2,SocialMedia3,SocialMedia4,OtherMarketingTypes,MonthlyBudget,MonthlyClientTarget,ExpandPlaning,MarketingGoals")] Client client)
+        public async Task<IActionResult> Create([Bind("ClientId,PersonId,BusinessDescription,WebAddress,DomainLoginUrl,DomainUsername,DomainPassword,HostingLoginUrl,HostingUserName,HostingPassword,WpLoginUrl,WpUserName,WpPassword,GoogleAnalyticsUrl,GoogleAnalyticsUsername,GoogleAnalyticsPassword,GoogleSearchConsoleUrl,GoogleSearchConsoleUsername,GoogleSearchConsolePassword,BingWemasterToolsUrl,BingWemasterToolsUsername,BingWemasterToolsPassword,GoogleMyBusinessUrl,GoogleMyBusinessUsername,GoogleMyBusinessPassword,KeyWords,TargetKeyPhases,TargetAreas,CompetitorsUrl,SocialMedia,SocialMedia2,SocialMedia3,SocialMedia4,OtherMarketingTypes,MonthlyBudget,MonthlyClientTarget,ExpandPlaning,MarketingGoals")] Client client, string taEmail)
         {
+            if (!Validations.EmailValidation(taEmail))
+            {
+                TempData["message"] = "Email can not be empty or is not in a valid format.";
+                return RedirectToAction("Index");
+            }
             try
             {
-                if (ModelState.IsValid)
-                {
-                    _context.Add(client);
-                    await _context.SaveChangesAsync();
-                    TempData["message"] = "The Client's data has been successfully added to the database.";
+                //if (ModelState.IsValid)
+                //{
+
+                    //var pmToolDbContext = _context.OwnersLicense.Include(a => a.Person);
+                    var user = await _userManager.GetUserAsync(User);
+
+                    //string emailToRegister = taEmail;
+                    string flagEmpOrClient = "Client";
+                    var emailCheck = user.Email;
+                    int licenseId = _context.Person.FirstOrDefault(a => a.Email == emailCheck).OwnersLicenseId;
+                    var licenseEmail = taEmail;
+                    var callbackUrl = Url.EmailRegistrationLink(licenseId, licenseEmail, Request.Scheme, flagEmpOrClient);
+                    await _emailSender.SendEmailRegistrationAsync(licenseEmail, callbackUrl);
+                    TempData["message"] = "The client has been successfully added and the verification email sent.";
                     return RedirectToAction(nameof(Index));
-                }
+                    //_context.Add(employee);
+                    //await _context.SaveChangesAsync();
+                    //TempData["message"] = "Record Successfully added.";
+                    //return RedirectToAction(nameof(Index));
+                //}
             }
             catch (Exception e)
             {
@@ -88,6 +113,22 @@ namespace PMTool.Controllers
             }
             Create();
             return View(client);
+            //try
+            //{
+            //    if (ModelState.IsValid)
+            //    {
+            //        _context.Add(client);
+            //        await _context.SaveChangesAsync();
+            //        TempData["message"] = "The Client's data has been successfully added to the database.";
+            //        return RedirectToAction(nameof(Index));
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    ModelState.AddModelError("", $"Create error:{e.GetBaseException().Message}");
+            //}
+            //Create();
+            //return View(client);
         }
 
         // GET: Clients/Edit/5
