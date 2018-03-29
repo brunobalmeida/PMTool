@@ -160,11 +160,8 @@ namespace PMTool.Models
             {
                 SocialMedia = "NA";
             }
-            if (BusinessDescription != null)
-            {
-                BusinessDescription = BusinessDescription.Trim();
-            }
-            
+
+            //BusinessDescription = BusinessDescription.Trim();
             //WebAddress = WebAddress.Trim();
             //DomainLoginUrl = DomainLoginUrl.Trim();
             //DomainUsername = DomainUsername.Trim();
