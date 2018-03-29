@@ -5,70 +5,6 @@
     ViewData["Title"] = "Create a new task";
 }
 
-<<<<<<< HEAD
-<div class="container">
-
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-
-            <h2>@ViewData["Title"]</h2>
-            <hr />
-
-            <form asp-action="Create">
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="EmployeeId" class="control-label"></label>
-                    <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.ListPerson"></select>
-                </div>
-                <div class="form-group">
-                    <label asp-for="TaskListId" class="control-label"></label>
-                    <select asp-for="TaskListId" class="form-control" asp-items="ViewBag.TaskListId"></select>
-                </div>
-                <div class="form-group">
-                    <label asp-for="TaskName" class="control-label"></label>
-                    <input asp-for="TaskName" class="form-control" />
-                    <span asp-validation-for="TaskName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="TaskWeight" class="control-label"></label>
-                    <input asp-for="TaskWeight" class="form-control" />
-                    <span asp-validation-for="TaskWeight" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="TaskDescription" class="control-label"></label>
-                    <input asp-for="TaskDescription" class="form-control" />
-                    <span asp-validation-for="TaskDescription" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ExpectedDate" class="control-label"></label>
-                    <input asp-for="ExpectedDate" class="form-control" />
-                    <span asp-validation-for="ExpectedDate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="TaskDuration" class="control-label"></label>
-                    <input asp-for="TaskDuration" class="form-control" />
-                    <span asp-validation-for="TaskDuration" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="TaskActiveFlag" class="control-label"></label>
-                    <select asp-for="TaskActiveFlag" class="form-control">
-                        <option value="1">Open</option>
-                        <option value="2">Closed</option>
-                    </select>
-
-                    <span asp-validation-for="TaskActiveFlag" class="text-danger"></span>
-                </div>
-
-                <input type="submit" value="Create" class="btn btn-default center-block" />
-
-            </form>
-
-            <a asp-action="Index" class="btn btn-default ">Back to List</a>
-            
-        </div>
-        <div class="col-md-3"></div>
-
 <h4>Task</h4>
 <hr />
 <div class="row">
@@ -124,7 +60,6 @@
             </div>
 
         </form>
-
     </div>
     <div class="col-md-3"></div>
 </div>
