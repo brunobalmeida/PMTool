@@ -240,7 +240,7 @@ namespace PMTool.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, Employee employee, Person person, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model, Employee employee, Person person, Client client, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -265,7 +265,11 @@ namespace PMTool.Controllers
                 }
                 else if (flagEmpOrClient == "Client")
                 {
-                    // Add a client here
+                    //The next block creates a blank client
+                    var personId = person.PersonId;
+                    client.PersonId = personId;
+                    client.ClientActiveFlag = 1;
+                    _context.Add(client);
                 }
 
                 var licenseId = int.Parse(HttpContext.Session.GetString("licenseId"));
