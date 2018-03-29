@@ -159,7 +159,7 @@ namespace PmToolClassLibrary
                 MailAddress m = new MailAddress(email);
                 return true;
             }
-            catch (FormatException)
+            catch (Exception)
             {
                 return false;
             }
