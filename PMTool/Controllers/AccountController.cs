@@ -226,7 +226,7 @@ namespace PMTool.Controllers
                 HttpContext.Session.SetString(nameof(flagEmpOrClient), flagEmpOrClient);
 
                 ViewData["OwnersLicenseId"] = new SelectList(_context.OwnersLicense, "OwnersLicenseId", "Active");
-                ViewData["ProvinceId"] = new SelectList(_context.Province, "ProvinceId", "ProvinceCode");
+                ViewData["ProvinceId"] = new SelectList(_context.Province, "ProvinceId", "ProvinceName");
 
             }
             catch (Exception)
@@ -240,26 +240,57 @@ namespace PMTool.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, Employee employee,Person person, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model, Employee employee, Person person, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+                string flagEmpOrClient = HttpContext.Session.GetString("flagEmpOrClient");
+                if (flagEmpOrClient == null)
+                {
+                    TempData["Message"] = "The system could not identify the new user as a Client or Employee. Please contact admin for details.";
+                    return RedirectToAction("register", "account");
+                }
+
+                //The next line adds the person to Db
+                _context.Add(person);
+
+                if (flagEmpOrClient == "Employee")
+                {
+                    //The next block creates a blank employee
+                    var personId = person.PersonId;
+                    employee.PersonId = personId;
+                    employee.EmployeeActiveFlag = 1;
+                    _context.Add(employee); 
+                }
+                else if (flagEmpOrClient == "Client")
+                {
+                    // Add a client here
+                }
+
+                var licenseId = int.Parse(HttpContext.Session.GetString("licenseId"));
+                var firstPerson = _context.Person.SingleOrDefault(a => a.OwnersLicenseId == licenseId);
+
+                await _context.SaveChangesAsync();
+
+
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
 
-                    _context.Add(person);
-
-                    //var personId = await _context.SaveChangesAsync();
-                    var personId = person.PersonId;
-                    TempData["message"] = "Record Successfully added.";
-
-                    employee.PersonId = personId;
-                    employee.EmployeeActiveFlag = 1;
-                    _context.Add(employee);
-                    await _context.SaveChangesAsync();
+                    if (firstPerson == null)
+                    {
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                    }
+                    else if (flagEmpOrClient == "Employee")
+                    {
+                        await _userManager.AddToRoleAsync(user, "Employee");
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "Client");
+                    }
 
                     _logger.LogInformation("User created a new account with password.");
 
@@ -275,7 +306,7 @@ namespace PMTool.Controllers
             }
 
             ViewData["OwnersLicenseId"] = new SelectList(_context.OwnersLicense, "OwnersLicenseId", "Active");
-            ViewData["ProvinceId"] = new SelectList(_context.Province, "ProvinceId", "ProvinceCode");
+            ViewData["ProvinceId"] = new SelectList(_context.Province, "ProvinceId", "ProvinceName");
             // If we got this far, something failed, redisplay form
             return View(model);
         }

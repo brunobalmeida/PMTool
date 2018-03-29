@@ -18,3 +18,9 @@ td, th, p {
 dd{
     padding: 2px;
 }
+
+label {
+    font-size: 1.2em;
+    font-weight: bold;
+    
+}
