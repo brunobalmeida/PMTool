@@ -2,13 +2,15 @@
 @{
     ViewData["Title"] = "Projects";
 }
+
 <h2 class="display text-center">@ViewData["Title"]</h2>
+
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
             <div class="jumbotron">
-
+                
             </div>
         </div>
         <div class="col-md-8">
@@ -21,37 +23,40 @@
                         </button>
                     </div>
                 </div>
+
                 <br />
                 <ol class="row">
                     @foreach (var item in Model)
-                    {
-                        <li class="col-md-4">
-                            <a asp-controller="tasklist" asp-route-id="@item.ProjectId">
-                                <div class="card text-white bg-primary mb-3" style="max-width:400px;">
-                                    <div class="card-header">Project @Html.DisplayFor(modelItem => item.ProjectName)</div>
-                                    <div class="card-body">
-                                        <div class="card-text">Client website: @Html.DisplayFor(modelItem => item.Client.WebAddress)</div>
-                                        <div class="card-text">
-                                            Project status:@if (item.ProjectOpen == 1)
-                                            {
-                                                <b>OPEN</b>
-                                            }
-                                            else
-                                            {
-                                                <b>ARQUIVED</b>
-                                            }
-                                        </div>
-                                        <div class="card-text">End date: @Html.DisplayFor(modelItem => item.EndDate)</div>
+                {
+                    <li class="col-md-4">
+                        <a asp-controller="tasklist" asp-route-id="@item.ProjectId">
+                            <div class="card text-white bg-primary mb-3" style="max-width:400px;">
+                                <div class="card-header">Project @Html.DisplayFor(modelItem => item.ProjectName)</div>
+                                <div class="card-body">
+                                    <div class="card-text">Client website: @Html.DisplayFor(modelItem => item.Client.WebAddress)</div>
+                                    <div class="card-text">
+                                        Project status:@if (item.ProjectOpen == 1)
+                                    {
+                                        <b>OPEN</b>
+                                }
+                                else
+                                {
+                                    <b>ARQUIVED</b>
+                            }
                                     </div>
-                                    @*<div class="col-md-4"></div>
-                                        <div class="col-md-4">@Html.DisplayFor(modelItem => item.ProjectName)<br /></div>
-                                        <div class="col-md-4"></div>
-                                        <div>@Html.DisplayFor(modelItem => item.StartDate) - @Html.DisplayFor(modelItem => item.EndDate)</div>*@
-                                </div>
-                            </a>
-                        </li>
 
-                    }
+                                    <div class="card-text">End date: @Html.DisplayFor(modelItem => item.EndDate)</div>
+                                </div>
+
+                                @*<div class="col-md-4"></div>
+                                <div class="col-md-4">@Html.DisplayFor(modelItem => item.ProjectName)<br /></div>
+                                <div class="col-md-4"></div>
+                                <div>@Html.DisplayFor(modelItem => item.StartDate) - @Html.DisplayFor(modelItem => item.EndDate)</div>*@
+                            </div>
+                        </a>
+                    </li>
+
+            }
                 </ol>
             </div>
         </div>
