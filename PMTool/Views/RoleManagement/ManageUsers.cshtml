@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ApplicationUser>
+@{
+    ViewData["Title"] = "ManageUsers";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<form asp-action="AddUserToRole" >
+
+    <label>Users not in Role</label>
+    <select name="AddUser" asp-items="ViewBag.addUser" ></select>
+    <input type="submit"  value="Add User to Role" />
+</form>
+
+<h3>Users in Role</h3>
+<table class="table">
+    <tr>
+        <th>User name</th>
+        <th>Email</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.UserName</td>
+            <td>@item.Email</td>
+            <td>
+                <a asp-action="RemoveFromRole" asp-route-userName="@item.UserName">Remove from role</a>
+            </td>
+        </tr>
+    }
+
+
+</table>
