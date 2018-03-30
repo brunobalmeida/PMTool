@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" enctype="multipart/form-data">
             <h2 class="text-center font-weight-bold">Create a new account.</h2>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
@@ -81,7 +81,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="@person.PersonImage" class="control-label"></label>
-                <input asp-for="@person.PersonImage" class="form-control" />
+                <input type="file" asp-for="@person.PersonImage" class="form-control" />
                 <span asp-validation-for="@person.PersonImage" class="text-danger"></span>
             </div>
 
