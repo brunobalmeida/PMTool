@@ -273,7 +273,7 @@ namespace PMTool.Controllers
                 }
 
                 var licenseId = int.Parse(HttpContext.Session.GetString("licenseId"));
-                var firstPerson = _context.Person.SingleOrDefault(a => a.OwnersLicenseId == licenseId);
+                var firstPerson = _context.Person.FirstOrDefault(a => a.OwnersLicenseId == licenseId);
 
                 await _context.SaveChangesAsync();
 

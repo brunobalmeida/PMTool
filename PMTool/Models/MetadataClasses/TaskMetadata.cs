@@ -56,7 +56,7 @@ namespace PMTool.Models
     public class TaskMetadata
     {
         public int TaskId { get; set; }
-        [Required]
+        
         [Display(Name ="Colaborator")]
         public int? EmployeeId { get; set; }
         [Required]

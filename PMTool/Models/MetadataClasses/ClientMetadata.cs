@@ -12,189 +12,286 @@ namespace PMTool.Models
     {
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
+            //if (String.IsNullOrEmpty(BusinessDescription))
+            //{
+            //    yield return new ValidationResult("Business Description is Required",
+            //          new[] { nameof(BusinessDescription) });
+            //}
+            //if (String.IsNullOrEmpty(WebAddress))
+            //{
+            //    yield return new ValidationResult("WebAddress is Required",
+            //          new[] { nameof(WebAddress) });
+            //}
+            //if (String.IsNullOrEmpty(DomainLoginUrl))
+            //{
+            //    yield return new ValidationResult("Domain Login Url is Required",
+            //          new[] { nameof(DomainLoginUrl) });
+            //}
+            //if (String.IsNullOrEmpty(DomainUsername))
+            //{
+            //    yield return new ValidationResult("Domain Username is Required",
+            //          new[] { nameof(DomainUsername) });
+            //}
+            //if (String.IsNullOrEmpty(DomainPassword))
+            //{
+            //    yield return new ValidationResult("Domain Password is Required",
+            //          new[] { nameof(DomainPassword) });
+            //}
+            //if (String.IsNullOrEmpty(HostingLoginUrl))
+            //{
+            //    yield return new ValidationResult("Hosting Url is Required",
+            //          new[] { nameof(HostingLoginUrl) });
+            //}
 
-            if (String.IsNullOrEmpty(BusinessDescription))
-            {
-                yield return new ValidationResult("Business Description is Required",
-                      new[] { nameof(BusinessDescription) });
-            }
-            if (String.IsNullOrEmpty(WebAddress))
-            {
-                yield return new ValidationResult("WebAddress is Required",
-                      new[] { nameof(WebAddress) });
-            }
-            if (String.IsNullOrEmpty(DomainLoginUrl))
-            {
-                yield return new ValidationResult("Domain Login Url is Required",
-                      new[] { nameof(DomainLoginUrl) });
-            }
-            if (String.IsNullOrEmpty(DomainUsername))
-            {
-                yield return new ValidationResult("Domain Username is Required",
-                      new[] { nameof(DomainUsername) });
-            }
-            if (String.IsNullOrEmpty(DomainPassword))
-            {
-                yield return new ValidationResult("Domain Password is Required",
-                      new[] { nameof(DomainPassword) });
-            }
-            if (String.IsNullOrEmpty(HostingLoginUrl))
-            {
-                yield return new ValidationResult("Hosting Url is Required",
-                      new[] { nameof(HostingLoginUrl) });
-            }
+            //if (String.IsNullOrEmpty(HostingUserName))
+            //{
+            //    yield return new ValidationResult("Hosting Username is Required",
+            //          new[] { nameof(HostingUserName) });
+            //}
+            //if (String.IsNullOrEmpty(HostingPassword))
+            //{
+            //    yield return new ValidationResult("Hosting Password is Required",
+            //          new[] { nameof(HostingPassword) });
+            //}
 
-            if (String.IsNullOrEmpty(HostingUserName))
-            {
-                yield return new ValidationResult("Hosting Username is Required",
-                      new[] { nameof(HostingUserName) });
-            }
-            if (String.IsNullOrEmpty(HostingPassword))
-            {
-                yield return new ValidationResult("Hosting Password is Required",
-                      new[] { nameof(HostingPassword) });
-            }
+            //if (String.IsNullOrEmpty(TargetKeyPhases))
+            //{
+            //    yield return new ValidationResult("Target Key Phrases are Required",
+            //          new[] { nameof(TargetKeyPhases) });
+            //}
 
-            if (String.IsNullOrEmpty(TargetKeyPhases))
-            {
-                yield return new ValidationResult("Target Key Phrases are Required",
-                      new[] { nameof(TargetKeyPhases) });
-            }
+            //if (String.IsNullOrEmpty(TargetAreas))
+            //{
+            //    yield return new ValidationResult("Target Areas are Required",
+            //          new[] { nameof(TargetAreas) });
+            //}
 
-            if (String.IsNullOrEmpty(TargetAreas))
-            {
-                yield return new ValidationResult("Target Areas are Required",
-                      new[] { nameof(TargetAreas) });
-            }
+            //if (String.IsNullOrEmpty(CompetitorsUrl))
+            //{
+            //    yield return new ValidationResult("Competitor URLs Are Required",
+            //          new[] { nameof(CompetitorsUrl) });
+            //}
 
-            if (String.IsNullOrEmpty(CompetitorsUrl))
-            {
-                yield return new ValidationResult("Competitor URLs Are Required",
-                      new[] { nameof(CompetitorsUrl) });
-            }
+            //if (String.IsNullOrEmpty(MonthlyBudget.ToString()))
+            //{
+            //    yield return new ValidationResult("Monthly Budget Number is Required",
+            //          new[] { nameof(MonthlyBudget) });
+            //}
 
-            if (String.IsNullOrEmpty(MonthlyBudget.ToString()))
-            {
-                yield return new ValidationResult("Monthly Budget Number is Required",
-                      new[] { nameof(MonthlyBudget) });
-            }
+            //if (String.IsNullOrEmpty(MonthlyClientTarget.ToString()))
+            //{
+            //    yield return new ValidationResult("Monthly Clients Number is Required",
+            //          new[] { nameof(MonthlyClientTarget) });
+            //}
 
-            if (String.IsNullOrEmpty(MonthlyClientTarget.ToString()))
-            {
-                yield return new ValidationResult("Monthly Clients Number is Required",
-                      new[] { nameof(MonthlyClientTarget) });
-            }
+            ////WordPress Block Validation
+            //if (String.IsNullOrEmpty(WpLoginUrl))
+            //{
+            //    WpLoginUrl = "NA";
+            //}
+            //if (String.IsNullOrEmpty(WpPassword))
+            //{
+            //    WpPassword = "NA";
+            //}
+            //if (String.IsNullOrEmpty(WpUserName))
+            //{
+            //    WpUserName = "NA";
+            //}
 
-            //WordPress Block Validation
-            if (String.IsNullOrEmpty(WpLoginUrl))
-            {
-                WpLoginUrl = "NA";
-            }
-            if (String.IsNullOrEmpty(WpPassword))
-            {
-                WpPassword = "NA";
-            }
-            if (String.IsNullOrEmpty(WpUserName))
-            {
-                WpUserName = "NA";
-            }
+            ////Google Analytics Block Validation
+            //if (String.IsNullOrEmpty(GoogleAnalyticsUrl))
+            //{
+            //    GoogleAnalyticsUrl = "NA";
+            //}
+            //if (String.IsNullOrEmpty(GoogleAnalyticsPassword))
+            //{
+            //    GoogleAnalyticsPassword = "NA";
+            //}
+            //if (String.IsNullOrEmpty(GoogleAnalyticsUsername))
+            //{
+            //    GoogleAnalyticsUsername = "NA";
+            //}
 
-            //Google Analytics Block Validation
-            if (String.IsNullOrEmpty(GoogleAnalyticsUrl))
-            {
-                GoogleAnalyticsUrl = "NA";
-            }
-            if (String.IsNullOrEmpty(GoogleAnalyticsPassword))
-            {
-                GoogleAnalyticsPassword = "NA";
-            }
-            if (String.IsNullOrEmpty(GoogleAnalyticsUsername))
-            {
-                GoogleAnalyticsUsername = "NA";
-            }
+            ////Google Search Console Block Validation
+            //if (String.IsNullOrEmpty(GoogleSearchConsolePassword))
+            //{
+            //    GoogleSearchConsolePassword = "NA";
+            //}
+            //if (String.IsNullOrEmpty(GoogleSearchConsoleUrl))
+            //{
+            //    GoogleSearchConsoleUrl = "NA";
+            //}
+            //if (String.IsNullOrEmpty(GoogleSearchConsoleUsername))
+            //{
+            //    GoogleSearchConsoleUsername = "NA";
+            //}
 
-            //Google Search Console Block Validation
-            if (String.IsNullOrEmpty(GoogleSearchConsolePassword))
-            {
-                GoogleSearchConsolePassword = "NA";
-            }
-            if (String.IsNullOrEmpty(GoogleSearchConsoleUrl))
-            {
-                GoogleSearchConsoleUrl = "NA";
-            }
-            if (String.IsNullOrEmpty(GoogleSearchConsoleUsername))
-            {
-                GoogleSearchConsoleUsername = "NA";
-            }
+            ////Bing Webmaster Block Validation
+            //if (String.IsNullOrEmpty(BingWemasterToolsPassword))
+            //{
+            //    BingWemasterToolsPassword = "NA";
+            //}
+            //if (String.IsNullOrEmpty(BingWemasterToolsUrl))
+            //{
+            //    BingWemasterToolsUrl = "NA";
+            //}
+            //if (String.IsNullOrEmpty(BingWemasterToolsUsername))
+            //{
+            //    BingWemasterToolsUsername = "NA";
+            //}
 
-            //Bing Webmaster Block Validation
-            if (String.IsNullOrEmpty(BingWemasterToolsPassword))
-            {
-                BingWemasterToolsPassword = "NA";
-            }
-            if (String.IsNullOrEmpty(BingWemasterToolsUrl))
-            {
-                BingWemasterToolsUrl = "NA";
-            }
-            if (String.IsNullOrEmpty(BingWemasterToolsUsername))
-            {
-                BingWemasterToolsUsername = "NA";
-            }
+            ////Google MyBusiness Block Validation
+            //if (String.IsNullOrEmpty(GoogleMyBusinessPassword))
+            //{
+            //    GoogleMyBusinessPassword = "NA";
+            //}
+            //if (String.IsNullOrEmpty(GoogleMyBusinessUrl))
+            //{
+            //    GoogleMyBusinessUrl = "NA";
+            //}
+            //if (String.IsNullOrEmpty(GoogleMyBusinessUsername))
+            //{
+            //    GoogleMyBusinessUsername = "NA";
+            //}
 
-            //Google MyBusiness Block Validation
-            if (String.IsNullOrEmpty(GoogleMyBusinessPassword))
-            {
-                GoogleMyBusinessPassword = "NA";
-            }
-            if (String.IsNullOrEmpty(GoogleMyBusinessUrl))
-            {
-                GoogleMyBusinessUrl = "NA";
-            }
-            if (String.IsNullOrEmpty(GoogleMyBusinessUsername))
-            {
-                GoogleMyBusinessUsername = "NA";
-            }
 
             //Other fields Validation
-            if (String.IsNullOrEmpty(SocialMedia))
+            if (!String.IsNullOrEmpty(SocialMedia))
             {
-                SocialMedia = "NA";
+                SocialMedia = SocialMedia.Trim();
             }
-            
-            //BusinessDescription = BusinessDescription.Trim();           
-            //WebAddress = WebAddress.Trim();
-            //DomainLoginUrl = DomainLoginUrl.Trim();
-            //DomainUsername = DomainUsername.Trim();
-            //DomainPassword = DomainPassword.Trim();
-            //HostingLoginUrl = HostingLoginUrl.Trim();
-            //HostingUserName = HostingUserName.Trim();
-            //HostingPassword = HostingPassword.Trim();
-            //WpLoginUrl = WpLoginUrl.Trim();
-            //WpUserName = WpUserName.Trim();
-            //WpPassword = WpPassword.Trim();
-            //GoogleAnalyticsUrl = GoogleAnalyticsUrl.Trim();
-            //GoogleAnalyticsUsername = GoogleAnalyticsUsername.Trim();
-            //GoogleAnalyticsPassword = GoogleAnalyticsPassword.Trim();
-            //GoogleSearchConsoleUrl = GoogleSearchConsoleUrl.Trim();
-            //GoogleSearchConsoleUsername = GoogleSearchConsoleUsername.Trim();
-            //GoogleSearchConsolePassword = GoogleSearchConsolePassword.Trim();
-            //BingWemasterToolsUrl = BingWemasterToolsUrl.Trim();
-            //BingWemasterToolsUsername = BingWemasterToolsUsername.Trim();
-            //BingWemasterToolsPassword = BingWemasterToolsPassword.Trim();
-            //GoogleMyBusinessUrl = GoogleMyBusinessUrl.Trim();
-            //GoogleMyBusinessUsername = GoogleMyBusinessUsername.Trim();
-            //GoogleMyBusinessPassword = GoogleMyBusinessPassword.Trim();
-            //KeyWords = KeyWords.Trim();
-            //TargetKeyPhases = TargetKeyPhases.Trim();
-            //TargetAreas = TargetAreas.Trim();
-            //CompetitorsUrl = CompetitorsUrl.Trim();
-            //SocialMedia = SocialMedia.Trim();
-            //SocialMedia2 = SocialMedia2.Trim();
-            //SocialMedia3 = SocialMedia3.Trim();
-            //SocialMedia4 = SocialMedia4.Trim();
-            //OtherMarketingTypes = OtherMarketingTypes.Trim();
-           
-            //MarketingGoals = MarketingGoals.Trim();
+            if (!String.IsNullOrEmpty(BusinessDescription))
+            {
+                BusinessDescription = BusinessDescription.Trim();
+            }
+            if (!String.IsNullOrEmpty(WebAddress))
+            {
+                WebAddress = WebAddress.Trim();
+            }
+            if (!String.IsNullOrEmpty(DomainLoginUrl))
+            {
+                DomainLoginUrl = DomainLoginUrl.Trim();
+            }
+            if (!String.IsNullOrEmpty(DomainUsername))
+            {
+                DomainUsername = DomainUsername.Trim();
+            }
+            if (!String.IsNullOrEmpty(DomainPassword))
+            {
+                DomainPassword = DomainPassword.Trim();
+            }
+            if (!String.IsNullOrEmpty(HostingLoginUrl))
+            {
+                HostingLoginUrl = HostingLoginUrl.Trim();
+            }
+            if (!String.IsNullOrEmpty(HostingUserName))
+            {
+                HostingUserName = HostingUserName.Trim();
+            }
+            if (!String.IsNullOrEmpty(HostingPassword))
+            {
+                HostingPassword = HostingPassword.Trim();
+            }
+            if (!String.IsNullOrEmpty(WpLoginUrl))
+            {
+                WpLoginUrl = WpLoginUrl.Trim();
+            }
+            if (!String.IsNullOrEmpty(WpUserName))
+            {
+                WpUserName = WpUserName.Trim();
+            }
+            if (!String.IsNullOrEmpty(WpPassword))
+            {
+                WpPassword = WpPassword.Trim();
+            }
+            if (!String.IsNullOrEmpty(GoogleAnalyticsUrl))
+            {
+                GoogleAnalyticsUrl = GoogleAnalyticsUrl.Trim();
+            }
+            if (!String.IsNullOrEmpty(GoogleAnalyticsUsername))
+            {
+                GoogleAnalyticsUsername = GoogleAnalyticsUsername.Trim();
+            }
+            if (!String.IsNullOrEmpty(GoogleAnalyticsPassword))
+            {
+                GoogleAnalyticsPassword = GoogleAnalyticsPassword.Trim();
+            }
+            if (!String.IsNullOrEmpty(GoogleSearchConsoleUrl))
+            {
+                GoogleSearchConsoleUrl = GoogleSearchConsoleUrl.Trim();
+            }
+            if (!String.IsNullOrEmpty(GoogleSearchConsoleUsername))
+            {
+                GoogleSearchConsoleUsername = GoogleSearchConsoleUsername.Trim();
+            }
+            if (!String.IsNullOrEmpty(GoogleSearchConsolePassword))
+            {
+                GoogleSearchConsolePassword = GoogleSearchConsolePassword.Trim();
+            }
+            if (!String.IsNullOrEmpty(BingWemasterToolsUrl))
+            {
+                BingWemasterToolsUrl = BingWemasterToolsUrl.Trim();
+            }
+            if (!String.IsNullOrEmpty(BingWemasterToolsUsername))
+            {
+                BingWemasterToolsUsername = BingWemasterToolsUsername.Trim();
+            }
+            if (!String.IsNullOrEmpty(BingWemasterToolsPassword))
+            {
+                BingWemasterToolsPassword = BingWemasterToolsPassword.Trim();
+            }
+            if (!String.IsNullOrEmpty(GoogleMyBusinessUrl))
+            {
+                GoogleMyBusinessUrl = GoogleMyBusinessUrl.Trim();
+            }
+            if (!String.IsNullOrEmpty(GoogleMyBusinessUsername))
+            {
+                GoogleMyBusinessUsername = GoogleMyBusinessUsername.Trim();
+            }
+            if (!String.IsNullOrEmpty(GoogleMyBusinessPassword))
+            {
+                GoogleMyBusinessPassword = GoogleMyBusinessPassword.Trim();
+            }
+            if (!String.IsNullOrEmpty(KeyWords))
+            {
+                KeyWords = KeyWords.Trim();
+            }
+            if (!String.IsNullOrEmpty(TargetKeyPhases))
+            {
+                TargetKeyPhases = TargetKeyPhases.Trim();
+            }
+            if (!String.IsNullOrEmpty(TargetAreas))
+            {
+                TargetAreas = TargetAreas.Trim();
+            }
+            if (!String.IsNullOrEmpty(CompetitorsUrl))
+            {
+                CompetitorsUrl = CompetitorsUrl.Trim();
+            }
+            if (!String.IsNullOrEmpty(SocialMedia))
+            {
+                SocialMedia = SocialMedia.Trim();
+            }
+            if (!String.IsNullOrEmpty(SocialMedia2))
+            {
+                SocialMedia2 = SocialMedia2.Trim();
+            }
+            if (!String.IsNullOrEmpty(SocialMedia3))
+            {
+                SocialMedia3 = SocialMedia3.Trim();
+            }
+            if (!String.IsNullOrEmpty(SocialMedia4))
+            {
+                SocialMedia4 = SocialMedia4.Trim();
+            }
+            if (!String.IsNullOrEmpty(OtherMarketingTypes))
+            {
+                OtherMarketingTypes = OtherMarketingTypes.Trim();
+            }
+            if (!String.IsNullOrEmpty(MarketingGoals))
+            {
+                MarketingGoals = MarketingGoals.Trim();
+            }
 
             //ExpandPlaning = ExpandPlaning.Trim();
 
@@ -210,7 +307,7 @@ namespace PMTool.Models
     public class ClientMetadata 
     {
         public int ClientId { get; set; }
-        [Required(ErrorMessage = "Client Name is Required")]
+        
         [Display(Name = "Client Name")]
         public int PersonId { get; set; }
         
