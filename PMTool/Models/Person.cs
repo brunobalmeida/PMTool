@@ -28,5 +28,18 @@ namespace PMTool.Models
         public Province Province { get; set; }
         public ICollection<Client> Client { get; set; }
         public ICollection<Employee> Employee { get; set; }
+
+        public string GetPicture()
+        {
+            if (PersonImage == null)
+            {
+                return null;
+            }
+
+            var base64Image = System.Convert.ToBase64String(PersonImage);
+            return $"data:{ImageContentType};base64,{base64Image}";
+        }
+
+
     }
 }

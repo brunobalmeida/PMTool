@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -240,7 +241,7 @@ namespace PMTool.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, Employee employee, Person person, Client client, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model, Client client, Employee employee, Person person, IFormFile Picture, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -253,6 +254,17 @@ namespace PMTool.Controllers
                 }
 
                 //The next line adds the person to Db
+
+                if (Picture != null)
+                {
+                    using (var stream = new MemoryStream())
+                    {
+                        await Picture.CopyToAsync(stream);
+                        person.PersonImage = stream.ToArray();
+                        person.ImageContentType = Picture.ContentType;
+                    }
+                }
+                
                 _context.Add(person);
 
                 if (flagEmpOrClient == "Employee")
