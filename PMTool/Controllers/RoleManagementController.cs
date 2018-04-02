@@ -153,17 +153,21 @@ namespace PMTool.Controllers
 
         }
 
-        //public async Task<IActionResult> RemoveFromRole(string userName)
-        //{
-
-        //}
+        public IActionResult RemoveFromRole(string userName)
+        {
+            if (userName != null)
+            {
+                HttpContext.Session.SetString("userName", userName);
+            }
+            return View();
+        }
 
         [HttpPost]
-        public async Task<IActionResult> RemoveFromRole(string userName)
+        public async Task<IActionResult> RemoveFromRole()
         {
             try
             {
-
+                string userName = HttpContext.Session.GetString("userName");
                 ApplicationUser user = await _userManager.FindByNameAsync(userName);
                 IdentityResult result = await _userManager.RemoveFromRoleAsync(user, HttpContext.Session.GetString("roleName"));
                 if (result.Succeeded)

@@ -1,35 +1,42 @@
 ﻿@model IEnumerable<ApplicationUser>
 @{
-    ViewData["Title"] = "ManageUsers";
+    ViewData["Title"] = "Manage Users";
 }
+<br />
 
-<h2>@ViewData["Title"]</h2>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
 
+        <h2 class="text-center">@ViewData["Title"]</h2><br />
 
-<form asp-action="AddUserToRole" >
-
-    <label>Users not in Role</label>
-    <select name="AddUser" asp-items="ViewBag.addUser" ></select>
-    <input type="submit"  value="Add User to Role" />
-</form>
-
-<h3>Users in Role</h3>
-<table class="table">
-    <tr>
-        <th>User name</th>
-        <th>Email</th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.UserName</td>
-            <td>@item.Email</td>
-            <td>
-                <a asp-action="RemoveFromRole" asp-route-userName="@item.UserName">Remove from role</a>
-            </td>
-        </tr>
-    }
-
-
-</table>
+        <div class="text-center">
+            <form asp-action="AddUserToRole" class="form-control">
+                <h3>Users not in Role</h3>
+                <select name="AddUser" asp-items="ViewBag.addUser" class="form-control"></select><br /><br />
+                <input type="submit" value="Add User to Role" class="btn btn-light" />
+            </form>
+        </div>
+        
+        <br />
+        <div class="form-control">
+            <h3 class="text-center">Users in Role</h3>
+            <table class="table">
+                <tr>
+                    <th>User email</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Email</td>
+                <td>
+                    <a asp-action="RemoveFromRole" asp-route-userName="@item.UserName">Remove from role</a>
+                </td>
+            </tr>
+}
+            </table>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>

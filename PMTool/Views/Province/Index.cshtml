@@ -11,6 +11,8 @@
     }
 </style>
 
+<br />
+
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
@@ -18,7 +20,7 @@
         <h2 class="text-center">@ViewData["Title"]</h2>
         <p class="text-center">Select a province to edit, or insert a new province to the database.</p><br />
         <p>
-            <a asp-action="Create" class="btn btn-default center-block">Create New</a>
+            <a asp-action="Create" class="btn btn-light d-lg-block">Create New</a>
         </p>
         <table class="table">
             <thead>
@@ -49,13 +51,14 @@
                         @Html.DisplayFor(modelItem => item.Country.CountryName)
                     </td>
                     <td class="text-right">
-                        <a asp-action="Edit" asp-route-id="@item.ProvinceId" class="btn btn-success">Edit</a> 
-                        <a asp-action="Delete" asp-route-id="@item.ProvinceId" class="btn btn-danger">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.ProvinceId" class="btn btn-outline-success">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ProvinceId" class="btn btn-outline-danger">Delete</a>
                     </td>
                 </tr>
         }
             </tbody>
         </table>
+        <a asp-action="Index" asp-controller="Country" class="btn btn-outline-primary">Back to Countries</a>
     </div>
     <div class="col-md-3"></div>
 </div>

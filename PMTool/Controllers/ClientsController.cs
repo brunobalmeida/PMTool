@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,11 +8,10 @@ using PMTool.Models;
 using PmToolClassLibrary;
 using Microsoft.AspNetCore.Identity;
 using PMTool.Services;
-using Microsoft.AspNetCore.Authorization;
 
 namespace PMTool.Controllers
 {
-    
+
     public class ClientsController : Controller
     {
         private readonly PmToolDbContext _context;
