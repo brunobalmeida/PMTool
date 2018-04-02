@@ -1,26 +1,22 @@
 ﻿@model PMTool.Models.Project
 
-@{
-    ViewData["Title"] = "Details";
-}
-
-<h2>Details</h2>
-
-<div>
-    <h4>Project</h4>
+<div class="jumbotron" >
+    <h4 class="display-4">Project @Html.DisplayFor(model => model.ProjectName)</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ProjectOpen)
+
+            Project Status
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ProjectOpen)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ProjectName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProjectName)
+            @if(Model.ProjectOpen == 1)
+            {
+                <b>OPEN</b>
+            }
+            else
+            {
+                <b>ARQUIVED</b>
+            }
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.StartDate)
@@ -46,15 +42,9 @@
         <dd>
             @Html.DisplayFor(model => model.Client.BusinessDescription)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Employee)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Employee.EmployeeId)
-        </dd>
     </dl>
+    <a class="btn btn-outline-success" asp-action="Edit" asp-route-id="@Model.ProjectId" @*asp-route-projectId="@item.ProjectId" asp-route-projectName="@item.ProjectName" *@>Edit</a>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ProjectId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
