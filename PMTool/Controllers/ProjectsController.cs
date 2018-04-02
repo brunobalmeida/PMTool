@@ -50,7 +50,8 @@ namespace PMTool.Controllers
         // GET: Projects/Create
         public IActionResult Create()
         {
-            ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "WebAddress");
+            
+            ViewData["ClientId"] = new SelectList(_context.Person, "FirstName", "FirstName");
             ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
             return View();
         }
