@@ -51,7 +51,7 @@ namespace PMTool.Controllers
         public IActionResult Create()
         {
             
-            ViewData["ClientId"] = new SelectList(_context.Person, "FirstName", "FirstName");
+            ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "ClientId");
             ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
             return View();
         }
