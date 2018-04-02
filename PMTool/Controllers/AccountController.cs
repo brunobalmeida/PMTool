@@ -217,6 +217,9 @@ namespace PMTool.Controllers
         public IActionResult Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+
+          
+
             try
             {
                 int licenseId = int.Parse(Request.Query["licenseId"]);
@@ -229,11 +232,12 @@ namespace PMTool.Controllers
                 ViewData["OwnersLicenseId"] = new SelectList(_context.OwnersLicense, "OwnersLicenseId", "Active");
                 ViewData["ProvinceId"] = new SelectList(_context.Province, "ProvinceId", "ProvinceName");
 
+
             }
             catch (Exception)
             {
                 TempData["message"] = "Something went wrong with your data, try again later.";
-                return View();
+                return RedirectToAction("login","account");
             }
             return View();
         }
