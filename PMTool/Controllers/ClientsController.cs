@@ -10,9 +10,11 @@ using PMTool.Models;
 using PmToolClassLibrary;
 using Microsoft.AspNetCore.Identity;
 using PMTool.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PMTool.Controllers
 {
+    
     public class ClientsController : Controller
     {
         private readonly PmToolDbContext _context;

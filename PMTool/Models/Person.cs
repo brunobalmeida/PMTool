@@ -40,6 +40,5 @@ namespace PMTool.Models
             return $"data:{ImageContentType};base64,{base64Image}";
         }
 
-
     }
 }

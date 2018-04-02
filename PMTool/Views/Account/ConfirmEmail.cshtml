@@ -1,10 +1,22 @@
 ﻿@{
-    ViewData["Title"] = "Confirm email";
+    ViewData["Title"] = "Thanks for confirming your email";
 }
 
-<h2>@ViewData["Title"]</h2>
-<div>
-    <p>
-        Thank you for confirming your email.
-    </p>
+<style>
+    #thanks, h1 h2{
+        color: navy;
+    }
+</style>
+
+<br />
+<div id="thanks">
+    <h1 class="text-center font-weight-bold">@ViewData["Title"]</h1>
+    <h2 class="text-center font-weight-bold">
+        Enjoy our software!
+    </h2>
 </div>
+
+<div class="text-center">
+    <img src="~/images/thanks.jpg" alt="Thanks" width="550px" />
+</div>
+

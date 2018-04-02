@@ -1,8 +1,14 @@
 ﻿@{
-    ViewData["Title"] = "Access denied";
+    ViewData["Title"] = "Access denied!";
 }
 
 <header>
-    <h2 class="text-danger">ViewData["Title"]</h2>
-    <p class="text-danger">You do not have access to this resource.</p>
+    <br />
+    <h1 class="text-danger text-center font-weight-bold">@ViewData["Title"]</h1> 
+    <br />
+    <div class="text-center">
+        <img src="~/images/accessDenied.png" alt="access denied" width="100px" />
+    </div>
+    <h2 class="text-center font-weight-bold">Sorry but you do not have access to this resource.</h2>
+    <h2 class="text-center font-weight-bold">If you believe this is an error, please contact us. </h2>
 </header>

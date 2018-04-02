@@ -20,10 +20,44 @@ namespace PMTool.Controllers
         }
 
         // GET: TaskList
-        public async Task<IActionResult> Index(int? id)
+        public async Task<IActionResult> Index(int? projectId, string projectName)
         {
+            if (projectId != null)
+            {
+                HttpContext.Session.SetString("projectId", projectId.ToString());
+                HttpContext.Session.SetString("projectName", projectName);
+            }
+            else if (HttpContext.Session.GetString("projectId")!=null)
+            {
+                projectId = int.Parse(HttpContext.Session.GetString("projectId"));
+            }
+            else
+            {
+                TempData["message"] = "Please choose a project to see its task list first";
+                return RedirectToAction("index", "projects");
+            }
 
-            var pmToolDbContext = _context.TaskList.Include(t => t.Project).Include(t => t.Task).Where(x => x.ProjectId == id);
+            var taskListId = _context.TaskList.SingleOrDefault(a => a.ProjectId == projectId).TaskListId;
+            var tasksInTasklist = _context.Task.Where(a => a.TaskListId == taskListId);
+
+            double taskWeight = 1;
+            double completedTaskWeight = 0;
+            
+            foreach (var item in tasksInTasklist)
+            {
+                taskWeight += item.TaskWeight;
+                if (item.TaskActiveFlag == 0)
+                {
+                    completedTaskWeight += item.TaskWeight; 
+                }
+            }
+
+            double taskPercentage = completedTaskWeight / taskWeight;
+
+            ViewBag.TaskPercentage = taskPercentage;
+
+
+            var pmToolDbContext = _context.TaskList.Include(t => t.Project).Include(t => t.Task).Where(x => x.ProjectId == projectId);
             return View(await pmToolDbContext.ToListAsync());
         }
 
