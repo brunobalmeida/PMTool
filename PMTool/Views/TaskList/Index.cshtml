@@ -1,12 +1,15 @@
 ﻿@model IEnumerable<PMTool.Models.TaskList>
+@using Microsoft.AspNetCore.Http
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = $"Project {Context.Session.GetString("projectName")}";
 }
 
 
 <br />
-<h2 class="display text-center">Task lists</h2>
+<h2 class="display text-center">@ViewData["Title"]</h2>
+<div class="card mb-3">
+</div>
 
 <div class="jumbotron">
     <div class="row">
@@ -41,8 +44,7 @@
                                         </p>
                                     </div>
                                 </div>    
-                            </a>
-                               
+                            </a>      
                         }
                 </div>
             </li>
