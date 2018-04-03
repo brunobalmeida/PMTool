@@ -9,25 +9,25 @@
     <div class="col-md-4">
         <h2>@ViewData["Title"]</h2>
         <hr />
-        <div id="box">
-            <dl class="dl-horizontal">
-                <dt>
+        <div>
+            <dl class="text-center table-bordered rounded">
+                <dt class="table-bordered table-light rounded">
+                    Employee Name
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Person.FirstName) @Html.DisplayFor(model => model.Person.LastName)
+                </dd>
+                <dt class="table-bordered table-light rounded">
                     @Html.DisplayNameFor(model => model.EmployeeNumber)
                 </dt>
                 <dd>
                     @Html.DisplayFor(model => model.EmployeeNumber)
                 </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Person)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Person.Email)
-                </dd>
             </dl>
         </div>
-        <div>
-            <a asp-action="Edit" asp-route-id="@Model.EmployeeId" class="btn btn-primary">Edit</a> |
-            <a asp-action="Index">Back to List</a>
+        <div class="text-center">
+            <a asp-action="Edit" asp-route-id="@Model.EmployeeId" class="btn btn-outline-success">Edit</a> |
+            <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
         </div>
     </div>
     <div class="col-md-4"></div>

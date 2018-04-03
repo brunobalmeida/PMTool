@@ -4,43 +4,41 @@
     bool isDeveloper = User.IsInRole("Developer");
 }
 
+<br />
 <div class="row">
-
-
-    <h2>@ViewData["Title"]</h2>
-    @if (isDeveloper)
-    {
-        <form asp-action="AddRole">
-            <h3>Create New Role</h3>
-            <input type="text" name="roleName" />
-            <input type="submit" value="Create Role" />
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h2 class="text-center">@ViewData["Title"]</h2>
+        @if (isDeveloper)
+         {
+        <form asp-action="AddRole" class="form-group">
+            <h3 class="text-center">Create New Role</h3>
+            <input type="text" name="roleName" class="form-control"/><br />
+            <input type="submit" value="Create Role" class="btn btn-light d-lg-block"/>
         </form>
-    }
+         }
 
-
-    <table class="table">
-        <tr>
-            <th>
-                Role Name
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+        <table class="table">
+            <tr>
+                <th>
+                    Role 
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+             {
             <tr>
                 <td>@item.Name</td>
-                <td>
+                <td class="text-right">
                     @if (isDeveloper)
-                    {
-                    <a asp-action="DeleteRole" asp-route-roleName="@item.Name">Delete Role |</a>
-                    }
-                    <a asp-action="ManageUsers" asp-route-roleName="@item.Name">Manage Users</a>
+                     {
+                    <a asp-action="DeleteRole" asp-route-roleName="@item.Name" class="btn btn-outline-danger">Delete Role </a>
+                     }
+                    | <a asp-action="ManageUsers" asp-route-roleName="@item.Name" class="btn btn-outline-dark">Manage Users</a>
                 </td>
             </tr>
-        }
-
-
-    </table>
-
+             }
+        </table>
+    </div>
+    <div class="col-md-4"></div>
 </div>

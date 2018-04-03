@@ -10196,7 +10196,7 @@ a.list-group-item-danger.active {
 .dropbtn {
     background-color: #4CAF50;
     color: white;
-    padding: 16px;
+    padding: 16px 16px 0 16px;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -10206,6 +10206,7 @@ a.list-group-item-danger.active {
 .dropdown {
     position: relative;
     display: inline-block;
+    margin: 0 0 -0.7em -2em;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -10216,6 +10217,8 @@ a.list-group-item-danger.active {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    margin: 0 0 0 -4em ;
+
 }
 
     /* Links inside the dropdown */

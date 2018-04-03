@@ -3,6 +3,7 @@
     ViewData["Title"] = "Employee List";
 }
 
+<br />
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-3">
@@ -11,12 +12,12 @@
                 <div class="form-group">
                     <br /><br /><br />
                     <span style="display:inline-block">
-                        <label for="taEmail" style="display:block"><b>Create new employee<br />Type emails: (Separate by comma)</b></label>
+                        <label for="taEmail" style="display:block"><b>To create new employee<br />Type emails: (Separated by comma)</b></label>
                         <textarea rows="5" cols="50" id="taEmail" name="taEmail"></textarea>
                     </span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Create" class="btn btn-light d-lg-block" />
                 </div>
             </form>
         </div>
@@ -26,9 +27,9 @@
             <p>
                 <a asp-action="Create" class="btn btn-default center-block">Create New</a>
             </p>*@
-            <table class="table">
+            <table class="table table-bordered">
                 <thead>
-                    <tr>
+                    <tr class="text-center">
                         <th>
                             Employee Name
                         </th>
@@ -38,7 +39,7 @@
                         <th>
                             Address
                         </th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,12 +55,10 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Person.Address)
                             </td>
-                            <td>
-                                @*<a asp-action="Edit" asp-route-id="@item.EmployeeId">Edit</a>*@         
-                                <a asp-action="Details" asp-route-id="@item.EmployeeId" class="btn btn-default">HR Details</a> |
+                            <td class="text-center">
+                                <a asp-action="Details" asp-route-id="@item.EmployeeId" class="btn btn-outline-info">Employee Details</a> |
                                 <a asp-action="Details" asp-controller="Person" asp-route-firstName="@item.Person.FirstName" asp-route-lastName="@item.Person.LastName"
-                                   asp-route-id="@item.PersonId" class="btn btn-primary">Employee Details</a>
-                                @*<a asp-action="Delete" asp-route-id="@item.EmployeeId">Delete</a>*@
+                                   asp-route-id="@item.PersonId" class="btn btn-outline-primary">Personal Details</a>
                             </td>
                         </tr>
                     }
