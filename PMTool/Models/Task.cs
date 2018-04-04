@@ -17,12 +17,11 @@ namespace PMTool.Models
         public int TaskWeight { get; set; }
         public string TaskDescription { get; set; }
         public DateTime ExpectedDate { get; set; }
-        public int TaskDuration { get; set; }
+        public int? TaskActiveFlag { get; set; }
+        public int? TaskDuration { get; set; }
 
         public Employee Employee { get; set; }
         public TaskList TaskList { get; set; }
         public ICollection<TaskInfo> TaskInfo { get; set; }
-
-        public int TaskActiveFlag { get; set; }
     }
 }

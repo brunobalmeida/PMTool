@@ -27,38 +27,25 @@ namespace PMTool.Controllers
             return View(await pmToolDbContext.ToListAsync());
         }
 
-        // GET: Projects/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var project = await _context.Project
-                .Include(p => p.Client)
-                .Include(p => p.Employee)
-                .SingleOrDefaultAsync(m => m.ProjectId == id);
-            if (project == null)
-            {
-                return NotFound();
-            }
-
-            return View(project);
-        }
-
         // GET: Projects/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            
-            ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "ClientId");
-            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
+            var clients = _context.Client.Include(a => a.Person).ToList();
+            var employee = _context.Employee.Include(a => a.Person).ToList();
+
+
+            ViewData["ClientId"] = new SelectList(clients, "ClientId", "Person.FirstName");
+            //ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "ClientId");
+            ViewData["EmployeeId"] = new SelectList(employee, "EmployeeId", "Person.FirstName");
+
             return View();
         }
 
         // POST: Projects/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProjectId,ClientId,EmployeeId,ProjectOpen,ProjectName,StartDate,EndDate,ProjectDescription")] Project project)
@@ -82,6 +69,7 @@ namespace PMTool.Controllers
         }
 
         // GET: Projects/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -101,6 +89,7 @@ namespace PMTool.Controllers
         // POST: Projects/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProjectId,ClientId,EmployeeId,ProjectOpen,ProjectName,StartDate,EndDate,ProjectDescription")] Project project)
@@ -136,6 +125,7 @@ namespace PMTool.Controllers
         }
 
         // GET: Projects/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -156,6 +146,7 @@ namespace PMTool.Controllers
         }
 
         // POST: Projects/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

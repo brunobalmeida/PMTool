@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace PMTool.Controllers
 {
+    [Authorize(Roles = "Admin, ProjectAdmin, Employee")]
     public class TaskInfoController : Controller
     {
         private readonly PmToolDbContext _context;

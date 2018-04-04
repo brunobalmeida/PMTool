@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,7 @@ using PMTool.Models;
 
 namespace PMTool.Controllers
 {
+    [Authorize(Roles = "Owner")]
     public class ProvinceController : Controller
     {
         private readonly PmToolDbContext _context;

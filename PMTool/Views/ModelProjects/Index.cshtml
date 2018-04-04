@@ -1,0 +1,18 @@
+﻿@model IEnumerable<PMTool.Models.ModelProject>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 class="display text-center">@ViewData["Title"]</h2>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+                <label asp-for="ModelProjectId" class="control-label"></label>
+                <select asp-for="ModelProjectId" class="form-control" asp-items="ViewBag.ProjectId"></select>
+            </div>
+        </div>
+    </div>
+</div>

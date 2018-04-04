@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PMTool.Models;
@@ -9,6 +10,7 @@ using PMTool.Models.ViewModels;
 
 namespace PMTool.Controllers
 {
+    [Authorize(Roles ="Admin, Developers")]
     public class UserManagementController : Controller
     {
         private UserManager<ApplicationUser> _userManager;

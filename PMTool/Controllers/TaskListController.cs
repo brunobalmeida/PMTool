@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PMTool.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PMTool.Controllers
 {
+    
     public class TaskListController : Controller
     {
         private readonly PmToolDbContext _context;
@@ -20,6 +22,7 @@ namespace PMTool.Controllers
         }
 
         // GET: TaskList
+        [Authorize]
         public async Task<IActionResult> Index(int? projectId, string projectName)
         {
             if (projectId != null)
@@ -37,7 +40,7 @@ namespace PMTool.Controllers
                 return RedirectToAction("index", "projects");
             }
 
-            //Bruno, fix this conflict with the var pmToolDbContext
+            //Bruno, fix this conflict with the var pmToolDbContext - YOU GOT IT DUDE
             //var taskListId = _context.TaskList.FirstOrDefault(a => a.ProjectId == projectId).TaskListId;
             //var tasksInTasklist = _context.Task.Where(a => a.TaskListId == taskListId);
 
@@ -62,26 +65,8 @@ namespace PMTool.Controllers
             return View(await pmToolDbContext.ToListAsync());
         }
 
-        // GET: TaskList/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var taskList = await _context.TaskList
-                .Include(t => t.Project)
-                .SingleOrDefaultAsync(m => m.TaskListId == id);
-            if (taskList == null)
-            {
-                return NotFound();
-            }
-
-            return View(taskList);
-        }
-
         // GET: TaskList/Create
+        [Authorize(Roles = "Admin, ProjectAdmin")]
         public IActionResult Create()
         {
             ViewData["ProjectId"] = new SelectList(_context.Project, "ProjectId", "ProjectName");
@@ -91,6 +76,7 @@ namespace PMTool.Controllers
         // POST: TaskList/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, ProjectAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TaskListId,TaskListName,ProjectId,TaskListOpen")] TaskList taskList)
@@ -106,6 +92,7 @@ namespace PMTool.Controllers
         }
 
         // GET: TaskList/Edit/5
+        [Authorize(Roles = "Admin, ProjectAdmin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -125,6 +112,7 @@ namespace PMTool.Controllers
         // POST: TaskList/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, ProjectAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TaskListId,TaskListName,ProjectId,TaskListOpen")] TaskList taskList)
@@ -159,6 +147,7 @@ namespace PMTool.Controllers
         }
 
         // GET: TaskList/Delete/5
+        [Authorize(Roles = "Admin, ProjectAdmin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -178,6 +167,7 @@ namespace PMTool.Controllers
         }
 
         // POST: TaskList/Delete/5
+        [Authorize(Roles = "Admin, ProjectAdmin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

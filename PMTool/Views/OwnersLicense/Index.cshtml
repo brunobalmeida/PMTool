@@ -13,9 +13,9 @@
             <p>
                 <a asp-action="Create" class="btn btn-light d-lg-block">Create New</a>
             </p>
-            <table class="table">
+            <table class="table table-bordered">
                 <thead>
-                    <tr>
+                    <tr class="text-center">
                         <th>
                             @Html.DisplayNameFor(model => model.CompanyName)
                         </th>
@@ -25,30 +25,31 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Active)
                         </th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CompanyName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ExpireDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Active)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.OwnersLicenseId" class="btn btn-outline-success">Edit</a> |
-                                <a asp-action="Delete" asp-route-id="@item.OwnersLicenseId" class="btn btn-outline-danger">Delete</a>
-                            </td>
-                        </tr>
-                    }
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyName)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.ExpireDate)-
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.Active)
+                    </td>
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@item.OwnersLicenseId" class="btn btn-outline-success">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.OwnersLicenseId" class="btn btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+    }
                 </tbody>
             </table>
+            <a asp-action="Index" asp-controller="Projects" class="btn btn-outline-primary">Back to Projects</a>
         </div>
         <div class="col-md-2"></div>
     </div>
