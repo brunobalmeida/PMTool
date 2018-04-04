@@ -1,35 +1,36 @@
 ﻿@model PMTool.Models.TaskInfo
-
+@using Microsoft.AspNetCore.Http
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Insert comment";
 }
-
-<h2>Create</h2>
-
-<h4>TaskInfo</h4>
+<br />
+<h2 class="text-center">@ViewData["Title"]</h2>
 <hr />
 <div class="row">
+    <div class="col-md-4"></div>
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="TaskId" class="control-label"></label>
-                <select asp-for="TaskId" class ="form-control" asp-items="ViewBag.TaskId"></select>
+                @*<label asp-for="TaskId" class="control-label"></label>
+                <select asp-for="TaskId" class ="form-control" asp-items="ViewBag.TaskId"></select>*@
+                <input type="hidden" value="@Context.Session.GetString("id")" asp-for="TaskId"/>
             </div>
             <div class="form-group">
-                <label asp-for="TaskNote" class="control-label"></label>
-                <input asp-for="TaskNote" class="form-control" />
+                <label asp-for="TaskNote" class="control-label">Comment:</label>
+                <input type="text" asp-for="TaskNote" class="form-control" maxlength="500"/>
                 <span asp-validation-for="TaskNote" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Add" class="btn btn-default" />
             </div>
         </form>
     </div>
+    <div class="col-md-4"></div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
 </div>
 
 @section Scripts {

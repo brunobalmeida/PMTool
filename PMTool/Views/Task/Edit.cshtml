@@ -1,67 +1,74 @@
 ﻿@model PMTool.Models.Task
 
+<style>
+    label {
+        font-size: 125%;
+    }
+</style>
 @{
     ViewData["Title"] = "Edit";
 }
-
-<h2>Edit</h2>
-
-<h4>Task</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="TaskId" />
-            <div class="form-group">
-                <label asp-for="EmployeeId" class="control-label"></label>
-                <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
-                <span asp-validation-for="EmployeeId" class="text-danger"></span>
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <h2 class="text-center">@ViewData["Title"]</h2>
+        <hr />
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-5">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="TaskId" />
+                    <div class="form-group">
+                        <label asp-for="EmployeeId" class="control-label"></label>
+                        <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+                        <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TaskListId" class="control-label"></label>
+                        <select asp-for="TaskListId" class="form-control" asp-items="ViewBag.TaskListId"></select>
+                        <span asp-validation-for="TaskListId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TaskName" class="control-label"></label>
+                        <input asp-for="TaskName" class="form-control" />
+                        <span asp-validation-for="TaskName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TaskWeight" class="control-label"></label>
+                        <input asp-for="TaskWeight" class="form-control" />
+                        <span asp-validation-for="TaskWeight" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TaskDescription" class="control-label"></label>
+                        <input asp-for="TaskDescription" class="form-control" />
+                        <span asp-validation-for="TaskDescription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ExpectedDate" class="control-label"></label>
+                        <input asp-for="ExpectedDate" class="form-control" />
+                        <span asp-validation-for="ExpectedDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TaskDuration" class="control-label"></label>
+                        <input asp-for="TaskDuration" class="form-control" />
+                        <span asp-validation-for="TaskDuration" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TaskActiveFlag" class="control-label"></label>
+                        <input asp-for="TaskActiveFlag" class="form-control" />
+                        <span asp-validation-for="TaskActiveFlag" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </form>
+                <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
             </div>
-            <div class="form-group">
-                <label asp-for="TaskListId" class="control-label"></label>
-                <select asp-for="TaskListId" class="form-control" asp-items="ViewBag.TaskListId"></select>
-                <span asp-validation-for="TaskListId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TaskName" class="control-label"></label>
-                <input asp-for="TaskName" class="form-control" />
-                <span asp-validation-for="TaskName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TaskWeight" class="control-label"></label>
-                <input asp-for="TaskWeight" class="form-control" />
-                <span asp-validation-for="TaskWeight" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TaskDescription" class="control-label"></label>
-                <input asp-for="TaskDescription" class="form-control" />
-                <span asp-validation-for="TaskDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ExpectedDate" class="control-label"></label>
-                <input asp-for="ExpectedDate" class="form-control" />
-                <span asp-validation-for="ExpectedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TaskDuration" class="control-label"></label>
-                <input asp-for="TaskDuration" class="form-control" />
-                <span asp-validation-for="TaskDuration" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TaskActiveFlag" class="control-label"></label>
-                <input asp-for="TaskActiveFlag" class="form-control" />
-                <span asp-validation-for="TaskActiveFlag" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+            <div class="col-md-4"></div>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="col-md-4"></div>
 </div>
 
 @section Scripts {
