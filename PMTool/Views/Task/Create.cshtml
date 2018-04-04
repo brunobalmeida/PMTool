@@ -4,8 +4,8 @@
 @{
     ViewData["Title"] = "Create a new task";
 }
-
-<h4>Task</h4>
+<br />
+<h4 class="text-center">Task</h4>
 <hr />
 <div class="row">
     <div class="col-md-3"></div>
@@ -60,8 +60,12 @@
             </div>
 
         </form>
+        <div>
+            <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+        </div>
     </div>
     <div class="col-md-3"></div>
+ 
 </div>
 
 @section Scripts {

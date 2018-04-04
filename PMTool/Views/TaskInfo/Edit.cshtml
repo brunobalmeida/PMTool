@@ -1,37 +1,44 @@
 ﻿@model PMTool.Models.TaskInfo
 
+<style>
+    label {
+        font-size: 125%;
+    }
+</style>
 @{
     ViewData["Title"] = "Edit";
 }
-
-<h2>Edit</h2>
-
-<h4>TaskInfo</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="TaskInfoId" />
-            <div class="form-group">
-                <label asp-for="TaskId" class="control-label"></label>
-                <select asp-for="TaskId" class="form-control" asp-items="ViewBag.TaskId"></select>
-                <span asp-validation-for="TaskId" class="text-danger"></span>
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <h2 class="text-center">@ViewData["Title"]</h2>
+        <hr />
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-5">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="TaskInfoId" />
+                    <div class="form-group">
+                        <label asp-for="TaskId" class="control-label"></label>
+                        <select asp-for="TaskId" class="form-control" asp-items="ViewBag.TaskId"></select>
+                        <span asp-validation-for="TaskId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TaskNote" class="control-label"></label>
+                        <input asp-for="TaskNote" class="form-control" />
+                        <span asp-validation-for="TaskNote" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </form>
+                <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
             </div>
-            <div class="form-group">
-                <label asp-for="TaskNote" class="control-label"></label>
-                <input asp-for="TaskNote" class="form-control" />
-                <span asp-validation-for="TaskNote" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+            <div class="col-md-4"></div>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="col-md-4"></div>
 </div>
 
 @section Scripts {

@@ -1,41 +1,43 @@
 ﻿@model IEnumerable<PMTool.Models.TaskInfo>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Comments";
 }
 
-<h2>Index</h2>
+<h2 class="text-center">@ViewData["Title"]</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.TaskNote)
-                </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Task)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaskNote)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Task.TaskDescription)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TaskInfoId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TaskInfoId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TaskInfoId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 jumbotron">
+        <div class="list-group">
+            @foreach (var item in Model)
+            {
+                <div class="d-flex w-100 justify-content-between border-secondary">
+                        <div class="list-group-item list-group-item-action flex-column align-items-start border-secondary">
+                            <h5 class="mb-1">
+                                <i>@Html.DisplayFor(modelItem => item.TaskNote)</i>
+                            </h5>
+                            <small>
+                                @*@Html.DisplayFor(modelItem => item.Task.TaskDescription)*@
+                            </small>
+
+                            <div class="text-right">
+                                <a asp-action="Edit" asp-route-id="@item.TaskInfoId" class="glyphicon glyphicon-edit"></a>
+                                @*<a asp-action="Details" asp-route-id="@item.TaskInfoId" class="glyphicon glyphicon-eye-open"></a>*@
+                                <a asp-action="Delete" asp-route-id="@item.TaskInfoId" class="glyphicon glyphicon-trash"></a>
+                            </div>
+                        </div>
+                  </div>
+                    <br />
+            }
+            <div class="text-right">
+                <a asp-action="Create" class="btn btn-secondary">Add Comments</a>
+            </div>
+                </div>
+    </div>
+    <div class="col-md-3"></div>
+    <div>
+        <a asp-action="Index" asp-controller="task" class="btn btn-outline-primary">Back to List</a>
+    </div>
+</div>
