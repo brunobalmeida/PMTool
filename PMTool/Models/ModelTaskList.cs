@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PMTool.Models
 {
@@ -9,14 +7,14 @@ namespace PMTool.Models
     {
         public ModelTaskList()
         {
-            ModelProject = new HashSet<ModelProject>();
+            ModelTask = new HashSet<ModelTask>();
         }
 
         public int ModelTaskListId { get; set; }
         public string ModelTaskListName { get; set; }
         public int ModelProjectId { get; set; }
         public int ModelTaskListOpen { get; set; }
-
-        public ICollection<ModelProject> ModelProject { get; set; }
+        public ModelProject ModelProject { get; set; }
+        public ICollection<ModelTask> ModelTask { get; set; }
     }
 }

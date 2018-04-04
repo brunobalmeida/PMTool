@@ -7,7 +7,7 @@ namespace PMTool.Models
     {
         public ModelTask()
         {
-            ModelProjectTask = new HashSet<ModelProjectTask>();
+            ModelTaskInfo = new HashSet<ModelTaskInfo>();
         }
 
         public int ModelTaskId { get; set; }
@@ -15,10 +15,11 @@ namespace PMTool.Models
         public string ModelTaskName { get; set; }
         public string ModelTaskWeight { get; set; }
         public string ModelTaskDescription { get; set; }
-        public int ModelExpectedDate { get; set; }
-        public int ModelTaskDuration { get; set; }
-        public int ModelTaskActiveFlag { get; set; }
+        public DateTime ModeExpectedDate { get; set; }
+        public int? ModelTaskDuration { get; set; }
+        public int? ModelTaskActiveFlag { get; set; }
 
-        public ICollection<ModelProjectTask> ModelProjectTask { get; set; }
+        public ModelTaskList ModelTaskList { get; set; }
+        public ICollection<ModelTaskInfo> ModelTaskInfo { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Client list";
 }
-
+<br />
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-3">
@@ -22,12 +22,10 @@
         </div>
         <div class="col-md-9">
             <h2 class="text-center">@ViewData["Title"]</h2>
-            <p>
-                <a asp-action="Create" class="btn btn-default center-block">Create New</a>
-            </p>
-            <table class="table">
+            
+            <table class="table table-bordered">
                 <thead>
-                    <tr>
+                    <tr class="text-center">
                         <th>
                             Client
                         </th>
@@ -42,28 +40,24 @@
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
-                    {
+                     {
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Person.FirstName)  @Html.DisplayFor(modelItem => item.Person.LastName)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.WebAddress)
+                                @Html.DisplayFor(modelItem => item.WebAddress) 
                             </td>
-
-
-                            <td class="text-right">
-                                @*<a asp-action="Edit" asp-route-firstName="@item.Person.FirstName" asp-route-id="@item.ClientId" class="btn btn-success">Edit</a>*@ 
-                                <a asp-action="Details" asp-route-lastName="@item.Person.LastName" asp-route-firstName="@item.Person.FirstName" asp-route-id="@item.ClientId" class="btn btn-default">Company Details</a>
+                            <td class="text-center">
+                                <a asp-action="Details" asp-route-lastName="@item.Person.LastName" asp-route-firstName="@item.Person.FirstName" asp-route-id="@item.ClientId" class="btn btn-outline-info">Company Details</a> |
                                 <a asp-action="Details" asp-controller="Person" asp-route-firstName="@item.Person.FirstName" asp-route-lastName="@item.Person.LastName"
                                    asp-route-id="@item.PersonId" class="btn btn-primary">Client Details</a>
-                                @*<a asp-action="Delete" asp-route-firstName="@item.Person.FirstName" asp-route-id="@item.ClientId" class="btn btn-danger">Delete</a>*@
                             </td>
                         </tr>
-                    }
+                     }
                 </tbody>
             </table>
         </div>
-        @*<div class="col-md-2"></div>*@
+
     </div>
 </div>

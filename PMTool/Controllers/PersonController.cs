@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,7 @@ using PMTool.Models;
 
 namespace PMTool.Controllers
 {
+    [Authorize]
     public class PersonController : Controller
     {
         private readonly PmToolDbContext _context;
@@ -17,15 +19,6 @@ namespace PMTool.Controllers
         public PersonController(PmToolDbContext context)
         {
             _context = context;
-        }
-
-        // GET: Person
-        public async Task<IActionResult> Index(string flag)
-        {
-                                   
-            var pmToolDbContext = _context.Person.Include(p => p.OwnersLicense)
-                .Include(p => p.Province);
-            return View(await pmToolDbContext.ToListAsync());
         }
 
         // GET: Person/Details/5
@@ -60,10 +53,9 @@ namespace PMTool.Controllers
         }
 
         // GET: Person/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-
-
             try
             {
                 int licenseId = int.Parse(Request.Query["licenseId"]);
@@ -87,6 +79,7 @@ namespace PMTool.Controllers
         // POST: Person/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PersonId,FirstName,LastName,MiddleName,Address,Email,OwnersLicenseId,Address2,ProvinceId,PostalCode,PhoneNumber,PersonImage")] Person person)
@@ -98,7 +91,7 @@ namespace PMTool.Controllers
                     _context.Add(person);
                     await _context.SaveChangesAsync();
                     TempData["message"] = "Record Successfully added.";
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("index", "projects");
                 }
             }
             catch (Exception e)
@@ -162,13 +155,14 @@ namespace PMTool.Controllers
                 {
                     ModelState.AddModelError("", $"Error on Edit: {e.GetBaseException().Message}");
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("index","projects");
             }
             Create();
             return View(person);
         }
 
         // GET: Person/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -189,6 +183,7 @@ namespace PMTool.Controllers
         }
 
         // POST: Person/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -199,7 +194,7 @@ namespace PMTool.Controllers
                 _context.Person.Remove(person);
                 await _context.SaveChangesAsync();
                 TempData["message"] = "The record has been successfully Deleted";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("index","projects");
             }
             catch (Exception e)
             {

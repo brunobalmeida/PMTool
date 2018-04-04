@@ -22,9 +22,9 @@
         <p>
             <a asp-action="Create" class="btn btn-light d-lg-block">Create New</a>
         </p>
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th>
                         @Html.DisplayNameFor(model => model.ProvinceName)
                     </th>
@@ -34,28 +34,28 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Country)
                     </th>
-                    <th></th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProvinceName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProvinceCode)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Country.CountryName)
-                    </td>
-                    <td class="text-right">
-                        <a asp-action="Edit" asp-route-id="@item.ProvinceId" class="btn btn-outline-success">Edit</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ProvinceId" class="btn btn-outline-danger">Delete</a>
-                    </td>
-                </tr>
-        }
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProvinceName)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.ProvinceCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country.CountryName)
+                </td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.ProvinceId" class="btn btn-outline-success">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProvinceId" class="btn btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+}
             </tbody>
         </table>
         <a asp-action="Index" asp-controller="Country" class="btn btn-outline-primary">Back to Countries</a>

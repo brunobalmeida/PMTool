@@ -44,9 +44,9 @@ namespace PMTool.Models
         public string SocialMedia3 { get; set; }
         public string SocialMedia4 { get; set; }
         public string OtherMarketingTypes { get; set; }
-        public int MonthlyBudget { get; set; }
+        public int? MonthlyBudget { get; set; }
         public int? MonthlyClientTarget { get; set; }
-        public int ExpandPlaning { get; set; }
+        public int? ExpandPlaning { get; set; }
         public string MarketingGoals { get; set; }
         public int ClientActiveFlag { get; set; }
 

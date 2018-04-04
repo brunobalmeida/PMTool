@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PMTool.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PMTool.Controllers
 {
+
     public class TaskController : Controller
     {
         private readonly PmToolDbContext _context;
@@ -20,6 +22,7 @@ namespace PMTool.Controllers
         }
 
         // GET: Task
+        [Authorize(Roles = "Admin, ProjectAdmin, Employee")]
         public async Task<IActionResult> Index(int? id, String listName)
         {
             if (id != null)
@@ -38,6 +41,7 @@ namespace PMTool.Controllers
         }
 
         // GET: Task/Details/5
+        [Authorize(Roles = "Admin, ProjectAdmin, Employee")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -58,6 +62,7 @@ namespace PMTool.Controllers
         }
 
         // GET: Task/Create
+        [Authorize(Roles = "Admin, ProjectAdmin")]
         public IActionResult Create(int? id)
         {
             var listPerson = _context.Employee.Include(a => a.Person);
@@ -83,6 +88,7 @@ namespace PMTool.Controllers
         // POST: Task/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, ProjectAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TaskId,EmployeeId,TaskListId,TaskName,TaskWeight,TaskDescription,ExpectedDate,TaskDuration,TaskActiveFlag")] Models.Task task)
@@ -99,6 +105,7 @@ namespace PMTool.Controllers
         }
 
         // GET: Task/Edit/5
+        [Authorize(Roles = "Admin, ProjectAdmin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -119,6 +126,7 @@ namespace PMTool.Controllers
         // POST: Task/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, ProjectAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TaskId,EmployeeId,TaskListId,TaskName,TaskWeight,TaskDescription,ExpectedDate,TaskDuration,TaskActiveFlag")] Models.Task task)
@@ -154,6 +162,7 @@ namespace PMTool.Controllers
         }
 
         // GET: Task/Delete/5
+        [Authorize(Roles = "Admin, ProjectAdmin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -174,6 +183,7 @@ namespace PMTool.Controllers
         }
 
         // POST: Task/Delete/5
+        [Authorize(Roles = "Admin, ProjectAdmin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

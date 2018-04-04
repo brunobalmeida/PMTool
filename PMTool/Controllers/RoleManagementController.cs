@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using PMTool.Models;
 
 namespace PMTool.Controllers
 {
+    [Authorize(Roles = "Admin, Owner")]
     public class RoleManagementController : Controller
     {
 

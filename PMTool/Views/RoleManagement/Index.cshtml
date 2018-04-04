@@ -18,26 +18,26 @@
         </form>
          }
 
-        <table class="table">
-            <tr>
+        <table class="table table-bordered">
+            <tr class="text-center">
                 <th>
-                    Role 
+                    Role
                 </th>
-                <th></th>
+                <th>Actions</th>
             </tr>
             @foreach (var item in Model)
-             {
-            <tr>
-                <td>@item.Name</td>
-                <td class="text-right">
-                    @if (isDeveloper)
-                     {
-                    <a asp-action="DeleteRole" asp-route-roleName="@item.Name" class="btn btn-outline-danger">Delete Role </a>
-                     }
-                    | <a asp-action="ManageUsers" asp-route-roleName="@item.Name" class="btn btn-outline-dark">Manage Users</a>
-                </td>
-            </tr>
-             }
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td class="text-center">
+                @if (isDeveloper)
+        {
+            <a asp-action="DeleteRole" asp-route-roleName="@item.Name" class="btn btn-outline-danger">Delete Role </a>
+}
+                | <a asp-action="ManageUsers" asp-route-roleName="@item.Name" class="btn btn-outline-dark">Manage Users</a>
+            </td>
+        </tr>
+}
         </table>
     </div>
     <div class="col-md-4"></div>
