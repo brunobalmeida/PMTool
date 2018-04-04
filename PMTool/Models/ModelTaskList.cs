@@ -14,7 +14,6 @@ namespace PMTool.Models
         public string ModelTaskListName { get; set; }
         public int ModelProjectId { get; set; }
         public int ModelTaskListOpen { get; set; }
-
         public ModelProject ModelProject { get; set; }
         public ICollection<ModelTask> ModelTask { get; set; }
     }

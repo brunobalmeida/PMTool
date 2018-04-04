@@ -13,9 +13,9 @@ namespace PMTool.Models
         public int ModelTaskId { get; set; }
         public int ModelTaskListId { get; set; }
         public string ModelTaskName { get; set; }
-        public string ModelTaskWeight { get; set; }
+        public int ModelTaskWeight { get; set; }
         public string ModelTaskDescription { get; set; }
-        public DateTime ModeExpectedDate { get; set; }
+        public DateTime ModelExpectedDate { get; set; }
         public int? ModelTaskDuration { get; set; }
         public int? ModelTaskActiveFlag { get; set; }
 

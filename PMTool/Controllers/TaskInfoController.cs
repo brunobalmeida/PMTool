@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PMTool.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace PMTool.Controllers
 {
@@ -21,10 +22,21 @@ namespace PMTool.Controllers
         }
 
         // GET: TaskInfo
-
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(Int32? id)
         {
-            var pmToolDbContext = _context.TaskInfo.Include(t => t.Task);
+            if (id != null)
+            {
+                HttpContext.Session.SetString("id", id.ToString());
+            }else if (HttpContext.Session.GetString("id") != null)
+            {
+                id = Convert.ToInt32(HttpContext.Session.GetString("id"));
+            }
+            else
+            {
+                TempData["message"] = "You should choose a task to view the comments";
+            }
+
+            var pmToolDbContext = _context.TaskInfo.Where(a=>a.TaskId == id).Include(t => t.Task);
             return View(await pmToolDbContext.ToListAsync());
         }
 

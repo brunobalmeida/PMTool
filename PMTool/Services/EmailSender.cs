@@ -26,7 +26,7 @@ namespace PMTool.Services
 
         public Task ExecuteAsync(string apiKey, string subject, string message, string email)
         {
-            
+
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {

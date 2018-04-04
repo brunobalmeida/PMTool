@@ -273,7 +273,7 @@ namespace PMTool.Models
 
                 entity.Property(e => e.ModelTaskId).HasColumnName("modelTaskId");
 
-                entity.Property(e => e.ModeExpectedDate)
+                entity.Property(e => e.ModelExpectedDate)
                     .HasColumnName("modeExpectedDate")
                     .HasColumnType("date");
 
