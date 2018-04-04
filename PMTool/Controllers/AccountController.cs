@@ -67,6 +67,7 @@ namespace PMTool.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+                HttpContext.Session.Clear();
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
@@ -246,7 +247,7 @@ namespace PMTool.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, Client client, Employee employee, Person person, IFormFile Picture, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model, Client client, Employee employee, Person person, IFormFile PersonImage, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -260,16 +261,16 @@ namespace PMTool.Controllers
 
                 //The next line adds the person to Db
 
-                if (Picture != null)
+                if (PersonImage != null)
                 {
                     using (var stream = new MemoryStream())
                     {
-                        await Picture.CopyToAsync(stream);
+                        await PersonImage.CopyToAsync(stream);
                         person.PersonImage = stream.ToArray();
-                        person.ImageContentType = Picture.ContentType;
+                        person.ImageContentType = PersonImage.ContentType;
                     }
                 }
-                
+
                 _context.Add(person);
 
                 if (flagEmpOrClient == "Employee")

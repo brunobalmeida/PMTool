@@ -46,12 +46,15 @@
                     <dd>
                         @Html.DisplayFor(model => model.PhoneNumber)
                     </dd>
-                    <dt class="table-bordered table-light rounded">
-                        @Html.DisplayNameFor(model => model.PersonImage)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.PersonImage)
-                    </dd>
+                    @if (Model.GetPicture() != null)
+                     {
+                        <dt class="table-bordered table-light rounded">
+                            @Html.DisplayNameFor(model => model.PersonImage)
+                        </dt>
+                        <dd>
+                            <img src="@Model.GetPicture()" alt="Profile picture" width="150px" />
+                        </dd>
+                     }
                     <dt class="table-bordered table-light rounded">
                         @Html.DisplayNameFor(model => model.Province)
                     </dt>
@@ -61,8 +64,8 @@
                 </dl>
             </div>   
             <div class="text-center">
-                <a asp-action="Edit" asp-route-id="@Model.PersonId" class="btn btn-outline-success">Edit</a>
-                <a asp-controller="Person" asp-action="Delete" asp-route-id="@Model.PersonId" class="btn btn-outline-danger">Delete</a>
+                <a asp-action="Edit" asp-route-id="@Model.PersonId" class="btn btn-outline-success">Edit</a> |
+                <a asp-action="Index" asp-controller="Projects" class="btn btn-outline-primary">Back to Projects</a>
             </div>
     </div>
 

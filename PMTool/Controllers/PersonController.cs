@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -116,7 +117,7 @@ namespace PMTool.Controllers
                 return NotFound();
             }
             ViewData["OwnersLicenseId"] = new SelectList(_context.OwnersLicense, "OwnersLicenseId", "OwnersLicenseId", person.OwnersLicenseId);
-            ViewData["ProvinceId"] = new SelectList(_context.Province, "ProvinceId", "ProvinceCode", person.ProvinceId);
+            ViewData["ProvinceId"] = new SelectList(_context.Province, "ProvinceId", "ProvinceName", person.ProvinceId);
             return View(person);
         }
 
@@ -125,7 +126,7 @@ namespace PMTool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PersonId,FirstName,LastName,MiddleName,Address,Email,OwnersLicenseId,Address2,ProvinceId,PostalCode,PhoneNumber,PersonImage")] Person person)
+        public async Task<IActionResult> Edit(int id, [Bind("PersonId,FirstName,LastName,MiddleName,Address,Email,OwnersLicenseId,Address2,ProvinceId,PostalCode,PhoneNumber,PersonImage")] Person person, IFormFile PersonImage)
         {
             if (id != person.PersonId)
             {
@@ -136,6 +137,16 @@ namespace PMTool.Controllers
             {
                 try
                 {
+                    if (PersonImage != null)
+                    {
+                        using (var stream = new MemoryStream())
+                        {
+                            await PersonImage.CopyToAsync(stream);
+                            person.PersonImage = stream.ToArray();
+                            person.ImageContentType = PersonImage.ContentType;
+                        }
+                    }
+
                     _context.Update(person);
                     await _context.SaveChangesAsync();
                     TempData["message"] = "The record has been successfully updated";

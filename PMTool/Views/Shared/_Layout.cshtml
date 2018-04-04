@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PMTool</title>
     @*<link href="@Url.Content("~/css/main.css")" rel="stylesheet" type="text/css" />
-    @RenderSection("Styles", false)*@   
+        @RenderSection("Styles", false)*@
     <environment include="Development">
         <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link href="~/css/site.css" rel="stylesheet" />
@@ -13,26 +13,31 @@
     </environment>
     <environment exclude="Development">
         @*<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/css/mystyle.css" asp-append-version="true" />*@
+                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+            <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/mystyle.css" asp-append-version="true" />*@
         <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link href="~/css/site.css" rel="stylesheet" />
         <link href="~/css/mystyle.css" rel="stylesheet" />
     </environment>
 </head>
 
-@{ 
+@{
+
     Boolean isOwner = User.IsInRole("Owner");
     Boolean isAdmin = User.IsInRole("Admin");
     Boolean isClient = User.IsInRole("Client");
+
+    @using PMTool.Models
+    @using Microsoft.AspNetCore.Http
+
 }
 
 
 <body>
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-    
+
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -64,6 +69,12 @@
 
                     </ul>
                 </div>
+                @if (@Context.Session.GetString("profilePicture")!=null)
+    {
+            <img src="@Context.Session.GetString("profilePicture")" alt="Profile Picture" width="50px" />
+}
+
+
                 <div class="col-md-4">
                     @await Html.PartialAsync("_LoginPartial")
                 </div>

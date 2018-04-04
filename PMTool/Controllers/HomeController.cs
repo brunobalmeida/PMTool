@@ -10,6 +10,7 @@ namespace PMTool.Controllers
 {
     public class HomeController : Controller
     {
+
         public IActionResult Index()
         {
             return RedirectToAction("index", "projects");

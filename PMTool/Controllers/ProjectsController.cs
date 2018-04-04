@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,15 +16,30 @@ namespace PMTool.Controllers
     public class ProjectsController : Controller
     {
         private readonly PmToolDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ProjectsController(PmToolDbContext context)
+        public ProjectsController(PmToolDbContext context,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Projects
         public async Task<IActionResult> Index()
         {
+            var user = _userManager.GetUserName(User);
+            var person = _context.Person.FirstOrDefault(a => a.Email == user);
+            string personName = person.FirstName;
+            HttpContext.Session.SetString("personName", personName);
+
+            if (person.GetPicture() != null)
+            {
+                var profilePicture = person.GetPicture();
+                HttpContext.Session.SetString("profilePicture", profilePicture); 
+            }
+
+
             var pmToolDbContext = _context.Project.Include(p => p.Client).Include(p => p.Employee);
             return View(await pmToolDbContext.ToListAsync());
         }
