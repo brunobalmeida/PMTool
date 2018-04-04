@@ -7,13 +7,14 @@ namespace PMTool.Models
     {
         public ModelProject()
         {
-            ModelProjectTask = new HashSet<ModelProjectTask>();
+            ModelTaskList = new HashSet<ModelTaskList>();
         }
 
         public int ModelProjectId { get; set; }
-        public string ModelName { get; set; }
-        public string ModelDescription { get; set; }
+        public int ModelProjectOpen { get; set; }
+        public string ModelProjectName { get; set; }
+        public string ModelProjectDescription { get; set; }
 
-        public ICollection<ModelProjectTask> ModelProjectTask { get; set; }
+        public ICollection<ModelTaskList> ModelTaskList { get; set; }
     }
 }

@@ -9,9 +9,11 @@ using PMTool.Models;
 using Microsoft.AspNetCore.Identity;
 using PMTool.Services;
 using PmToolClassLibrary;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PMTool.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly PmToolDbContext _context;
@@ -26,6 +28,7 @@ namespace PMTool.Controllers
         }
 
         // GET: Employee
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var pmToolDbContext = _context.Employee.Include(e => e.Person);
@@ -52,6 +55,7 @@ namespace PMTool.Controllers
         }
 
         // GET: Employee/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["PersonId"] = new SelectList(_context.Person, "PersonId", "Email");
@@ -61,6 +65,7 @@ namespace PMTool.Controllers
         // POST: Employee/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EmployeeId,PersonId,EmployeeNumber")] Employee employee, string taEmail)
@@ -76,10 +81,8 @@ namespace PMTool.Controllers
                 if (ModelState.IsValid)
                 {
                     
-                    //var pmToolDbContext = _context.OwnersLicense.Include(a => a.Person);
                     var user = await _userManager.GetUserAsync(User);
 
-                    //string emailToRegister = taEmail;
                     string flagEmpOrClient = "Employee";
                     var emailCheck = user.Email;
                     int licenseId = _context.Person.FirstOrDefault(a => a.Email == emailCheck).OwnersLicenseId;
@@ -88,10 +91,6 @@ namespace PMTool.Controllers
                     await _emailSender.SendEmailRegistrationAsync(licenseEmail, callbackUrl);
                     TempData["message"] = "The employee has been successfully added and the verification email sent.";
                     return RedirectToAction(nameof(Index));
-                    //_context.Add(employee);
-                    //await _context.SaveChangesAsync();
-                    //TempData["message"] = "Record Successfully added.";
-                    //return RedirectToAction(nameof(Index));
                 }
             }
             catch (Exception e)
@@ -103,6 +102,7 @@ namespace PMTool.Controllers
         }
 
         // GET: Employee/Edit/5
+        [Authorize(Roles = "Admin, Employee")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -122,6 +122,7 @@ namespace PMTool.Controllers
         // POST: Employee/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("EmployeeId,PersonId,EmployeeNumber")] Employee employee)
@@ -157,6 +158,7 @@ namespace PMTool.Controllers
         }
 
         // GET: Employee/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -176,6 +178,7 @@ namespace PMTool.Controllers
         }
 
         // POST: Employee/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

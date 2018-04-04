@@ -8,10 +8,11 @@ using PMTool.Models;
 using PmToolClassLibrary;
 using Microsoft.AspNetCore.Identity;
 using PMTool.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PMTool.Controllers
 {
-
+    [Authorize]
     public class ClientsController : Controller
     {
         private readonly PmToolDbContext _context;
@@ -26,6 +27,7 @@ namespace PMTool.Controllers
         }
 
         // GET: Clients
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var pmToolDbContext = _context.Client.Include(c => c.Person)
@@ -64,9 +66,9 @@ namespace PMTool.Controllers
         }
 
         // GET: Clients/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-           
             ViewData["PersonId"] = new SelectList(_context.Person, "PersonId", "FirstName");
             return View();
         }
@@ -74,6 +76,7 @@ namespace PMTool.Controllers
         // POST: Clients/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ClientId,PersonId,BusinessDescription,WebAddress,DomainLoginUrl,DomainUsername,DomainPassword,HostingLoginUrl,HostingUserName,HostingPassword,WpLoginUrl,WpUserName,WpPassword,GoogleAnalyticsUrl,GoogleAnalyticsUsername,GoogleAnalyticsPassword,GoogleSearchConsoleUrl,GoogleSearchConsoleUsername,GoogleSearchConsolePassword,BingWemasterToolsUrl,BingWemasterToolsUsername,BingWemasterToolsPassword,GoogleMyBusinessUrl,GoogleMyBusinessUsername,GoogleMyBusinessPassword,KeyWords,TargetKeyPhases,TargetAreas,CompetitorsUrl,SocialMedia,SocialMedia2,SocialMedia3,SocialMedia4,OtherMarketingTypes,MonthlyBudget,MonthlyClientTarget,ExpandPlaning,MarketingGoals")] Client client, string taEmail)
@@ -85,13 +88,7 @@ namespace PMTool.Controllers
             }
             try
             {
-                //if (ModelState.IsValid)
-                //{
-
-                    //var pmToolDbContext = _context.OwnersLicense.Include(a => a.Person);
                     var user = await _userManager.GetUserAsync(User);
-
-                    //string emailToRegister = taEmail;
                     string flagEmpOrClient = "Client";
                     var emailCheck = user.Email;
                     int licenseId = _context.Person.FirstOrDefault(a => a.Email == emailCheck).OwnersLicenseId;
@@ -100,11 +97,7 @@ namespace PMTool.Controllers
                     await _emailSender.SendEmailRegistrationAsync(licenseEmail, callbackUrl);
                     TempData["message"] = "The client has been successfully added and the verification email sent.";
                     return RedirectToAction(nameof(Index));
-                    //_context.Add(employee);
-                    //await _context.SaveChangesAsync();
-                    //TempData["message"] = "Record Successfully added.";
-                    //return RedirectToAction(nameof(Index));
-                //}
+                
             }
             catch (Exception e)
             {
@@ -112,32 +105,17 @@ namespace PMTool.Controllers
             }
             Create();
             return View(client);
-            //try
-            //{
-            //    if (ModelState.IsValid)
-            //    {
-            //        _context.Add(client);
-            //        await _context.SaveChangesAsync();
-            //        TempData["message"] = "The Client's data has been successfully added to the database.";
-            //        return RedirectToAction(nameof(Index));
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-            //    ModelState.AddModelError("", $"Create error:{e.GetBaseException().Message}");
-            //}
-            //Create();
-            //return View(client);
+
         }
 
         // GET: Clients/Edit/5
+        [Authorize(Roles = "Admin, Client")]
         public async Task<IActionResult> Edit(int? id, string firstName)
         {
             if (firstName != null)
             {
                 ViewBag.firstName = firstName;
             }
-
            
             if (id == null)
             {
@@ -156,6 +134,7 @@ namespace PMTool.Controllers
         // POST: Clients/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, Client")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ClientId,PersonId,BusinessDescription,WebAddress,DomainLoginUrl,DomainUsername,DomainPassword,HostingLoginUrl,HostingUserName,HostingPassword,WpLoginUrl,WpUserName,WpPassword,GoogleAnalyticsUrl,GoogleAnalyticsUsername,GoogleAnalyticsPassword,GoogleSearchConsoleUrl,GoogleSearchConsoleUsername,GoogleSearchConsolePassword,BingWemasterToolsUrl,BingWemasterToolsUsername,BingWemasterToolsPassword,GoogleMyBusinessUrl,GoogleMyBusinessUsername,GoogleMyBusinessPassword,KeyWords,TargetKeyPhases,TargetAreas,CompetitorsUrl,SocialMedia,SocialMedia2,SocialMedia3,SocialMedia4,OtherMarketingTypes,MonthlyBudget,MonthlyClientTarget,ExpandPlaning,MarketingGoals")] Client client)
@@ -191,6 +170,7 @@ namespace PMTool.Controllers
         }
 
         // GET: Clients/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id, string firstName)
         {
             if (firstName != null)
@@ -215,6 +195,7 @@ namespace PMTool.Controllers
         }
 
         // POST: Clients/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -241,6 +222,7 @@ namespace PMTool.Controllers
 
 
         //Method to change the client flag status 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteClient(int id)
         {
             try

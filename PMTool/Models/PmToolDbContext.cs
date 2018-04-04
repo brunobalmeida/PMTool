@@ -10,8 +10,9 @@ namespace PMTool.Models
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<ModelProject> ModelProject { get; set; }
-        public virtual DbSet<ModelProjectTask> ModelProjectTask { get; set; }
         public virtual DbSet<ModelTask> ModelTask { get; set; }
+        public virtual DbSet<ModelTaskInfo> ModelTaskInfo { get; set; }
+        public virtual DbSet<ModelTaskList> ModelTaskList { get; set; }
         public virtual DbSet<OwnersLicense> OwnersLicense { get; set; }
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<Project> Project { get; set; }
@@ -20,11 +21,12 @@ namespace PMTool.Models
         public virtual DbSet<TaskInfo> TaskInfo { get; set; }
         public virtual DbSet<TaskList> TaskList { get; set; }
 
-        public PmToolDbContext(DbContextOptions<PmToolDbContext>options):base(options)
+        public PmToolDbContext(DbContextOptions<PmToolDbContext> options) : base(options)
         { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<Client>(entity =>
             {
                 entity.ToTable("client");
@@ -47,10 +49,11 @@ namespace PMTool.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.BusinessDescription)
-                    .IsRequired()
                     .HasColumnName("businessDescription")
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+                entity.Property(e => e.ClientActiveFlag).HasColumnName("clientActiveFlag");
 
                 entity.Property(e => e.CompetitorsUrl)
                     .HasColumnName("competitorsUrl")
@@ -72,7 +75,7 @@ namespace PMTool.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ExpandPlaning).HasColumnName("expandPlaning"); 
+                entity.Property(e => e.ExpandPlaning).HasColumnName("expandPlaning");
 
                 entity.Property(e => e.GoogleAnalyticsPassword)
                     .HasColumnName("googleAnalyticsPassword")
@@ -155,8 +158,6 @@ namespace PMTool.Models
 
                 entity.Property(e => e.PersonId).HasColumnName("personId");
 
-                entity.Property(e => e.ClientActiveFlag).HasColumnName("clientActiveFlag");
-
                 entity.Property(e => e.SocialMedia)
                     .HasColumnName("socialMedia")
                     .HasMaxLength(255)
@@ -233,11 +234,11 @@ namespace PMTool.Models
 
                 entity.Property(e => e.EmployeeId).HasColumnName("employeeId");
 
+                entity.Property(e => e.EmployeeActiveFlag).HasColumnName("employeeActiveFlag");
+
                 entity.Property(e => e.EmployeeNumber).HasColumnName("employeeNumber");
 
                 entity.Property(e => e.PersonId).HasColumnName("personId");
-
-                entity.Property(e => e.EmployeeActiveFlag).HasColumnName("employeeActiveFlag");
 
                 entity.HasOne(d => d.Person)
                     .WithMany(p => p.Employee)
@@ -252,39 +253,18 @@ namespace PMTool.Models
 
                 entity.Property(e => e.ModelProjectId).HasColumnName("modelProjectId");
 
-                entity.Property(e => e.ModelDescription)
-                    .HasColumnName("modelDescription")
+                entity.Property(e => e.ModelProjectDescription)
+                    .HasColumnName("modelProjectDescription")
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ModelName)
+                entity.Property(e => e.ModelProjectName)
                     .IsRequired()
-                    .HasColumnName("modelName")
+                    .HasColumnName("modelProjectName")
                     .HasMaxLength(255)
                     .IsUnicode(false);
-            });
 
-            modelBuilder.Entity<ModelProjectTask>(entity =>
-            {
-                entity.ToTable("modelProjectTask");
-
-                entity.Property(e => e.ModelProjectTaskId).HasColumnName("modelProjectTaskId");
-
-                entity.Property(e => e.ModelProjectId).HasColumnName("modelProjectId");
-
-                entity.Property(e => e.ModelTaskId).HasColumnName("modelTaskId");
-
-                entity.HasOne(d => d.ModelProject)
-                    .WithMany(p => p.ModelProjectTask)
-                    .HasForeignKey(d => d.ModelProjectId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FKmodelProje471037");
-
-                entity.HasOne(d => d.ModelTask)
-                    .WithMany(p => p.ModelProjectTask)
-                    .HasForeignKey(d => d.ModelTaskId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FKmodelProje677680");
+                entity.Property(e => e.ModelProjectOpen).HasColumnName("modelProjectOpen");
             });
 
             modelBuilder.Entity<ModelTask>(entity =>
@@ -293,7 +273,11 @@ namespace PMTool.Models
 
                 entity.Property(e => e.ModelTaskId).HasColumnName("modelTaskId");
 
-                entity.Property(e => e.ModelProjectId).HasColumnName("modelProjectId");
+                entity.Property(e => e.ModeExpectedDate)
+                    .HasColumnName("modeExpectedDate")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.ModelTaskActiveFlag).HasColumnName("modelTaskActiveFlag");
 
                 entity.Property(e => e.ModelTaskDescription)
                     .IsRequired()
@@ -302,6 +286,8 @@ namespace PMTool.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.ModelTaskDuration).HasColumnName("modelTaskDuration");
+
+                entity.Property(e => e.ModelTaskListId).HasColumnName("modelTaskListId");
 
                 entity.Property(e => e.ModelTaskName)
                     .IsRequired()
@@ -313,6 +299,55 @@ namespace PMTool.Models
                     .HasColumnName("modelTaskWeight")
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.ModelTaskList)
+                    .WithMany(p => p.ModelTask)
+                    .HasForeignKey(d => d.ModelTaskListId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FKmodelTask191515");
+            });
+
+            modelBuilder.Entity<ModelTaskInfo>(entity =>
+            {
+                entity.ToTable("modelTaskInfo");
+
+                entity.Property(e => e.ModelTaskInfoId).HasColumnName("modelTaskInfoId");
+
+                entity.Property(e => e.ModelTaskId).HasColumnName("modelTaskId");
+
+                entity.Property(e => e.ModelTaskNote)
+                    .HasColumnName("modelTaskNote")
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.ModelTask)
+                    .WithMany(p => p.ModelTaskInfo)
+                    .HasForeignKey(d => d.ModelTaskId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FKmodelTaskInfo308517");
+            });
+
+            modelBuilder.Entity<ModelTaskList>(entity =>
+            {
+                entity.ToTable("modelTaskList");
+
+                entity.Property(e => e.ModelTaskListId).HasColumnName("modelTaskListId");
+
+                entity.Property(e => e.ModelProjectId).HasColumnName("modelProjectId");
+
+                entity.Property(e => e.ModelTaskListName)
+                    .IsRequired()
+                    .HasColumnName("modelTaskListName")
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ModelTaskListOpen).HasColumnName("modelTaskListOpen");
+
+                entity.HasOne(d => d.ModelProject)
+                    .WithMany(p => p.ModelTaskList)
+                    .HasForeignKey(d => d.ModelProjectId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FKmodelTaskList471036");
             });
 
             modelBuilder.Entity<OwnersLicense>(entity =>
@@ -327,12 +362,6 @@ namespace PMTool.Models
                     .HasMaxLength(3)
                     .IsUnicode(false);
 
-                entity.Property(e => e.LicenseEmail)
-                    .IsRequired()
-                    .HasColumnName("licenseEmail")
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.CompanyName)
                     .IsRequired()
                     .HasColumnName("companyName")
@@ -342,6 +371,12 @@ namespace PMTool.Models
                 entity.Property(e => e.ExpireDate)
                     .HasColumnName("expireDate")
                     .HasColumnType("date");
+
+                entity.Property(e => e.LicenseEmail)
+                    .IsRequired()
+                    .HasColumnName("licenseEmail")
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Person>(entity =>
@@ -366,20 +401,15 @@ namespace PMTool.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property((System.Linq.Expressions.Expression<Func<Person, byte[]>>)(e => (byte[])e.PersonImage))
-                   .IsRequired()
-                   .HasColumnName("personImage")
-                   .HasColumnType("image");
-
-                entity.Property(e => e.ImageContentType)
-                   .HasColumnName("imageContentType")
-                   .HasMaxLength(50)
-                   .IsUnicode(false);
-
                 entity.Property(e => e.FirstName)
                     .IsRequired()
                     .HasColumnName("firstName")
                     .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ImageContentType)
+                    .HasColumnName("imageContentType")
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.LastName)
@@ -396,9 +426,8 @@ namespace PMTool.Models
                 entity.Property(e => e.OwnersLicenseId).HasColumnName("ownersLicenseId");
 
                 entity.Property(e => e.PersonImage)
-                .IsRequired()
-                .HasColumnName("personImage")
-                .HasColumnType("image");
+                    .HasColumnName("personImage")
+                    .HasColumnType("image");
 
                 entity.Property(e => e.PhoneNumber)
                     .IsRequired()
@@ -448,9 +477,10 @@ namespace PMTool.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.ProjectName)
-                .HasColumnName("projectName")
-                .HasMaxLength(255)
-                .IsUnicode(false);
+                    .IsRequired()
+                    .HasColumnName("projectName")
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.ProjectOpen).HasColumnName("projectOpen");
 
@@ -510,6 +540,8 @@ namespace PMTool.Models
                     .HasColumnName("expectedDate")
                     .HasColumnType("date");
 
+                entity.Property(e => e.TaskActiveFlag).HasColumnName("taskActiveFlag");
+
                 entity.Property(e => e.TaskDescription)
                     .IsRequired()
                     .HasColumnName("taskDescription")
@@ -538,8 +570,6 @@ namespace PMTool.Models
                     .HasForeignKey(d => d.TaskListId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FKtask191516");
-
-                entity.Property(e => e.TaskActiveFlag).HasColumnName("taskActiveFlag");
             });
 
             modelBuilder.Entity<TaskInfo>(entity =>
