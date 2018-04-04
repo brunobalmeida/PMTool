@@ -8,6 +8,7 @@ using PMTool.Models;
 using PmToolClassLibrary;
 using Microsoft.AspNetCore.Identity;
 using PMTool.Services;
+using System.Collections.Generic;
 
 namespace PMTool.Controllers
 {
@@ -78,15 +79,21 @@ namespace PMTool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ClientId,PersonId,BusinessDescription,WebAddress,DomainLoginUrl,DomainUsername,DomainPassword,HostingLoginUrl,HostingUserName,HostingPassword,WpLoginUrl,WpUserName,WpPassword,GoogleAnalyticsUrl,GoogleAnalyticsUsername,GoogleAnalyticsPassword,GoogleSearchConsoleUrl,GoogleSearchConsoleUsername,GoogleSearchConsolePassword,BingWemasterToolsUrl,BingWemasterToolsUsername,BingWemasterToolsPassword,GoogleMyBusinessUrl,GoogleMyBusinessUsername,GoogleMyBusinessPassword,KeyWords,TargetKeyPhases,TargetAreas,CompetitorsUrl,SocialMedia,SocialMedia2,SocialMedia3,SocialMedia4,OtherMarketingTypes,MonthlyBudget,MonthlyClientTarget,ExpandPlaning,MarketingGoals")] Client client, string taEmail)
         {
-            if (!Validations.EmailValidation(taEmail))
+            IList<string> stringList;
+            stringList = taEmail.Split(',').ToList();
+            //replace
+
+            foreach(string item in stringList)
             {
-                TempData["message"] = "Email can not be empty or is not in a valid format.";
-                return RedirectToAction("Index");
-            }
-            try
-            {
-                //if (ModelState.IsValid)
-                //{
+                if (!Validations.EmailValidation(item))
+                {
+                    TempData["message"] = "Email can not be empty or is not in a valid format.";
+                    return RedirectToAction("Index");
+                }
+                try
+                {
+                    //if (ModelState.IsValid)
+                    //{
 
                     //var pmToolDbContext = _context.OwnersLicense.Include(a => a.Person);
                     var user = await _userManager.GetUserAsync(User);
@@ -95,23 +102,26 @@ namespace PMTool.Controllers
                     string flagEmpOrClient = "Client";
                     var emailCheck = user.Email;
                     int licenseId = _context.Person.FirstOrDefault(a => a.Email == emailCheck).OwnersLicenseId;
-                    var licenseEmail = taEmail;
+                    var licenseEmail = item;
                     var callbackUrl = Url.EmailRegistrationLink(licenseId, licenseEmail, Request.Scheme, flagEmpOrClient);
                     await _emailSender.SendEmailRegistrationAsync(licenseEmail, callbackUrl);
                     TempData["message"] = "The client has been successfully added and the verification email sent.";
-                    return RedirectToAction(nameof(Index));
+                    
                     //_context.Add(employee);
                     //await _context.SaveChangesAsync();
                     //TempData["message"] = "Record Successfully added.";
                     //return RedirectToAction(nameof(Index));
-                //}
+                    //}
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", $"Create error:{e.GetBaseException().Message}");
+                }
             }
-            catch (Exception e)
-            {
-                ModelState.AddModelError("", $"Create error:{e.GetBaseException().Message}");
-            }
-            Create();
-            return View(client);
+            return RedirectToAction(nameof(Index));
+            //Create();
+            //return View(client);
+
             //try
             //{
             //    if (ModelState.IsValid)

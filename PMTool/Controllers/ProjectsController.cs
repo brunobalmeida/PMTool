@@ -50,9 +50,13 @@ namespace PMTool.Controllers
         // GET: Projects/Create
         public IActionResult Create()
         {
-            
-            ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "ClientId");
-            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
+            var clients = _context.Client.Include(a => a.Person).ToList();
+            var employee = _context.Employee.Include(a => a.Person).ToList();
+
+
+            ViewData["ClientId"] = new SelectList(clients, "ClientId", "Person.FirstName");
+            //ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "ClientId");
+            ViewData["EmployeeId"] = new SelectList(employee, "EmployeeId", "Person.FirstName");
             return View();
         }
 
