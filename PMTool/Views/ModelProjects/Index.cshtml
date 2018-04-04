@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PMTool.Models.ModelProject>
+﻿@model PMTool.Models.ModelProject
 
 @{
     ViewData["Title"] = "Index";
@@ -10,8 +10,12 @@
     <div class="row">
         <div class="col-md-12">
             <div class="jumbotron">
-                <label asp-for="ModelProjectId" class="control-label"></label>
-                <select asp-for="ModelProjectId" class="form-control" asp-items="ViewBag.ProjectId"></select>
+                <form asp-action="Create">
+                    <label asp-for="ModelProjectId" class="control-label"></label>
+                    <select asp-for="ModelProjectId" name="id" id="id" class="form-control" asp-items="ViewBag.ModelProjectId"></select>
+                    <br />
+                    <input type="submit" value="Load Model" class="btn btn-default" />
+                </form>
             </div>
         </div>
     </div>

@@ -6,22 +6,28 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PMTool.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace PMTool.Controllers
 {
     public class ModelProjectsController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly PmToolDbContext _context;
 
-        public ModelProjectsController(PmToolDbContext context)
+        public ModelProjectsController(PmToolDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: ModelProjects
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ModelProject.ToListAsync());
+            var modelProjects = _context.ModelProject;
+
+            ViewData["ModelProjectId"] = new SelectList(modelProjects, "ModelProjectId", "ModelProjectName");
+            return View();
         }
 
         // GET: ModelProjects/Details/5
@@ -45,9 +51,7 @@ namespace PMTool.Controllers
         // GET: ModelProjects/Create
         public IActionResult Create()
         {
-            var projects = _context.ModelProject.ToList();
-
-            ViewData["ProjectId"] = new SelectList(projects, "ProjectId", "ProjectId");
+            
 
             return View();
         }
@@ -59,66 +63,69 @@ namespace PMTool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int? id)
         {
-            var modelProject = await _context.ModelProject.Include(a => a.ModelTaskList).Include(a => a.ModelTask).Include(a => a.ModelTaskInfo).SingleOrDefaultAsync(m => m.ModelProjectId == id);
-            //new Project
-            var newProject = new Project
+            var modelProject = await _context.ModelProject
+                //.Include(a => a.ModelTaskList.Select(b => b.ModelTask.Select(c => c.ModelTaskInfo)))
+                .SingleOrDefaultAsync(m => m.ModelProjectId == id);
 
+
+            //.Include(a => a.ModelTask).Include(a => a.ModelTaskInfo)
+            //new Project
+            var user = _userManager.GetUserName(User);
+            var personId = _context.Person.FirstOrDefault(a => a.Email == user).PersonId;
+            var newProject = new Project
             {
-                ProjectName = modelProject.ModelName,
-                ProjectDescription = modelProject.ModelDescription,
-                ProjectOpen = 1
+                
+                ClientId = 1,
+                EmployeeId = _context.Employee.FirstOrDefault(a => a.PersonId == personId).EmployeeId,
+                ProjectName = modelProject.ModelProjectName,
+                ProjectDescription = modelProject.ModelProjectDescription,
+                ProjectOpen = 1,
+                StartDate = DateTime.Now
 
             };
             _context.Add(newProject);
-            //New Task List
-            foreach (var itemTaskList in modelProject.modelTaskList)
-            {
-                var projectId = newProject.ProjectId;
-                var newTaskList = new TaskList
-                {
-                    TaskListName = modelProject.modelTaskList.ModelTaskListName,
-                    ProjectId = modelProject.modelTaskList.ModelProjectId,
-                    TaskListOpen = 1
-                };
-                _context.Add(newTaskList);
-                //New Task
-                foreach (var itemTask in modelProject.modelTaskList.modelTask)
-                {
-                    var taskListId = newTaskList.TaskListId;
-                    var newTask = new Models.Task
-                    {
-                        TaskListId = modelProject.modelTaskList.modelTask.ModelTaskListId,
-                        TaskName = modelProject.modelTaskList.modelTask.ModelTaskName,
-                        TaskWeight = modelProject.modelTaskList.modelTask.ModelTaskWeight,
-                        TaskDescription = modelProject.modelTaskList.modelTask.ModelTaskDescription,
-                        ExpectedDate = modelProject.modelTaskList.modelTask.ModelExpectedDate,
-                        TaskActiveFlag = modelProject.modelTaskList.modelTask.ModelTaskActiveFlag,
-                        TaskDuration = modelProject.modelTaskList.modelTask.ModelTaskDuration
-                    };
-                    _context.Add(newTask);
-                    foreach(var itemTaskInfo in modelProject.modelTaskList.modelTask.modelTaskInfo)
-                    {
-                        var taskInfoId = newTask.TaskId;
-                        var newTaskInfo = new TaskInfo
-                        {
-                            TaskId = modelProject.modelTaskList.modelTask.modelTaskInfo.ModelTaskId,
-                            TaskNote = modelProject.modelTaskList.modelTask.modelTaskInfo.ModelTaskNote
-                        };
-                        _context.Add(newTaskInfo);
-                    }
-                }
-            }
-            //_context.Add(newTaskList);
+            ////New Task List
+            //foreach (var itemTaskList in modelProject.ModelTaskList)
+            //{
+            //    var projectId = newProject.ProjectId;
+            //    var newTaskList = new TaskList
+            //    {
+            //        TaskListName = itemTaskList.ModelTaskListName,
+            //        ProjectId = itemTaskList.ModelProjectId,
+            //        TaskListOpen = 1
+            //    };
+            //    _context.Add(newTaskList);
+            //    //New Task
+            //    foreach (var itemTask in itemTaskList.ModelTask)
+            //    {
+            //        var taskListId = newTaskList.TaskListId;
+            //        var newTask = new Models.Task
+            //        {
+            //            TaskListId = itemTask.ModelTaskListId,
+            //            TaskName = itemTask.ModelTaskName,
+            //            TaskWeight = itemTask.ModelTaskWeight,
+            //            TaskDescription = itemTask.ModelTaskDescription,
+            //            ExpectedDate = itemTask.ModelExpectedDate,
+            //            TaskActiveFlag = itemTask.ModelTaskActiveFlag,
+            //            TaskDuration = itemTask.ModelTaskDuration
+            //        };
+            //        _context.Add(newTask);
+            //        foreach(var itemTaskInfo in itemTask.ModelTaskInfo)
+            //        {
+            //            var taskInfoId = newTask.TaskId;
+            //            var newTaskInfo = new TaskInfo
+            //            {
+            //                TaskId = itemTaskInfo.ModelTaskId,
+            //                TaskNote = itemTaskInfo.ModelTaskNote
+            //            };
+            //            _context.Add(newTaskInfo);
+            //        }
+            //    }
+            //}
 
             await _context.SaveChangesAsync();
+            TempData["message"] = "The Project has been successfully loaded.";
             return RedirectToAction(nameof(Index));
-            //if (ModelState.IsValid)
-            //{
-            //    _context.Add(modelProject);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //return View(modelProject);
         }
 
         // GET: ModelProjects/Edit/5
