@@ -32,8 +32,11 @@
                         <span asp-validation-for="EmployeeId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="ProjectOpen" class="control-label"></label>
-                        <input id="ProjectOpen" name="ProjectOpen" type="checkbox" value=@Model.ProjectOpen />
+                        <label asp-for="ProjectOpen" class="control-label"></label><br />
+                        <select asp-for="ProjectOpen" class="form-control">
+                            <option value="1">Open</option>
+                            <option value="0">Closed</option>
+                        </select>
                         <span asp-validation-for="ProjectOpen" class="text-danger"></span>
                     </div>
                     <div class="form-group">

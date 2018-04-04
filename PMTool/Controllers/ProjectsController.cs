@@ -40,7 +40,9 @@ namespace PMTool.Controllers
             }
 
 
-            var pmToolDbContext = _context.Project.Include(p => p.Client).Include(p => p.Employee);
+            var pmToolDbContext = _context.Project.Include(p => p.Client)
+                .Include(p => p.Employee)
+                .OrderByDescending(a=>a.ProjectOpen);
             return View(await pmToolDbContext.ToListAsync());
         }
 
@@ -135,6 +137,11 @@ namespace PMTool.Controllers
                         ModelState.AddModelError("", "This record has already been updated");
                     }
                 }
+                catch(Exception e)
+                {
+                    ModelState.AddModelError("", $"An error has happen on editing. {e.GetBaseException().Message}");
+                }
+                TempData["message"] = "The project has been updated.";
                 return RedirectToAction(nameof(Index));
             }
             Create();

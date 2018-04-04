@@ -5,6 +5,7 @@
     ViewData["Title"] = $"Project {Context.Session.GetString("projectName")}";
 }
 
+
 <br />
 <h2 class="display text-center">@ViewData["Title"]</h2>
 
@@ -23,9 +24,13 @@
             <li class="col-md-4">
                 <div class="card bg-secondary mb-3" style="color: darkslategray;">
                         <div >
-                            <h5 class="card-header"><a asp-controller="task" asp-route-id="@item.TaskListId" asp-route-listName="@item.TaskListName">@Html.DisplayName(item.TaskListName)</a>
-                                <a asp-action="edit" asp-controller="taskList" asp-route-id="@item.TaskListId" class="glyphicon glyphicon-wrench bg-info"></a>
-                                <a asp-action="delete" asp-controller="taskList" asp-route-id="@item.TaskListId" class="glyphicon glyphicon-trash bg-info"></a>
+                            <h5 class="card-header"><a asp-controller="task" asp-route-id="@item.TaskListId" asp-route-listName="@item.TaskListName" class="font-weight-bold">@Html.DisplayName(item.TaskListName)</a>
+                                <a asp-action="edit" asp-controller="taskList" asp-route-id="@item.TaskListId">
+                                    <span class="glyphicon glyphicon-wrench text-dark"></span>
+                                </a>
+                                <a asp-action="delete" asp-controller="taskList" asp-route-id="@item.TaskListId">
+                                    <span class="glyphicon glyphicon-trash text-dark"></span>
+                                </a>
                             </h5>
                             <br />
                         </div>
@@ -33,7 +38,7 @@
                         {
                             
                                 <div class="card border-info mb-3" style="min-width:280px; margin:auto; color:steelblue; font-size:12px;">
-                                    <div class="card-header"  style="font-size: 14px;">Task:@Html.DisplayFor(modelItem => taskItem.TaskName)
+                                    <div class="card-header font-weight-bold"  style="font-size: 14px;">Task:@Html.DisplayFor(modelItem => taskItem.TaskName)
                                     </div>
 
                                     <div class="card-body">

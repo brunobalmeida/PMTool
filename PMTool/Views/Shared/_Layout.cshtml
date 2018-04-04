@@ -40,13 +40,13 @@
 
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle btn-group-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">PMTool</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand text-primary font-weight-bold">PMTool</a>
             </div>
 
 
@@ -63,7 +63,7 @@
                 <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Clients" asp-action="Index">Clients</a></li>
     if (isOwner)
     {
-            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="OwnersLicense" asp-action="Index">License</a></li>
+            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="OwnersLicense" asp-action="Index">Add a License</a></li>
 }
 }
 
@@ -71,7 +71,7 @@
                 </div>
                 @if (@Context.Session.GetString("profilePicture")!=null)
     {
-            <img src="@Context.Session.GetString("profilePicture")" alt="Profile Picture" width="50px" />
+            <img src="@Context.Session.GetString("profilePicture")" alt="Profile Picture" width="50px" class="rounded-circle"/>
 }
 
 
@@ -89,6 +89,7 @@
                 <div class="dropdown-content" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" asp-action="Index" asp-controller="RoleManagement">Role Management</a>
                     <a class="dropdown-item" asp-action="Index" asp-controller="Country">Country Management</a>
+                    <a class="dropdown-item" href="#">Edit Personal Data</a>
                 </div>
             </div>
 }

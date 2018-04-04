@@ -16,46 +16,78 @@
                 <div class="row">
                     <div class="col-md-1"></div>
                     <div class="col-md-4">
-                        <a asp-action="Create" class="btn btn-secondary">Add project</a>
-                        <a asp-controller="ModelProjects" asp-action="Index" class="btn btn-secondary">Load project model</a>
+                        <a asp-action="Create" class="btn btn-light">Add project</a>
+                        <a asp-controller="ModelProjects" asp-action="Index" class="btn btn-light">Load project model</a>
                     </div>
 
                 </div>
                 <br />
                 <ol class="row">
                     @foreach (var item in Model)
-                    {
-                        <li class="col-md-4">
+    {
+        if (item.ProjectOpen == 1)
+        {
+                <li class="col-md-4">
+
+                    <div class="card text-white mb-3" style="max-width:400px; background-color:#002776;">
+                        <div class="card-header">
                             
-                                <div class="card text-white bg-primary mb-3" style="max-width:400px;">
-                                    <div class="card-header text-left">Project @Html.DisplayFor(modelItem => item.ProjectName)
-                                        <a asp-action="edit" asp-controller="projects" asp-route-id="@item.ProjectId" class="glyphicon glyphicon-wrench bg-info"></a>
-                                        <a asp-action="delete" asp-controller="projects" asp-route-id="@item.ProjectId" class="glyphicon glyphicon-trash bg-info"></a>
-                                        </div>
+                            <span class="font-weight-bold">Project @Html.DisplayFor(modelItem => item.ProjectName)</span>
 
-                                   
-                                        <div class="card-body">
-                                            <a class="text-white bg-primary" asp-controller="tasklist" asp-route-projectId="@item.ProjectId" asp-route-projectName="@item.ProjectName">
-                                                <div class="card-text">Client website: @Html.DisplayFor(modelItem => item.Client.WebAddress)</div>
-                                                <div class="card-text">
-                                                    Project status:@if (item.ProjectOpen == 1)
-                                                    {
-                                                        <b>OPEN</b>
-                                                    }
-                                                    else
-                                                    {
-                                                        <b>ARQUIVED</b>
-                                                    }
-                                                </div>
+                            <a asp-action="edit" asp-controller="projects" asp-route-id="@item.ProjectId" class="text-right">
+                                <span class="glyphicon glyphicon-wrench text-dark" style="font-size:1.2em;"></span>
+                            </a>
+                            <a asp-action="delete" asp-controller="projects" asp-route-id="@item.ProjectId">
+                                <span class="glyphicon glyphicon-trash text-dark" style="font-size:1.2em;"></span>
+                            </a>
 
-                                                <div class="card-text">End date: @Html.DisplayFor(modelItem => item.EndDate)</div>
-                                            </a> 
-                                                </div>
-                                    
+                        </div>
+                        <div class="card-body">
+                            <a class="text-white bg-primary" asp-controller="tasklist" asp-route-projectId="@item.ProjectId" asp-route-projectName="@item.ProjectName">
+                                <div class="card-text">Client website: @Html.DisplayFor(modelItem => item.Client.WebAddress)</div>
+                                <div class="card-text">
+                                    Project status:
+                                    <b>Open</b>
                                 </div>
-                            
-                        </li>
-                    }
+                                <div class="card-text">End date: @Html.DisplayFor(modelItem => item.EndDate)</div>
+                            </a>
+                        </div>
+                    </div>
+
+                </li>
+}
+else
+{
+                <li class="col-md-4">
+
+                    <div class="card text-white mb-3" style="max-width:400px; background-color: #e2d8af;">
+                        <div class="card-header">
+                            <span class="font-weight-bold">Project @Html.DisplayFor(modelItem => item.ProjectName)</span>
+
+                            <a asp-action="edit" asp-controller="projects" asp-route-id="@item.ProjectId" class="text-right">
+                                <span class="glyphicon glyphicon-wrench text-dark" style="font-size:1.2em;"></span>
+                            </a>
+                            <a asp-action="delete" asp-controller="projects" asp-route-id="@item.ProjectId">
+                                <span class="glyphicon glyphicon-trash text-dark" style="font-size:1.2em;"></span>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <a class="text-white bg-primary" asp-controller="tasklist" asp-route-projectId="@item.ProjectId" asp-route-projectName="@item.ProjectName">
+                                <div class="card-text">Client website: @Html.DisplayFor(modelItem => item.Client.WebAddress)</div>
+                                <div class="card-text">
+                                    Project status:
+
+                <b>Closed</b>
+
+                                </div>
+                                <div class="card-text">End date: @Html.DisplayFor(modelItem => item.EndDate)</div>
+                            </a>
+                        </div>
+                    </div>
+
+                </li>
+}
+}
                 </ol>
             </div>
         </div>

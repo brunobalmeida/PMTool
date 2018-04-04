@@ -42,7 +42,8 @@ namespace PMTool.Models
             //validate if the description is null or empty
             if (String.IsNullOrEmpty(ProjectDescription))
             {
-                yield return new ValidationResult("You should insert a project description", new string[] { "ProjecDescription" });
+                yield return new ValidationResult("You should insert a project description",
+                    new[] {nameof(ProjectDescription) });
             }
             else
             {
