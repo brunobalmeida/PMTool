@@ -63,9 +63,12 @@ namespace PMTool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int? id)
         {
-            var modelProject = await _context.ModelProject
-                //.Include(a => a.ModelTaskList.Select(b => b.ModelTask.Select(c => c.ModelTaskInfo)))
+            var modelProject = await _context.ModelProject.Include(a => a.ModelTaskList)
+                //.Include(a => a.ModelTask).Include(a => a.ModelTaskInfo);
+                //.Select(b => b.ModelTask.Select(c => c.ModelTaskInfo)))
                 .SingleOrDefaultAsync(m => m.ModelProjectId == id);
+
+            //var modelTask = await _context.ModelTaskList.Include(a => a.ModelTask).SingleOrDefaultAsync(m => m.ModelTaskListId == id);
 
 
             //.Include(a => a.ModelTask).Include(a => a.ModelTaskInfo)
@@ -84,46 +87,50 @@ namespace PMTool.Controllers
 
             };
             _context.Add(newProject);
-            ////New Task List
-            //foreach (var itemTaskList in modelProject.ModelTaskList)
-            //{
-            //    var projectId = newProject.ProjectId;
-            //    var newTaskList = new TaskList
-            //    {
-            //        TaskListName = itemTaskList.ModelTaskListName,
-            //        ProjectId = itemTaskList.ModelProjectId,
-            //        TaskListOpen = 1
-            //    };
-            //    _context.Add(newTaskList);
-            //    //New Task
-            //    foreach (var itemTask in itemTaskList.ModelTask)
-            //    {
-            //        var taskListId = newTaskList.TaskListId;
-            //        var newTask = new Models.Task
-            //        {
-            //            TaskListId = itemTask.ModelTaskListId,
-            //            TaskName = itemTask.ModelTaskName,
-            //            TaskWeight = itemTask.ModelTaskWeight,
-            //            TaskDescription = itemTask.ModelTaskDescription,
-            //            ExpectedDate = itemTask.ModelExpectedDate,
-            //            TaskActiveFlag = itemTask.ModelTaskActiveFlag,
-            //            TaskDuration = itemTask.ModelTaskDuration
-            //        };
-            //        _context.Add(newTask);
-            //        foreach(var itemTaskInfo in itemTask.ModelTaskInfo)
-            //        {
-            //            var taskInfoId = newTask.TaskId;
-            //            var newTaskInfo = new TaskInfo
-            //            {
-            //                TaskId = itemTaskInfo.ModelTaskId,
-            //                TaskNote = itemTaskInfo.ModelTaskNote
-            //            };
-            //            _context.Add(newTaskInfo);
-            //        }
-            //    }
-            //}
+            var projectId = newProject.ProjectId;
+            //New Task List
+            foreach (var itemTaskList in modelProject.ModelTaskList)
+            {
+                var newTaskList = new TaskList
+                {
+                    TaskListName = itemTaskList.ModelTaskListName,
+                    ProjectId = projectId,
+                    TaskListOpen = 1
+                };
+                _context.Add(newTaskList);
+                var modelTaskListId = itemTaskList.ModelTaskListId;
+                var modelTasks = await _context.ModelTaskList.Include(b => b.ModelTask).SingleOrDefaultAsync(a => a.ModelTaskListId == modelTaskListId);
+                var taskListId = newTaskList.TaskListId;
+                //New Task
+                foreach (var itemTask in modelTasks.ModelTask)
+                {
+                    var newTask = new Models.Task
+                    {
+                        TaskListId = taskListId,
+                        TaskName = itemTask.ModelTaskName,
+                        TaskWeight = itemTask.ModelTaskWeight,
+                        TaskDescription = itemTask.ModelTaskDescription,
+                        ExpectedDate = itemTask.ModelExpectedDate,
+                        TaskActiveFlag = itemTask.ModelTaskActiveFlag,
+                        TaskDuration = itemTask.ModelTaskDuration
+                    };
+                    _context.Add(newTask);
+                    var modelTaskId = itemTask.ModelTaskId;
+                    var modelTaskInfos = await _context.ModelTask.Include(b => b.ModelTaskInfo).SingleOrDefaultAsync(a => a.ModelTaskId == modelTaskId);
+                    var taskId = newTask.TaskId;
+                    foreach (var itemTaskInfo in modelTaskInfos.ModelTaskInfo)
+                    {
+                        var newTaskInfo = new TaskInfo
+                        {
+                            TaskId = taskId,
+                            TaskNote = itemTaskInfo.ModelTaskNote
+                        };
+                        _context.Add(newTaskInfo);
+                    }
+                }
+            }
 
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             TempData["message"] = "The Project has been successfully loaded.";
             return RedirectToAction(nameof(Index));
         }
