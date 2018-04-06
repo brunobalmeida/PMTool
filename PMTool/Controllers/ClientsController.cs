@@ -32,7 +32,14 @@ namespace PMTool.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
+            var user = _userManager.GetUserName(User);
+            var person = _context.Person.FirstOrDefault(a => a.Email == user);
+            var licenseId = person.OwnersLicenseId;
+
+
+
             var pmToolDbContext = _context.Client.Include(c => c.Person)
+                
                 .Where(a=>a.ClientActiveFlag == 1)
                 .OrderBy(a=> a.Person.FirstName);
             return View(await pmToolDbContext.ToListAsync());
