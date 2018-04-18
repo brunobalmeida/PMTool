@@ -40,27 +40,6 @@ namespace PMTool.Controllers
                 return RedirectToAction("index", "projects");
             }
 
-            //Bruno, fix this conflict with the var pmToolDbContext - YOU GOT IT DUDE
-            //var taskListId = _context.TaskList.FirstOrDefault(a => a.ProjectId == projectId).TaskListId;
-            //var tasksInTasklist = _context.Task.Where(a => a.TaskListId == taskListId);
-
-            //double taskWeight = 1;
-            //double completedTaskWeight = 0;
-
-            //foreach (var item in tasksInTasklist)
-            //{
-            //    taskWeight += item.TaskWeight;
-            //    if (item.TaskActiveFlag == 0)
-            //    {
-            //        completedTaskWeight += item.TaskWeight; 
-            //    }
-            //}
-
-            //double taskPercentage = completedTaskWeight / taskWeight;
-
-            //ViewBag.TaskPercentage = taskPercentage;
-
-
             var pmToolDbContext = _context.TaskList.Include(t => t.Project).Include(t => t.Task).Where(x => x.ProjectId == projectId);
             return View(await pmToolDbContext.ToListAsync());
         }

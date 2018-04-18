@@ -20,7 +20,22 @@
     <ol class="row">
         @foreach (var item in Model)
         {
-            
+
+            double totalWeight = 0;
+            double weightCompleted = 0;
+
+
+            @foreach (var task in item.Task)
+            {
+                if (task.TaskActiveFlag == 0)
+                {
+                    weightCompleted += task.TaskWeight;
+                }
+                totalWeight += task.TaskWeight;
+            }
+
+            double completedPercentage = weightCompleted / totalWeight * 100;
+
             <li class="col-md-4">
                 <div class="card bg-secondary mb-3" style="color: darkslategray;">
                         <div >
@@ -31,12 +46,13 @@
                                 <a asp-action="delete" asp-controller="taskList" asp-route-id="@item.TaskListId">
                                     <span class="glyphicon glyphicon-trash text-dark"></span>
                                 </a>
+                            @completedPercentage
                             </h5>
                             <br />
                         </div>
                         @foreach (var taskItem in item.Task)
                         {
-                            
+                                                        
                                 <div class="card border-info mb-3" style="min-width:280px; margin:auto; color:steelblue; font-size:12px;">
                                     <div class="card-header font-weight-bold"  style="font-size: 14px;">Task:@Html.DisplayFor(modelItem => taskItem.TaskName)
                                     </div>
