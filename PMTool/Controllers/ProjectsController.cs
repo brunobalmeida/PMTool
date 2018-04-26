@@ -44,20 +44,25 @@ namespace PMTool.Controllers
             var employeeId = _context.Employee.SingleOrDefault(a => a.PersonId == person.PersonId);
             var clientId = _context.Client.SingleOrDefault(a => a.PersonId == person.PersonId);
 
-            if (employeeId != null) 
-            {
-                var pmToolDbContextEmployee = _context.Project.Include(p => p.Client)
-                .Include(p => p.Employee).Where(a=>a.EmployeeId == employeeId.EmployeeId)
-                .OrderByDescending(a => a.ProjectOpen);
-                return View(await pmToolDbContextEmployee.ToListAsync());
-            }
-            if (clientId != null)
-            {
-                var pmToolDbContextClient = _context.Project.Include(p => p.Client)
-                .Include(p => p.Employee).Where(a => a.ClientId == clientId.ClientId)
-                .OrderByDescending(a => a.ProjectOpen);
-                return View(await pmToolDbContextClient.ToListAsync());
-            }
+            //if (employeeId != null) 
+            //{
+            //    var pmToolDbContextEmployee = _context.Project.Include(p => p.Client)
+            //    .Include(p => p.Employee).Where(a=>a.EmployeeId == employeeId.EmployeeId)
+            //    .OrderByDescending(a => a.ProjectOpen);
+            //    return View(await pmToolDbContextEmployee.ToListAsync());
+            //}
+            //if (clientId != null)
+            //{
+            //    var pmToolDbContextClient = _context.Project.Include(p => p.Client)
+            //    .Include(p => p.Employee).Where(a => a.ClientId == clientId.ClientId)
+            //    .OrderByDescending(a => a.ProjectOpen);
+            //    return View(await pmToolDbContextClient.ToListAsync());
+            //}
+
+            var pmToolDbContextClient = _context.Project.OrderByDescending(a => a.ProjectOpen);
+            return View(await pmToolDbContextClient.ToListAsync());
+
+
 
             TempData["message"] = "We could not find your data inside dataBase, please try to login again.";
             return RedirectToAction("logout", "account");

@@ -30,10 +30,11 @@
     Boolean isOwner = User.IsInRole("Owner");
     Boolean isAdmin = User.IsInRole("Admin");
     Boolean isClient = User.IsInRole("Client");
+    Boolean isDeveloper = User.IsInRole("Developer");
 
     int id = 0;
 
-    if (Context.Session.GetString("userId")!=null)
+    if (Context.Session.GetString("userId") != null)
     {
         id = int.Parse(Context.Session.GetString("userId"));
     }
@@ -86,17 +87,21 @@
                         @await Html.PartialAsync("_LoginPartial")
                     </div>
 
-                    @if (isAdmin || isOwner)
+                    @if (User.Identity.IsAuthenticated)
                     {
                         <div class="dropdown">
                             <a href="#" class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="glyphicon glyphicon-cog" style="font-size: 2em;"></span>
                             </a>
 
-                            <div class="dropdown-content" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" asp-action="Index" asp-controller="RoleManagement">Role Management</a>
-                                <a class="dropdown-item" asp-action="Index" asp-controller="Country">Country Management</a>
-                                <a class="dropdown-item" asp-action="Edit" asp-controller="Person" asp-route-id ="@id">Edit Personal Data</a>
+                            <div class="dropdown-content rounded" aria-labelledby="dropdownMenuButton">
+                                @if (isAdmin || isOwner || isDeveloper)
+                                {
+                                    <a class="btn btn-outline-danger" asp-action="Index" asp-controller="RoleManagement">Role Management</a>
+                                    <a class="btn btn-outline-dark" asp-action="Index" asp-controller="Country">Country Management</a>
+                                }
+                                <a class="btn btn-outline-primary" asp-action="Edit" asp-controller="Person" asp-route-id="@id">Edit Personal Data</a>
+                                <a class="btn btn-outline-warning" asp-action="ChangePassword" asp-controller="Manage">Change Your Password</a>
                             </div>
                         </div>
                     }
