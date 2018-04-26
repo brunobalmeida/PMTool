@@ -7,7 +7,11 @@
 <br />
 
 <div class="row">
-    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <a asp-action="ChangePassword" asp-controller="Manage" class="btn btn-outline-warning">Change Your Password</a>
+        <a asp-action="Index" asp-controller="Projects" class="btn btn-outline-primary">Back to Projects</a>
+
+    </div>
     <div class="col-md-4">
         <h2>@ViewData["Title"]</h2>
         <hr />
@@ -73,7 +77,6 @@
                 <input type="submit" value="Save" class="btn btn-light" />
             </div>
         </form>
-        <a asp-action="Index" asp-controller="Projects" class="btn btn-outline-primary">Back to Projects</a>
     </div>
     <div class="col-md-4"></div>
     </div>

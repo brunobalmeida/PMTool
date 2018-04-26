@@ -31,7 +31,9 @@ namespace PMTool.Controllers
             var user = _userManager.GetUserName(User);
             var person = _context.Person.FirstOrDefault(a => a.Email == user);
             string personName = person.FirstName;
+            string personId = person.PersonId.ToString();
             HttpContext.Session.SetString("personName", personName);
+            HttpContext.Session.SetString("userId", personId);
 
             if (person.GetPicture() != null)
             {

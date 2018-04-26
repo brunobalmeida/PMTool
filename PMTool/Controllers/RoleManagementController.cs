@@ -11,7 +11,7 @@ using PMTool.Models;
 
 namespace PMTool.Controllers
 {
-    [Authorize(Roles = "Admin, Owner")]
+    [Authorize(Roles = "Developer")]
     public class RoleManagementController : Controller
     {
 

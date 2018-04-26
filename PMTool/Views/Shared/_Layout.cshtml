@@ -24,13 +24,20 @@
 </head>
 
 @{
+    @using PMTool.Models
+    @using Microsoft.AspNetCore.Http
 
     Boolean isOwner = User.IsInRole("Owner");
     Boolean isAdmin = User.IsInRole("Admin");
     Boolean isClient = User.IsInRole("Client");
 
-    @using PMTool.Models
-    @using Microsoft.AspNetCore.Http
+    int id = 0;
+
+    if (Context.Session.GetString("userId")!=null)
+    {
+        id = int.Parse(Context.Session.GetString("userId"));
+    }
+
 
 }
 
@@ -52,49 +59,49 @@
 
             @if (User.Identity.IsAuthenticated)
             {
-            <div class="navbar-collapse collapse">
-                <div class="col-md-8">
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Projects" asp-action="Index">My projects</a></li>
+                <div class="navbar-collapse collapse">
+                    <div class="col-md-8">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Projects" asp-action="Index">My projects</a></li>
 
-                        @if (isAdmin || isOwner)
-            {
-                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Employee" asp-action="Index">Employees</a></li>
-                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Clients" asp-action="Index">Clients</a></li>
-    if (isOwner)
-    {
-            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="OwnersLicense" asp-action="Index">Add a License</a></li>
-}
-}
+                            @if (isAdmin || isOwner)
+                            {
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Employee" asp-action="Index">Employees</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Clients" asp-action="Index">Clients</a></li>
+                                if (isOwner)
+                                {
+                                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="OwnersLicense" asp-action="Index">Add a License</a></li>
+                                }
+                            }
 
-                    </ul>
+                        </ul>
+                    </div>
+                    @if (@Context.Session.GetString("profilePicture") != null)
+                    {
+                        <img src="@Context.Session.GetString("profilePicture")" alt="Profile Picture" width="50px" class="rounded-circle" />
+                    }
+
+
+                    <div class="col-md-4">
+                        @await Html.PartialAsync("_LoginPartial")
+                    </div>
+
+                    @if (isAdmin || isOwner)
+                    {
+                        <div class="dropdown">
+                            <a href="#" class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-cog" style="font-size: 2em;"></span>
+                            </a>
+
+                            <div class="dropdown-content" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" asp-action="Index" asp-controller="RoleManagement">Role Management</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="Country">Country Management</a>
+                                <a class="dropdown-item" asp-action="Edit" asp-controller="Person" asp-route-id ="@id">Edit Personal Data</a>
+                            </div>
+                        </div>
+                    }
+
                 </div>
-                @if (@Context.Session.GetString("profilePicture")!=null)
-    {
-            <img src="@Context.Session.GetString("profilePicture")" alt="Profile Picture" width="50px" class="rounded-circle"/>
-}
-
-
-                <div class="col-md-4">
-                    @await Html.PartialAsync("_LoginPartial")
-                </div>
-
-                @if (isAdmin || isOwner)
-    {
-            <div class="dropdown">
-                <a href="#" class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="glyphicon glyphicon-cog" style="font-size: 2em;"></span>
-                </a>
-
-                <div class="dropdown-content" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" asp-action="Index" asp-controller="RoleManagement">Role Management</a>
-                    <a class="dropdown-item" asp-action="Index" asp-controller="Country">Country Management</a>
-                    <a class="dropdown-item" href="#">Edit Personal Data</a>
-                </div>
-            </div>
-}
-
-            </div>
             }
         </div>
     </nav>

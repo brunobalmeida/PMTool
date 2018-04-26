@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PMTool.Models;
 
@@ -13,6 +15,7 @@ namespace PMTool.Controllers
 
         public IActionResult Index()
         {
+
             return RedirectToAction("index", "projects");
         }
 

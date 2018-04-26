@@ -4,11 +4,14 @@
     ViewData["Title"] = "Insert a new License Owner";
 }
 
-<h2>@ViewData["Title"]</h2>
 
-<hr />
+
+
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4"></div>
+    <div class="col-md-4"><br />
+        <h2>@ViewData["Title"]</h2>
+        <hr />
         <form asp-action="Create">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
@@ -27,17 +30,19 @@
                 <span asp-validation-for="LicenseEmail" class="text-danger"></span>
             </div>
             <div class="form-group">
-                
+
                 @*<button asp-action="SendRegistrationEmail" class="btn btn-default">Send Registration email</button>*@
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
+        <div>
+            <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+        </div>
     </div>
+    <div class="col-md-4"></div>
 </div>
 
-<div>
-    <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
