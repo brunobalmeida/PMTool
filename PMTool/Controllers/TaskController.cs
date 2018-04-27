@@ -95,12 +95,20 @@ namespace PMTool.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(task);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _context.Add(task);
+                    await _context.SaveChangesAsync();
+                    TempData["message"] = "The Country has been successfully added to the Database.";
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", $"Create error:{e.GetBaseException().Message}");
+                }
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", task.EmployeeId);
-            ViewData["TaskListId"] = new SelectList(_context.TaskList, "TaskListId", "TaskListId", task.TaskListId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
+            ViewData["TaskListId"] = new SelectList(_context.TaskList, "TaskListId", "TaskListId");
             return View(task);
         }
 
@@ -118,8 +126,8 @@ namespace PMTool.Controllers
             {
                 return NotFound();
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", task.EmployeeId);
-            ViewData["TaskListId"] = new SelectList(_context.TaskList, "TaskListId", "TaskListId", task.TaskListId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
+            ViewData["TaskListId"] = new SelectList(_context.TaskList, "TaskListId", "TaskListId");
             return View(task);
         }
 
@@ -133,7 +141,7 @@ namespace PMTool.Controllers
         {
             if (id != task.TaskId)
             {
-                return NotFound();
+                ModelState.AddModelError("", "Invalid ID, please try again.");
             }
 
             if (ModelState.IsValid)
@@ -142,19 +150,24 @@ namespace PMTool.Controllers
                 {
                     _context.Update(task);
                     await _context.SaveChangesAsync();
+                    TempData["message"] = "The record has been successfully updated";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!TaskExists(task.TaskId))
                     {
-                        return NotFound();
+                        ModelState.AddModelError("", "The record does not exist, try again");
                     }
                     else
                     {
-                        throw;
+                        ModelState.AddModelError("", "This record has already been updated");
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", $"Error on Edit: {e.GetBaseException().Message}");
+                }
+                return RedirectToAction("index", "tasklist");
             }
             ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", task.EmployeeId);
             ViewData["TaskListId"] = new SelectList(_context.TaskList, "TaskListId", "TaskListId", task.TaskListId);
@@ -188,10 +201,19 @@ namespace PMTool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var task = await _context.Task.SingleOrDefaultAsync(m => m.TaskId == id);
-            _context.Task.Remove(task);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var task = await _context.Task.SingleOrDefaultAsync(m => m.TaskId == id);
+                _context.Task.Remove(task);
+                await _context.SaveChangesAsync();
+                TempData["message"] = "The record has been successfully Deleted";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                TempData["message"] = $"Delete error: {e.GetBaseException().Message}";
+            }
+            return Redirect($"/task/delete/{id}");
         }
 
         private bool TaskExists(int id)

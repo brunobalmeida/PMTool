@@ -1,16 +1,102 @@
 ﻿@model IEnumerable<PMTool.Models.Project>
-@using Microsoft.AspNetCore.Http;
+
+@using Microsoft.AspNetCore.Http
 @{
     ViewData["Title"] = "Projects";
+    int employeeId = 0;
+    if (Context.Session.GetString("employeeId") != null)
+    {
+        employeeId = int.Parse(Context.Session.GetString("employeeId"));
+    }
+
 }
-<h2 class="display text-center">@ViewData["Title"]</h2>
+
+<style>
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+        /* Style the buttons that are used to open the tab content */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+        }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #ccc;
+            }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+</style>
+
+@section Scripts {
+    <script>
+
+        window.onload(openTab(event, 'openProjects'));
+
+        function openTab(evt, tabName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#sortable1").sortable({
+                //connectWith: ".connectedSortable"
+            }).disableSelection();
+        });
+    </script>
+
+}
+
+
+<h2 class="display text-center text-uppercase font-weight-bold text-primary">@ViewData["Title"]</h2>
 
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
-            <div class="jumbotron">
-                <h3>To Do List</h3>
+            <h2 class="display text-center text-uppercase font-weight-bold text-primary">Urgent Tasks:</h2>
+                        <div class="jumbotron">
                 <ol>
                     @{
                         var tasks = (List<PMTool.Models.Task>)ViewData["list"];
@@ -19,7 +105,7 @@
                     {
                         <li>
                             <div class="card border-dark mb-sm-0" style="max-width:400px;">
-                                <div class="card-header bg-dark text-white">                               
+                                <div class="card-header bg-dark text-white">
                                     <a asp-controller="task" asp-action="Details" asp-route-id="@item.TaskId">
                                         <p>Task: @Html.DisplayFor(modelItem => item.TaskName)</p>
                                     </a>
@@ -27,95 +113,127 @@
                                 <div class="card-body">
                                     <p>Due date: @Html.DisplayFor(modelItem => item.ExpectedDate)</p>
                                 </div>
-                             </div>
-                         </li>
+                            </div>
+                        </li>
                     }
                 </ol>
-            </div>
+                </div>
         </div>
         <div class="col-md-8">
-            <div class="jumbotron">
-                <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-4" style="margin-top:-2.0em;">
-                        <a asp-action="Create" class="btn btn-outline-dark">Add project</a>
-                        <a asp-controller="ModelProjects" asp-action="Index" class="btn btn-outline-dark">Load project model</a>
+
+            <div class="tab bg-light rounded">
+                <button id="initOpenProject" class="tablinks bg-primary text-white font-weight-bold" onclick="openTab(event, 'openProjects')">Open Projects</button>
+                <button class="tablinks bg-primary text-white font-weight-bold" onclick="openTab(event, 'closedProjects')">Closed Projects</button>
+            </div>
+
+            <!-- Tab content -->
+            <div id="openProjects" class="tabcontent">
+                <div class="jumbotron">
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4" style="margin-top:-2.0em;">
+                            <a asp-action="Create" class="btn btn-outline-dark">Add project</a>
+                            <a asp-controller="ModelProjects" asp-action="Index" class="btn btn-outline-dark">Load project model</a>
+                        </div>
+
                     </div>
+                    <br />
+                    <ol class="row" id="sortable1">
+                        @foreach (var item in Model)
+                        {
 
+                            if (item.ProjectOpen == 1)
+                            {
+                                <li class="col-md-4">
+
+                                    <div class="card border-primary mb-3" style="max-width:400px;">
+                                        <div class="card-header bg-primary text-white">
+
+                                            <span class="font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectName)</span>
+
+                                            <div class="text-right" style="margin-top:-1.6em;">
+                                                <a asp-action="edit" asp-controller="projects" asp-route-id="@item.ProjectId" class="text-right">
+                                                    <span class="glyphicon glyphicon-wrench text-dark" style="font-size:1.2em;"></span>
+                                                </a>
+                                                <a asp-action="delete" asp-controller="projects" asp-route-id="@item.ProjectId">
+                                                    <span class="glyphicon glyphicon-trash text-dark" style="font-size:1.2em;"></span>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                        <div class="card-body">
+                                            <a class=" text-dark bg-primary" asp-controller="tasklist" asp-route-projectId="@item.ProjectId" asp-route-projectName="@item.ProjectName">
+                                                <div class="card-text">Client website: @Html.DisplayFor(modelItem => item.Client.WebAddress)</div>
+                                                <div class="card-text">
+                                                    Project status:
+                                                    <b>Open</b>
+                                                </div>
+                                                <div class="card-text">End date: @Html.DisplayFor(modelItem => item.EndDate)</div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </li>
+                            }
+
+                        }
+                    </ol>
                 </div>
-                <br />
-                <ol class="row">
-                    @foreach (var item in Model)
-                    {
 
-                        if (item.ProjectOpen == 1)
+            </div>
+
+            <div id="closedProjects" class="tabcontent">
+
+                <div class="jumbotron">
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4" style="margin-top:-2.0em;">
+                            <a asp-action="Create" class="btn btn-outline-dark">Add project</a>
+                            <a asp-controller="ModelProjects" asp-action="Index" class="btn btn-outline-dark">Load project model</a>
+                        </div>
+
+                    </div>
+                    <br />
+                    <ol class="row">
+                        @foreach (var item in Model)
                         {
-                            <li class="col-md-4">
 
-                                <div class="card border-primary mb-3" style="max-width:400px;">
-                                    <div class="card-header bg-primary text-white">
+                            if (item.ProjectOpen == 0)
+                            {
+                                <li class="col-md-4">
 
-                                        <span class="font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectName)</span>
+                                    <div class="card mb-3" style="max-width:400px;">
+                                        <div class="card-header bg-success text-white">
 
-                                        <div class="text-right" style="margin-top:-1.6em;">
-                                            <a asp-action="edit" asp-controller="projects" asp-route-id="@item.ProjectId" class="text-right">
-                                                <span class="glyphicon glyphicon-wrench text-dark" style="font-size:1.2em;"></span>
-                                            </a>
-                                            <a asp-action="delete" asp-controller="projects" asp-route-id="@item.ProjectId">
-                                                <span class="glyphicon glyphicon-trash text-dark" style="font-size:1.2em;"></span>
+                                            <span class="font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectName)</span>
+
+                                            <div class="text-right" style="margin-top:-1.6em;">
+                                                <a asp-action="edit" asp-controller="projects" asp-route-id="@item.ProjectId" class="text-right">
+                                                    <span class="glyphicon glyphicon-wrench text-dark" style="font-size:1.2em;"></span>
+                                                </a>
+                                                <a asp-action="delete" asp-controller="projects" asp-route-id="@item.ProjectId">
+                                                    <span class="glyphicon glyphicon-trash text-dark" style="font-size:1.2em;"></span>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                        <div class="card-body">
+                                            <a class=" text-dark bg-primary" asp-controller="tasklist" asp-route-projectId="@item.ProjectId" asp-route-projectName="@item.ProjectName">
+                                                <div class="card-text">Client website: @Html.DisplayFor(modelItem => item.Client.WebAddress)</div>
+                                                <div class="card-text">
+                                                    Project status:
+                                                    <b>Closed</b>
+                                                </div>
+                                                <div class="card-text">End date: @Html.DisplayFor(modelItem => item.EndDate)</div>
                                             </a>
                                         </div>
-
                                     </div>
-                                    <div class="card-body">
-                                        <a class=" text-dark bg-primary" asp-controller="tasklist" asp-route-projectId="@item.ProjectId" asp-route-projectName="@item.ProjectName">
-                                            <div class="card-text">Client website: @Html.DisplayFor(modelItem => item.Client.WebAddress)</div>
-                                            <div class="card-text">
-                                                Project status:
-                                                <b>Open</b>
-                                            </div>
-                                            <div class="card-text">End date: @Html.DisplayFor(modelItem => item.EndDate)</div>
-                                        </a>
-                                    </div>
-                                </div>
 
-                            </li>
+                                </li>
+                            }
                         }
-                        else
-                        {
-                            <li class="col-md-4">
-
-                                <div class="card mb-3" style="max-width:400px;">
-                                    <div class="card-header bg-success text-white">
-
-                                        <span class="font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectName)</span>
-
-                                        <div class="text-right" style="margin-top:-1.6em;">
-                                            <a asp-action="edit" asp-controller="projects" asp-route-id="@item.ProjectId" class="text-right">
-                                                <span class="glyphicon glyphicon-wrench text-dark" style="font-size:1.2em;"></span>
-                                            </a>
-                                            <a asp-action="delete" asp-controller="projects" asp-route-id="@item.ProjectId">
-                                                <span class="glyphicon glyphicon-trash text-dark" style="font-size:1.2em;"></span>
-                                            </a>
-                                        </div>
-
-                                    </div>
-                                    <div class="card-body">
-                                        <a class=" text-dark bg-primary" asp-controller="tasklist" asp-route-projectId="@item.ProjectId" asp-route-projectName="@item.ProjectName">
-                                            <div class="card-text">Client website: @Html.DisplayFor(modelItem => item.Client.WebAddress)</div>
-                                            <div class="card-text">
-                                                Project status:
-                                                <b>Closed</b>
-                                            </div>
-                                            <div class="card-text">End date: @Html.DisplayFor(modelItem => item.EndDate)</div>
-                                        </a>
-                                    </div>
-                                </div>
-
-                            </li>
-                        }
-                    }
-                </ol>
+                    </ol>
+                </div>
             </div>
         </div>
     </div>

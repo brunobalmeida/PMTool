@@ -31,10 +31,15 @@ namespace PMTool.Controllers
                   
             var user = _userManager.GetUserName(User);
             var person = _context.Person.FirstOrDefault(a => a.Email == user);
+            var employee = _context.Employee.FirstOrDefault(a => a.PersonId == person.PersonId);
             string personName = person.FirstName;
             string personId = person.PersonId.ToString();
+            int employeeId = employee.EmployeeId;
+            var clientId = _context.Client.SingleOrDefault(a => a.PersonId == person.PersonId);
             HttpContext.Session.SetString("personName", personName);
             HttpContext.Session.SetString("userId", personId);
+            HttpContext.Session.SetString("employeeId", employeeId.ToString());
+
 
             if (person.GetPicture() != null)
             {
@@ -42,11 +47,12 @@ namespace PMTool.Controllers
                 HttpContext.Session.SetString("profilePicture", profilePicture); 
             }
 
-            var employeeId = _context.Employee.SingleOrDefault(a => a.PersonId == person.PersonId);
-            var clientId = _context.Client.SingleOrDefault(a => a.PersonId == person.PersonId);
-            var id = employeeId.EmployeeId;
+
+            var id = employeeId;
             var list = _context.Task.Where(a => a.TaskActiveFlag == 1).Where(a=>a.EmployeeId == id).OrderByDescending(a => a.ExpectedDate).ToList();
             ViewData["list"] = list.ToList();
+
+
 
             var pmToolDbContextClient = _context.Project.OrderByDescending(a => a.ProjectOpen);
             return View(await pmToolDbContextClient.ToListAsync());
