@@ -99,8 +99,8 @@ namespace PMTool.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", task.EmployeeId);
-            ViewData["TaskListId"] = new SelectList(_context.TaskList, "TaskListId", "TaskListId", task.TaskListId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
+            ViewData["TaskListId"] = new SelectList(_context.TaskList, "TaskListId", "TaskListId");
             return View(task);
         }
 
@@ -118,8 +118,8 @@ namespace PMTool.Controllers
             {
                 return NotFound();
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", task.EmployeeId);
-            ViewData["TaskListId"] = new SelectList(_context.TaskList, "TaskListId", "TaskListId", task.TaskListId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
+            ViewData["TaskListId"] = new SelectList(_context.TaskList, "TaskListId", "TaskListId");
             return View(task);
         }
 

@@ -30,10 +30,15 @@ namespace PMTool.Controllers
         {
             var user = _userManager.GetUserName(User);
             var person = _context.Person.FirstOrDefault(a => a.Email == user);
+            var employee = _context.Employee.FirstOrDefault(a => a.PersonId == person.PersonId);
             string personName = person.FirstName;
             string personId = person.PersonId.ToString();
+            string employeeId = employee.EmployeeId.ToString();
+            var clientId = _context.Client.SingleOrDefault(a => a.PersonId == person.PersonId);
             HttpContext.Session.SetString("personName", personName);
             HttpContext.Session.SetString("userId", personId);
+            HttpContext.Session.SetString("employeeId", employeeId);
+
 
             if (person.GetPicture() != null)
             {
@@ -41,8 +46,7 @@ namespace PMTool.Controllers
                 HttpContext.Session.SetString("profilePicture", profilePicture); 
             }
 
-            var employeeId = _context.Employee.SingleOrDefault(a => a.PersonId == person.PersonId);
-            var clientId = _context.Client.SingleOrDefault(a => a.PersonId == person.PersonId);
+            
 
             //if (employeeId != null) 
             //{
