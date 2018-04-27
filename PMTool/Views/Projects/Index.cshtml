@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<PMTool.Models.Project>
+@using Microsoft.AspNetCore.Http;
 @{
     ViewData["Title"] = "Projects";
 }
@@ -8,7 +9,29 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
-
+            <div class="jumbotron">
+                <h3>To Do List</h3>
+                <ol>
+                    @{
+                        var tasks = (List<PMTool.Models.Task>)ViewData["list"];
+                    }
+                    @foreach (var item in tasks)
+                    {
+                        <li>
+                            <div class="card border-dark mb-sm-0" style="max-width:400px;">
+                                <div class="card-header bg-dark text-white">                               
+                                    <a asp-controller="task" asp-action="Details" asp-route-id="@item.TaskId">
+                                        <p>Task: @Html.DisplayFor(modelItem => item.TaskName)</p>
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <p>Due date: @Html.DisplayFor(modelItem => item.ExpectedDate)</p>
+                                </div>
+                             </div>
+                         </li>
+                    }
+                </ol>
+            </div>
         </div>
         <div class="col-md-8">
             <div class="jumbotron">

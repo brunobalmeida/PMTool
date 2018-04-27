@@ -28,6 +28,7 @@ namespace PMTool.Controllers
         // GET: Projects
         public async Task<IActionResult> Index()
         {
+                  
             var user = _userManager.GetUserName(User);
             var person = _context.Person.FirstOrDefault(a => a.Email == user);
             string personName = person.FirstName;
@@ -43,21 +44,9 @@ namespace PMTool.Controllers
 
             var employeeId = _context.Employee.SingleOrDefault(a => a.PersonId == person.PersonId);
             var clientId = _context.Client.SingleOrDefault(a => a.PersonId == person.PersonId);
-
-            //if (employeeId != null) 
-            //{
-            //    var pmToolDbContextEmployee = _context.Project.Include(p => p.Client)
-            //    .Include(p => p.Employee).Where(a=>a.EmployeeId == employeeId.EmployeeId)
-            //    .OrderByDescending(a => a.ProjectOpen);
-            //    return View(await pmToolDbContextEmployee.ToListAsync());
-            //}
-            //if (clientId != null)
-            //{
-            //    var pmToolDbContextClient = _context.Project.Include(p => p.Client)
-            //    .Include(p => p.Employee).Where(a => a.ClientId == clientId.ClientId)
-            //    .OrderByDescending(a => a.ProjectOpen);
-            //    return View(await pmToolDbContextClient.ToListAsync());
-            //}
+            var id = employeeId.EmployeeId;
+            var list = _context.Task.Where(a => a.TaskActiveFlag == 1).Where(a=>a.EmployeeId == id).OrderByDescending(a => a.ExpectedDate).ToList();
+            ViewData["list"] = list.ToList();
 
             var pmToolDbContextClient = _context.Project.OrderByDescending(a => a.ProjectOpen);
             return View(await pmToolDbContextClient.ToListAsync());
