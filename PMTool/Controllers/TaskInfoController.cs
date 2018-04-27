@@ -75,9 +75,17 @@ namespace PMTool.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(taskInfo);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _context.Add(taskInfo);
+                    await _context.SaveChangesAsync();
+                    TempData["message"] = "The Record has been successfully added to the Database.";
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", $"Create error:{e.GetBaseException().Message}");
+                }
             }
             ViewData["TaskId"] = new SelectList(_context.Task, "TaskId", "TaskDescription", taskInfo.TaskId);
             return View(taskInfo);
@@ -109,7 +117,7 @@ namespace PMTool.Controllers
         {
             if (id != taskInfo.TaskInfoId)
             {
-                return NotFound();
+                ModelState.AddModelError("", "Invalid ID, please try again.");
             }
 
             if (ModelState.IsValid)
@@ -123,12 +131,16 @@ namespace PMTool.Controllers
                 {
                     if (!TaskInfoExists(taskInfo.TaskInfoId))
                     {
-                        return NotFound();
+                        ModelState.AddModelError("", "The record does not exist, try again");
                     }
                     else
                     {
-                        throw;
+                        ModelState.AddModelError("", "This record has already been updated");
                     }
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", $"Error on Edit: {e.GetBaseException().Message}");
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -160,10 +172,20 @@ namespace PMTool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var taskInfo = await _context.TaskInfo.SingleOrDefaultAsync(m => m.TaskInfoId == id);
-            _context.TaskInfo.Remove(taskInfo);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var taskInfo = await _context.TaskInfo.SingleOrDefaultAsync(m => m.TaskInfoId == id);
+                _context.TaskInfo.Remove(taskInfo);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                TempData["message"] = $"Delete error: {e.GetBaseException().Message}";
+            }
+
+            return Redirect($"/taskinfo/delete/{id}");
+
         }
 
         private bool TaskInfoExists(int id)

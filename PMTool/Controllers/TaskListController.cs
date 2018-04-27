@@ -62,9 +62,17 @@ namespace PMTool.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(taskList);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _context.Add(taskList);
+                    await _context.SaveChangesAsync();
+                    TempData["message"] = "Record successfully created";
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception e)
+                {
+                    TempData["message"] = $"Create error: {e.GetBaseException().Message}";
+                }
             }
             ViewData["ProjectId"] = new SelectList(_context.Project, "ProjectId", "ProjectDescription", taskList.ProjectId);
             return View(taskList);
@@ -119,6 +127,12 @@ namespace PMTool.Controllers
                         throw;
                     }
                 }
+                catch (Exception e)
+                {
+                    TempData["message"] = $"Edit error: {e.GetBaseException().Message}";
+                }
+
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ProjectId"] = new SelectList(_context.Project, "ProjectId", "ProjectDescription", taskList.ProjectId);
@@ -151,10 +165,18 @@ namespace PMTool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var taskList = await _context.TaskList.SingleOrDefaultAsync(m => m.TaskListId == id);
-            _context.TaskList.Remove(taskList);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var taskList = await _context.TaskList.SingleOrDefaultAsync(m => m.TaskListId == id);
+                _context.TaskList.Remove(taskList);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                TempData["message"] = $"Delete error: {e.GetBaseException().Message}";
+            }
+            return Redirect($"/tasklist/delete/{id}");
         }
 
         private bool TaskListExists(int id)
