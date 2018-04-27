@@ -51,7 +51,7 @@ namespace PMTool.Controllers
         // GET: ModelProjects/Create
         public IActionResult Create()
         {
-            
+
 
             return View();
         }
@@ -77,7 +77,7 @@ namespace PMTool.Controllers
             var personId = _context.Person.FirstOrDefault(a => a.Email == user).PersonId;
             var newProject = new Project
             {
-                
+
                 ClientId = 1,
                 EmployeeId = _context.Employee.FirstOrDefault(a => a.PersonId == personId).EmployeeId,
                 ProjectName = modelProject.ModelProjectName,
@@ -104,13 +104,14 @@ namespace PMTool.Controllers
                 //New Task
                 foreach (var itemTask in modelTasks.ModelTask)
                 {
+                    var totalDate = DateTime.Now.AddHours(Convert.ToDouble(itemTask.ModelTaskDuration));
                     var newTask = new Models.Task
                     {
                         TaskListId = taskListId,
                         TaskName = itemTask.ModelTaskName,
                         TaskWeight = itemTask.ModelTaskWeight,
                         TaskDescription = itemTask.ModelTaskDescription,
-                        ExpectedDate = itemTask.ModelExpectedDate,
+                        ExpectedDate = totalDate,
                         TaskActiveFlag = itemTask.ModelTaskActiveFlag,
                         TaskDuration = itemTask.ModelTaskDuration
                     };
@@ -130,7 +131,7 @@ namespace PMTool.Controllers
                 }
             }
 
-                await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             TempData["message"] = "The Project has been successfully loaded.";
             return RedirectToAction(nameof(Index));
         }
