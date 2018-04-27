@@ -154,7 +154,7 @@ namespace PMTool.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("index", "tasklist");
             }
             ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", task.EmployeeId);
             ViewData["TaskListId"] = new SelectList(_context.TaskList, "TaskListId", "TaskListId", task.TaskListId);

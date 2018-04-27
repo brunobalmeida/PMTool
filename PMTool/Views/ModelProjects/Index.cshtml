@@ -1,10 +1,10 @@
 ﻿@model PMTool.Models.ModelProject
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Load Project Model";
 }
 
-<h2 class="display text-center">@ViewData["Title"]</h2>
+<h2 class="display text-center text-uppercase font-weight-bold text-primary">@ViewData["Title"]</h2>
 
 <div class="container-fluid">
     <div class="row">
@@ -14,7 +14,7 @@
                     <label asp-for="ModelProjectId" class="control-label"></label>
                     <select asp-for="ModelProjectId" name="id" id="id" class="form-control" asp-items="ViewBag.ModelProjectId"></select>
                     <br />
-                    <input type="submit" value="Load Model" class="btn btn-default" />
+                    <input type="submit" value="Load Model" class="btn btn-outline-dark" />
                 </form>
             </div>
         </div>

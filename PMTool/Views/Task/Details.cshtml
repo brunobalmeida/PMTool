@@ -5,7 +5,7 @@
     ViewData["Title"] = "Task Details";
 }
 
-<h2 class="text-center">@ViewData["Title"]</h2>
+<h2 class="display text-center text-uppercase font-weight-bold text-primary">@ViewData["Title"]</h2>
 
 <div class="row">
     <div class="col-md-3"></div>
@@ -17,25 +17,31 @@
             <p>Due date: <b>@Html.DisplayFor(model => model.ExpectedDate)</b> </p>
             <p>Weight: <b>@Html.DisplayFor(model => model.TaskWeight)</b></p>
             <p>Task list: <b>@Context.Session.GetString("listName")</b></p>
-            <p>Status: <b>@Html.DisplayFor(model => model.TaskActiveFlag)</b></p>
+            <p>Status:
+                @if (Model.TaskActiveFlag == 1)
+                {
+                    <b>Open</b>
+                }
+                else
+                {
+                    <b>Closed</b>
+                }
+                </p>
             <p>Description: </p>
             <p><i>@Html.DisplayFor(model => model.TaskDescription)</i></p>
             <div class="text-left">
-                <a class="btn btn-primary" asp-action="Index" asp-controller="taskInfo" asp-route-id="@Model.TaskId">View Comments <span class="glyphicon
-                                                                                                                                         glyphicon-comment"></span></a>
+                <a class="btn btn-primary" asp-action="Index" asp-controller="taskInfo" asp-route-id="@Model.TaskId">
+                    View Comments <span class="glyphicon glyphicon-comment"></span>
+                </a>
             </div>
             <p class="text-right">
                 <a class="btn btn-outline-success" asp-action="Edit" asp-route-id="@Model.TaskId">Edit</a>
                 <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@Model.TaskId">Delete</a>
+                <a asp-action="Index" asp-controller="Tasklist" class="btn btn-outline-primary">Back to TaskList</a>
             </p>
         </div>
     </div>
     <div class="col-md-3"></div>
 </div>
 
-<div class="container">
-</div>
 
-<div>
-    <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
-</div>

@@ -6,7 +6,7 @@
     ViewData["Title"] = $"Tasks of {Context.Session.GetString("listName")}";
 }
 <br />
-<h2 class="display text-center">@ViewData["Title"]</h2>
+<h2 class="display text-center text-uppercase font-weight-bold text-primary">@ViewData["Title"]</h2>
 
 
 
@@ -15,7 +15,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-4">
             <a asp-action="Create" asp-route-id="TaskListId" class="btn btn-outline-dark">Add task</a>
-            <a asp-action="Index" asp-controller="taskList" class="btn btn-outline-primary">Back to List</a>
+            <a asp-action="Index" asp-controller="taskList" class="btn btn-outline-primary">Back to Task List</a>
         </div>
     </div>
     <br />
