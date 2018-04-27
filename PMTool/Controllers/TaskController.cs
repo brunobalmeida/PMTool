@@ -36,7 +36,7 @@ namespace PMTool.Controllers
                 id = (int)HttpContext.Session.GetInt32("listId");
             }
 
-            var pmToolDbContext = _context.Task.Where(t=>t.TaskListId == id).Include(t => t.Employee).Include(t => t.TaskList);
+            var pmToolDbContext = _context.Task.Where(t=>t.TaskListId == id).Include(t => t.Employee).Include(t => t.TaskList).OrderByDescending(a=>a.TaskActiveFlag);
             return View(await pmToolDbContext.ToListAsync());
         }
 

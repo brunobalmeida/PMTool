@@ -14,7 +14,8 @@
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-4">
-            <a asp-action="Create" asp-route-id="TaskListId" class="btn btn-secondary">Add task</a>
+            <a asp-action="Create" asp-route-id="TaskListId" class="btn btn-outline-dark">Add task</a>
+            <a asp-action="Index" asp-controller="taskList" class="btn btn-outline-primary">Back to List</a>
         </div>
     </div>
     <br />
@@ -43,9 +44,6 @@
                 </li>
             }
         </ol>
-    </div>
-    <div class="text-center">
-        <a asp-action="Index" asp-controller="taskList" class="btn btn-outline-primary">Back to List</a>
     </div>
 </div>
 
