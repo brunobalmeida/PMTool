@@ -13,9 +13,10 @@
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-4">
-                <a asp-action="Create" class="btn btn-secondary">Add Task List</a>
+            <a asp-action="Create" class="btn btn-outline-dark">Add Task List</a>
+            <a asp-action="Index" asp-controller="Projects" class="btn btn-outline-primary">Back to Projects</a>
         </div>
-    </div> 
+    </div>
     <br />
     <ol class="row">
         @foreach (var item in Model)
@@ -35,42 +36,76 @@
             }
 
             double completedPercentage = weightCompleted / totalWeight * 100;
+            completedPercentage = Math.Round(completedPercentage, 2);
 
             <li class="col-md-4">
                 <div class="card bg-secondary mb-3" style="color: darkslategray;">
-                        <div >
-                            <h5 class="card-header"><a asp-controller="task" asp-route-id="@item.TaskListId" asp-route-listName="@item.TaskListName" class="font-weight-bold">@Html.DisplayName(item.TaskListName)</a>
-                                <a asp-action="edit" asp-controller="taskList" asp-route-id="@item.TaskListId">
-                                    <span class="glyphicon glyphicon-wrench text-dark"></span>
-                                </a>
-                                <a asp-action="delete" asp-controller="taskList" asp-route-id="@item.TaskListId">
-                                    <span class="glyphicon glyphicon-trash text-dark"></span>
-                                </a>
-                            @completedPercentage
-                            </h5>
-                            <br />
-                        </div>
-                        @foreach (var taskItem in item.Task)
-                        {
-                                                        
-                                <div class="card border-info mb-3" style="min-width:280px; margin:auto; color:steelblue; font-size:12px;">
-                                    <div class="card-header font-weight-bold"  style="font-size: 14px;">Task:@Html.DisplayFor(modelItem => taskItem.TaskName)
-                                    </div>
+                    <div>
+                        <h5 class="card-header">
+                            <a asp-controller="task" asp-route-id="@item.TaskListId" asp-route-listName="@item.TaskListName" class="font-weight-bold">@Html.DisplayName(item.TaskListName)</a>
+                            <a asp-action="edit" asp-controller="taskList" asp-route-id="@item.TaskListId">
+                                <span class="glyphicon glyphicon-wrench text-dark"></span>
+                            </a>
+                            <a asp-action="delete" asp-controller="taskList" asp-route-id="@item.TaskListId">
+                                <span class="glyphicon glyphicon-trash text-dark"></span>
+                            </a>
+                        </h5>
 
-                                    <div class="card-body">
-                                        <a asp-controller="task" asp-action="Details" asp-route-id="@taskItem.TaskId">
-                                            <p class="card-text">Due to: @Html.DisplayFor(modelItem => taskItem.ExpectedDate)</p>
-                                            <p class="card-text">
-                                                Status: @if (taskItem.TaskActiveFlag == 1)
-                                                {<b>Open</b>}
-                                                else
-                                                { <b>Finished</b>}
-                                            </p>
-                                        </a>  
-                                    </div>
-                                </div>    
-                                
+                        <div class="progress font-weight-bold ">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated rounded" role="progressbar" 
+                                 aria-valuenow="@completedPercentage" aria-valuemin="0" aria-valuemax="100" style="width: @completedPercentage%; font-size:1.5em;">@completedPercentage%</div>
+                        </div>
+
+                        <br />
+                    </div>
+                    @foreach (var taskItem in item.Task.OrderByDescending(a=>a.TaskActiveFlag))
+                    {
+                        if (taskItem.TaskActiveFlag == 1)
+                        {
+                            <div class="card border-info mb-3" style="min-width:280px; margin:auto; color:steelblue; font-size:12px;">
+                                <div class="card-header card-header bg-primary text-white font-weight-bold" style="font-size: 14px;">
+                                    @Html.DisplayFor(modelItem => taskItem.TaskName)
+                                </div>
+
+                                <div class="card-body">
+                                    <a asp-controller="task" asp-action="Details" asp-route-id="@taskItem.TaskId">
+                                        <p class="card-text">Due to: @Html.DisplayFor(modelItem => taskItem.ExpectedDate)</p>
+                                        <p class="card-text">
+                                            Status: @if (taskItem.TaskActiveFlag == 1)
+                                            {<b>Open</b>}
+                                            else
+                                            { <b>Finished</b>}
+                                        </p>
+                                    </a>
+                                </div>
+                            </div>
                         }
+                        else
+                        {
+                            <div class="card border-info mb-3" style="min-width:280px; margin:auto; color:steelblue; font-size:12px;">
+                                <div class="card-header card-header bg-success text-white font-weight-bold" style="font-size: 14px;">
+                                    @Html.DisplayFor(modelItem => taskItem.TaskName)
+                                    <div class="text-right" style="margin-top:-1.6em;">
+                                        <span class="glyphicon glyphicon-ok text-dark" style="font-size:1.2em;"></span>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <a asp-controller="task" asp-action="Details" asp-route-id="@taskItem.TaskId">
+                                        <p class="card-text">Due to: @Html.DisplayFor(modelItem => taskItem.ExpectedDate)</p>
+                                        <p class="card-text">
+                                            Status: @if (taskItem.TaskActiveFlag == 1)
+                                            {<b>Open</b>}
+                                            else
+                                            { <b>Finished</b>}
+                                        </p>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+
+
+                    }
                 </div>
             </li>
 
