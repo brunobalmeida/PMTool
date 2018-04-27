@@ -73,9 +73,21 @@
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-
+		
     </script>
+	
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#sortable1").sortable({
+                //connectWith: ".connectedSortable"
+            }).disableSelection();
+        });
+</script>
+	
 }
+
 
 <h2 class="display text-center text-uppercase font-weight-bold text-primary">@ViewData["Title"]</h2>
 
@@ -88,13 +100,19 @@
 
 
             </div>
+
         </div>
         <div class="col-md-8">
+
 
             <div class="tab bg-light rounded">
                 <button id="initOpenProject" class="tablinks bg-primary text-white font-weight-bold" onclick="openTab(event, 'openProjects')">Open Projects</button>
                 <button class="tablinks bg-primary text-white font-weight-bold" onclick="openTab(event, 'closedProjects')">Closed Projects</button>
             </div>
+
+                </div>
+                <br />
+                <ol class="row @*connectedSortable*@" id="sortable1">
 
             <!-- Tab content -->
             <div id="openProjects" class="tabcontent">
