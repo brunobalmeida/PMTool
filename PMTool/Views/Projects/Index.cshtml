@@ -8,6 +8,8 @@
     {
         employeeId = int.Parse(Context.Session.GetString("employeeId"));
     }
+    bool isEmployee = User.IsInRole("Employee");
+    bool isAdmin = User.IsInRole("Admin");
 
 }
 
@@ -94,31 +96,37 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-4">
-            <h2 class="display text-center text-uppercase font-weight-bold text-primary">Urgent Tasks:</h2>
-                        <div class="jumbotron">
-                <ol>
-                    @{
-                        var tasks = (List<PMTool.Models.Task>)ViewData["list"];
-                    }
-                    @foreach (var item in tasks)
-                    {
-                        <li>
-                            <div class="card border-dark mb-sm-0" style="max-width:400px;">
-                                <div class="card-header bg-dark text-white">
-                                    <a asp-controller="task" asp-action="Details" asp-route-id="@item.TaskId">
-                                        <p>Task: @Html.DisplayFor(modelItem => item.TaskName)</p>
-                                    </a>
+        @if (isAdmin || isEmployee)
+        {
+
+            <div class="col-md-4">
+                <h2 class="display text-center text-uppercase font-weight-bold text-primary">Urgent Tasks:</h2>
+                <div class="jumbotron">
+                    <ol>
+                        @{
+                            var tasks = (List<PMTool.Models.Task>)ViewData["list"];
+                        }
+                        @foreach (var item in tasks)
+                        {
+                            <li>
+                                <div class="card border-dark mb-sm-0" style="max-width:400px;">
+                                    <div class="card-header bg-dark text-white">
+                                        <a asp-controller="task" asp-action="Details" asp-route-id="@item.TaskId">
+                                            <p class="font-weight-bold text-white"> @Html.DisplayFor(modelItem => item.TaskName)</p>
+                                        </a>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Due date: @Html.DisplayFor(modelItem => item.ExpectedDate)</p>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <p>Due date: @Html.DisplayFor(modelItem => item.ExpectedDate)</p>
-                                </div>
-                            </div>
-                        </li>
-                    }
-                </ol>
+                            </li>
+                        }
+                    </ol>
                 </div>
-        </div>
+            </div>
+        }
+
+
         <div class="col-md-8">
 
             <div class="tab bg-light rounded">

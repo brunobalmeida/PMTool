@@ -28,39 +28,58 @@ namespace PMTool.Controllers
         // GET: Projects
         public async Task<IActionResult> Index()
         {
-                  
+            
             var user = _userManager.GetUserName(User);
+            
             var person = _context.Person.FirstOrDefault(a => a.Email == user);
             var employee = _context.Employee.FirstOrDefault(a => a.PersonId == person.PersonId);
             string personName = person.FirstName;
             string personId = person.PersonId.ToString();
-            int employeeId = employee.EmployeeId;
+
             var clientId = _context.Client.SingleOrDefault(a => a.PersonId == person.PersonId);
             HttpContext.Session.SetString("personName", personName);
             HttpContext.Session.SetString("userId", personId);
-            HttpContext.Session.SetString("employeeId", employeeId.ToString());
 
+            var isEmployee = _context.Employee.FirstOrDefault(a => a.PersonId == int.Parse(personId));
+            var isClient = _context.Client.FirstOrDefault(a => a.PersonId == int.Parse(personId));
 
             if (person.GetPicture() != null)
             {
                 var profilePicture = person.GetPicture();
                 HttpContext.Session.SetString("profilePicture", profilePicture); 
             }
+            try
+            {
+                if (employee != null)
+                {
+                    int employeeId = employee.EmployeeId;
+                    HttpContext.Session.SetString("employeeId", employeeId.ToString());
+                    var id = employeeId;
+                    var list = _context.Task.Where(a => a.TaskActiveFlag == 1).Where(a => a.EmployeeId == id).OrderByDescending(a => a.ExpectedDate).ToList();
+                    ViewData["list"] = list.ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", $"Something went wrong. {e.GetBaseException().Message}");
 
+            }
 
-            var id = employeeId;
-            var list = _context.Task.Where(a => a.TaskActiveFlag == 1).Where(a=>a.EmployeeId == id).OrderByDescending(a => a.ExpectedDate).ToList();
-            ViewData["list"] = list.ToList();
+            if (isEmployee!=null)
+            {
+                var pmToolContext = _context.Project.OrderByDescending(a => a.ProjectOpen).Where(a=>a.EmployeeId == isEmployee.EmployeeId);
+                return View(await pmToolContext.ToListAsync());
+            }
 
+            if (isClient != null)
+            {
+                var pmToolContext = _context.Project.OrderByDescending(a => a.ProjectOpen).Where(a => a.ClientId == isClient.ClientId);
+                return View(await pmToolContext.ToListAsync());
+            }
 
 
             var pmToolDbContextClient = _context.Project.OrderByDescending(a => a.ProjectOpen);
             return View(await pmToolDbContextClient.ToListAsync());
-
-
-
-            TempData["message"] = "We could not find your data inside dataBase, please try to login again.";
-            return RedirectToAction("logout", "account");
 
         }
 
@@ -73,7 +92,6 @@ namespace PMTool.Controllers
 
 
             ViewData["ClientId"] = new SelectList(clients, "ClientId", "Person.FirstName");
-            //ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "ClientId");
             ViewData["EmployeeId"] = new SelectList(employee, "EmployeeId", "Person.FirstName");
 
             return View();
