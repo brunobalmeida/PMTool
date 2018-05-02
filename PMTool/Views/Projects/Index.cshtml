@@ -139,10 +139,14 @@
                 <div class="jumbotron">
                     <div class="row">
                         <div class="col-md-1"></div>
-                        <div class="col-md-4" style="margin-top:-2.0em;">
-                            <a asp-action="Create" class="btn btn-outline-dark">Add project</a>
-                            <a asp-controller="ModelProjects" asp-action="Index" class="btn btn-outline-dark">Load project model</a>
-                        </div>
+                        @if (isAdmin || isEmployee)
+                        {
+                            <div class="col-md-4" style="margin-top:-2.0em;">
+                                <a asp-action="Create" class="btn btn-outline-dark">Add project</a>
+                                <a asp-controller="ModelProjects" asp-action="Index" class="btn btn-outline-dark">Load project model</a>
+                            </div>
+                        }
+
 
                     </div>
                     <br />
